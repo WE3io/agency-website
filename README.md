@@ -33,17 +33,23 @@ The site lives in `website/` and renders Markdown from `content/`.
 ### Install
 ```sh
 cd website
-npm install
+pnpm install
 ```
 
 ### Run locally
 ```sh
 cd website
-npm run dev
+pnpm run dev
 ```
 
 ### Build
 ```sh
 cd website
-npm run build
+pnpm run build
 ```
+
+## Netlify deploy
+- Base directory: `website`
+- Build command: `pnpm run build`
+- Publish directory: `dist`
+- Node version: 20 (LTS)
