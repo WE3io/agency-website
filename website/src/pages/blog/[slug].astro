@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getPosts } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const formatter = new Intl.DateTimeFormat("en-GB", {
+  day: "2-digit",
+  month: "long",
+  year: "numeric",
+});
+---
+<BaseLayout title={post.title}>
+  <article>
+    <h1>{post.title}</h1>
+    {post.date ? <p>{formatter.format(post.date)}</p> : null}
+    <div class="content" set:html={post.html} />
+  </article>
+</BaseLayout>

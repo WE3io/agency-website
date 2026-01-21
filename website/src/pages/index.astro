@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getPageBySlug } from "../lib/content";
+
+const page = await getPageBySlug("index");
+if (!page) {
+  throw new Error("Missing content/pages/index.md");
+}
+---
+<BaseLayout title={page.title}>
+  <article class="content" set:html={page.html} />
+</BaseLayout>

@@ -27,3 +27,23 @@ This repo is the public front desk for our agency. It holds the copy, structure,
 - **Evidence**: Specific, verifiable statements (names, numbers, dates) or clear limits on what we can claim.
 - **Governance**: How decisions are recorded and changes are approved.
 
+## Website (Astro)
+The site lives in `website/` and renders Markdown from `content/`.
+
+### Install
+```sh
+cd website
+npm install
+```
+
+### Run locally
+```sh
+cd website
+npm run dev
+```
+
+### Build
+```sh
+cd website
+npm run build
+```
