@@ -1,30 +1,29 @@
-# agency-website
+# Agency Website
 
-Public-facing website for the collective’s “agency front desk”.
+## Purpose (front desk)
+This repo is the public front desk for our agency. It holds the copy, structure, and basic assets that explain who we are, what we do, and how to start a conversation.
 
-## Purpose
-- Explain what we do in buyer-friendly language
-- Provide proof of competence (work, case narratives, writing)
-- Enable inbound enquiries with minimal friction
+## What it is / isn’t
+**It is**
+- A clean, content-first source of truth for pages and posts.
+- A place to agree voice, tone, and brand promises.
+- The starting point for a future site build.
 
-## What this repo is not
-- A full explanation of our internal operating model
-- A place for governance experiments or equity mechanics
-- A dumping ground for internal notes
+**It isn’t**
+- A full site framework or design system.
+- A marketing automation stack.
+- A dumping ground for internal ops.
 
 ## Content workflow
-- Content lives in `content/` as Markdown
-- Site code lives in `website/`
-- Proposals for new pages/posts go via PRs
-
-## Quick start (placeholder)
-- Add your framework in `website/`
-- Wire Markdown rendering from `content/`
-- Add CI + deployment (e.g., GitHub Actions)
+1. Raise a content request issue (`.github/ISSUE_TEMPLATE/content-request.md`).
+2. Draft or update the relevant Markdown in `content/`.
+3. Open a PR and link the issue.
+4. Review for clarity, evidence, and tone (see `docs/voice-and-tone.md`).
+5. Merge, then publish according to `docs/governance.md`.
 
 ## Definitions
-- “Client work”: paid engagements
-- “R&D”: internal exploration (see `rd-lab` repo)
+- **Front desk**: The public-facing surface that helps people decide if we are a fit.
+- **Content**: Copy, headlines, and page structure (not code or design).
+- **Evidence**: Specific, verifiable statements (names, numbers, dates) or clear limits on what we can claim.
+- **Governance**: How decisions are recorded and changes are approved.
 
-## Contacts
-- Owners: see CODEOWNERS
