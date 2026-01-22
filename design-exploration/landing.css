@@ -1,0 +1,155 @@
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Space Grotesk", sans-serif;
+  background: #111312;
+  color: #f2f2ef;
+  letter-spacing: 0.01em;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(680px circle at 20% 15%, rgba(199, 208, 201, 0.16), transparent 60%),
+    radial-gradient(520px circle at 80% 0%, rgba(118, 147, 136, 0.12), transparent 65%),
+    linear-gradient(160deg, rgba(17, 19, 18, 0.95), rgba(16, 18, 17, 1));
+  z-index: 0;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 24px 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.intro {
+  max-width: 680px;
+}
+
+.eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.7rem;
+  color: #9fa6a1;
+  margin: 0 0 16px;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  margin: 0 0 16px;
+}
+
+.intro-text {
+  margin: 0;
+  color: #b5bbb7;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  border-radius: 18px;
+  background: rgba(22, 25, 24, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.32);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.4);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-kicker {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9fa6a1;
+}
+
+.card-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+}
+
+.card-dot.green {
+  background: #48f08b;
+}
+
+.card-dot.amber {
+  background: #ffc46b;
+}
+
+.card-dot.slate {
+  background: #9fb4b0;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.card p {
+  margin: 0;
+  color: #c3c8c4;
+  line-height: 1.5;
+}
+
+.card-meta {
+  font-size: 0.85rem;
+  color: #9fa6a1;
+}
+
+.card-cta {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-family: "IBM Plex Mono", monospace;
+  color: #f2f2ef;
+}
+
+.footer {
+  font-size: 0.85rem;
+  color: #8d948f;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 48px 20px 60px;
+  }
+}
