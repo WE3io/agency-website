@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Studio Aesthetic Explorer - Skeuomorphic Sketch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@300;400;500&family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="skeuomorphic-sketch.css" />
+  </head>
+  <body data-theme="sketch">
+    <div class="backdrop" aria-hidden="true"></div>
+    <div class="page">
+      <header class="intro">
+        <div>
+          <a class="back-link" href="index.html">All concepts</a>
+          <p class="eyebrow">Studio Aesthetic Explorer</p>
+          <h1>Skeuomorphic Sketch</h1>
+          <p class="intro-text">
+            A tactile blend of pencil sketch energy and softly rendered, realistic 3D components.
+            Hand-drawn cues guide the eye; sculpted surfaces carry the weight.
+          </p>
+        </div>
+        <div class="intro-meta">
+          <div class="meta-pill">
+            <span class="meta-dot"></span>
+            <span id="active-theme">Sketch</span>
+          </div>
+          <p id="theme-description" class="meta-description">
+            Early sketchlines with gentle depth.
+          </p>
+        </div>
+      </header>
+
+      <nav class="tabs" role="tablist" aria-label="Skeuomorphic sketch tabs">
+        <button type="button" class="tab" role="tab" aria-selected="true" data-theme="sketch">
+          Sketch
+        </button>
+        <button type="button" class="tab" role="tab" aria-selected="false" data-theme="hybrid">
+          Hybrid
+        </button>
+        <button type="button" class="tab" role="tab" aria-selected="false" data-theme="sculpted">
+          Sculpted
+        </button>
+        <button type="button" class="tab" role="tab" aria-selected="false" data-theme="studio">
+          Studio
+        </button>
+      </nav>
+
+      <main class="content" role="tabpanel">
+        <section class="panel vignette">
+          <div class="section-head">
+            <p class="section-label">Opening Vignette</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="vignette-grid">
+            <div class="vignette-text">
+              <p class="vignette-kicker">Sketch to Surface</p>
+              <h2 class="vignette-title">A workspace that remembers the pencil.</h2>
+              <p class="vignette-subline">
+                The interface shifts between draft and object. Sketch marks show intent; soft 3D
+                surfaces show the outcome.
+              </p>
+              <div class="vignette-actions">
+                <button type="button" class="btn primary">Primary</button>
+                <button type="button" class="btn secondary">Secondary</button>
+              </div>
+            </div>
+            <div class="hero-module">
+            <div class="hero-surface soft-card light-reactive">
+                <div class="dial">
+                  <span class="dial-center"></span>
+                  <span class="dial-label">28%</span>
+                </div>
+                <div class="module-row">
+                  <div class="pill">
+                    <span class="pill-dot"></span>
+                    Curate
+                  </div>
+                  <div class="slider">
+                    <span class="slider-track"></span>
+                    <span class="slider-thumb"></span>
+                  </div>
+                </div>
+                <div class="module-footer">
+                  <span class="meta">Draft</span>
+                  <span class="meta">Build 04</span>
+                </div>
+              </div>
+              <div class="sketch-overlay">
+                <svg class="scribble" viewBox="0 0 140 80" aria-hidden="true">
+                  <path
+                    d="M5 60 C 30 20, 60 90, 95 35 S 130 25, 135 60"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M10 15 C 35 5, 50 35, 75 18 S 110 10, 130 18"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <p class="annotation">soft radius / keep the seam</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel palette">
+          <div class="section-head">
+            <p class="section-label">Color Palette</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="swatch-grid">
+            <div class="swatch" data-swatch-index="0">
+              <div class="swatch-color"></div>
+              <div class="swatch-meta">
+                <span class="swatch-label"></span>
+                <span class="swatch-hex"></span>
+              </div>
+            </div>
+            <div class="swatch" data-swatch-index="1">
+              <div class="swatch-color"></div>
+              <div class="swatch-meta">
+                <span class="swatch-label"></span>
+                <span class="swatch-hex"></span>
+              </div>
+            </div>
+            <div class="swatch" data-swatch-index="2">
+              <div class="swatch-color"></div>
+              <div class="swatch-meta">
+                <span class="swatch-label"></span>
+                <span class="swatch-hex"></span>
+              </div>
+            </div>
+            <div class="swatch" data-swatch-index="3">
+              <div class="swatch-color"></div>
+              <div class="swatch-meta">
+                <span class="swatch-label"></span>
+                <span class="swatch-hex"></span>
+              </div>
+            </div>
+            <div class="swatch" data-swatch-index="4">
+              <div class="swatch-color"></div>
+              <div class="swatch-meta">
+                <span class="swatch-label"></span>
+                <span class="swatch-hex"></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel typography">
+          <div class="section-head">
+            <p class="section-label">Typography Pairing</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="type-grid">
+            <article class="type-sample">
+              <p class="type-role">Display</p>
+              <h3 class="type-headline">Drafted with intent.</h3>
+              <p class="type-body">
+                Display typography holds the handmade energy without feeling fragile.
+              </p>
+              <div class="type-meta">
+                <span class="meta-label">Font</span>
+                <span class="meta-value" data-font-role="display"></span>
+              </div>
+            </article>
+            <article class="type-sample">
+              <p class="type-role">Body</p>
+              <h3 class="type-headline body">Sculpted, readable, calm.</h3>
+              <p class="type-body">
+                Body text stays clear and spatial, like notes on a prototype sheet.
+              </p>
+              <div class="type-meta">
+                <span class="meta-label">Font</span>
+                <span class="meta-value" data-font-role="body"></span>
+              </div>
+            </article>
+            <article class="type-sample accent">
+              <p class="type-role">Annotation</p>
+              <p class="accent-sample">MODULE / RADIUS: 16PX / FINISH: SOFT MATTE</p>
+              <p class="type-body">
+                Annotations land like pencil notes: precise, understated, and human.
+              </p>
+              <div class="type-meta">
+                <span class="meta-label">Font</span>
+                <span class="meta-value" data-font-role="accent"></span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel imagery">
+          <div class="section-head">
+            <p class="section-label">Image Treatment</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="image-grid">
+            <figure class="image-card">
+              <div class="image-frame frame-a"></div>
+              <figcaption>
+                <span class="caption-title">Soft render</span>
+                <span class="caption-note">High light, gentle shadow.</span>
+              </figcaption>
+            </figure>
+            <figure class="image-card">
+              <div class="image-frame frame-b"></div>
+              <figcaption>
+                <span class="caption-title">Sketch overlay</span>
+                <span class="caption-note">Pencil layer at 35% opacity.</span>
+              </figcaption>
+            </figure>
+            <figure class="image-card">
+              <div class="image-frame frame-c"></div>
+              <figcaption>
+                <span class="caption-title">Hybrid cutaway</span>
+                <span class="caption-note">Half draft, half sculpt.</span>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="panel components">
+          <div class="section-head">
+            <p class="section-label">Cards & Containers</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="component-grid">
+            <div class="sketch-card">
+              <p class="card-label">Sketch layer</p>
+              <div class="sketch-lines"></div>
+              <p class="card-title">Loose framing, pencil tension.</p>
+              <p class="card-note">Outline only. Notes float.</p>
+            </div>
+            <div class="soft-card rendered-card light-reactive">
+              <p class="card-label">Rendered layer</p>
+              <div class="render-row">
+                <div class="badge">Depth</div>
+                <div class="badge ghost">Matte</div>
+              </div>
+              <p class="card-title">Soft depth with rounded edges.</p>
+              <p class="card-note">Glow + shadow define the form.</p>
+            </div>
+            <div class="hybrid-card light-reactive">
+              <p class="card-label">Hybrid</p>
+              <div class="hybrid-body">
+                <div class="hybrid-left"></div>
+                <div class="hybrid-right"></div>
+              </div>
+              <p class="card-title">Half sketch, half sculpt.</p>
+              <p class="card-note">Transition feels intentional.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel ui">
+          <div class="section-head">
+            <p class="section-label">UI Components</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="ui-grid">
+            <div class="ui-block light-reactive">
+              <p class="ui-label">Controls</p>
+              <div class="ui-row">
+                <button type="button" class="btn primary">Primary</button>
+                <button type="button" class="btn secondary">Secondary</button>
+              </div>
+              <button type="button" class="btn ghost">Sketch note</button>
+            </div>
+            <div class="ui-block light-reactive">
+              <p class="ui-label">Toggles & Dials</p>
+              <div class="ui-row">
+                <label class="toggle">
+                  <input type="checkbox" checked />
+                  <span class="toggle-track"></span>
+                  <span class="toggle-label">Draft mode</span>
+                </label>
+                <div class="dial small">
+                  <span class="dial-center"></span>
+                </div>
+              </div>
+            </div>
+            <div class="ui-block light-reactive">
+              <p class="ui-label">Fields</p>
+              <label class="field">
+                <span>Component label</span>
+                <input type="text" placeholder="Type a note" />
+              </label>
+              <label class="field">
+                <span>Finish</span>
+                <select>
+                  <option>Soft matte</option>
+                  <option>Satin</option>
+                  <option>Gloss</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel board">
+          <div class="section-head">
+            <p class="section-label">The Collection</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="board-grid">
+            <article class="pin-card light-reactive">
+              <p class="pin-label">Note 01</p>
+              <p>Reduce the inner shadow to feel more like pencil pressure.</p>
+            </article>
+            <article class="pin-card soft-card light-reactive">
+              <p class="pin-label">Prototype tile</p>
+              <div class="pin-row">
+                <span class="badge">Rounded</span>
+                <span class="badge ghost">Quiet glow</span>
+              </div>
+              <p>Blend the sketch overlay at 35% opacity.</p>
+            </article>
+            <article class="pin-card sketch-card light-reactive">
+              <p class="pin-label">Loose study</p>
+              <p>Trace the silhouette before rendering it.</p>
+            </article>
+            <span class="easter-egg" aria-hidden="true">seek the pencil line</span>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="skeuomorphic-sketch.js"></script>
+  </body>
+</html>
