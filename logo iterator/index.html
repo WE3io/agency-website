@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WE3 Logo Playground</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark-theme">
+    <div id="app">
+        <header>
+            <div class="logo-text">WE3 <span class="accent">PROTO_TYPE</span></div>
+            <div class="status-bar">
+                <span class="status-item">SYSTEM: <span class="online">ONLINE</span></span>
+                <span class="status-item">MODE: <span class="active">INTERACTIVE</span></span>
+            </div>
+        </header>
+
+        <main>
+            <div class="viewport">
+                <svg id="logo-svg" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="4" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            <feGaussianBlur stdDeviation="15" result="largeBlur" />
+                            <feMerge>
+                                <feMergeNode in="largeBlur" />
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                        <!-- Individual Tier Filters -->
+                        <filter id="glow-a" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur id="blur-a" stdDeviation="5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        <filter id="glow-b" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur id="blur-b" stdDeviation="5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        <filter id="glow-c" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur id="blur-c" stdDeviation="5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+                    <!-- Concentric Nonagon Tiers -->
+                    <path id="boundary-outer" class="boundary boundary-tier tier-c" style="filter: url(#glow-c)" />
+                    <path id="boundary-middle" class="boundary boundary-tier tier-b" style="filter: url(#glow-b)" />
+                    <path id="boundary-inner" class="boundary boundary-tier tier-a" style="filter: url(#glow-a)" />
+
+                    <!-- Reference Circles (Hidden by default or toggled) -->
+                    <circle id="inner-ref" class="ref-circle" cx="500" cy="500" />
+                    <circle id="middle-ref" class="ref-circle" cx="500" cy="500" />
+                    <circle id="outer-ref" class="ref-circle" cx="500" cy="500" />
+
+                    <!-- Character Groups -->
+                    <g id="char-w" class="char-group"></g>
+                    <g id="char-e" class="char-group"></g>
+                    <g id="char-3" class="char-group"></g>
+
+                    <!-- Debug Labels -->
+                    <g id="labels-group"></g>
+                    <g id="tier-labels-group"></g>
+                </svg>
+            </div>
+
+            <aside class="controls" id="controls">
+
+                <section>
+                    <h3>GLOBAL</h3>
+                    <div class="control-group">
+                        <label>Zoom <span id="val-zoom">100%</span></label>
+                        <input type="range" id="input-zoom" min="10" max="200" value="100" step="3">
+                    </div>
+                    <div class="control-group">
+                        <label>Spacer Radius <span id="val-spacer">0</span></label>
+                        <input type="range" id="input-spacer" min="0" max="45" value="0" step="1">
+                    </div>
+                    <div class="control-group toggle-group" style="margin-top: 12px;">
+                        <label style="margin-bottom: 8px; display: block;">View Options</label>
+                        <div class="checkbox-row" style="display: flex; gap: 12px;">
+                            <label class="checkbox-label" style="font-size: 12px;"><input type="checkbox"
+                                    id="check-guides"> Guides</label>
+                            <label class="checkbox-label" style="font-size: 12px;"><input type="checkbox"
+                                    id="check-labels" checked> Labels</label>
+                            <label class="checkbox-label" style="font-size: 12px;"><input type="checkbox"
+                                    id="check-indices" checked> Indices</label>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="stem-geometry-section">
+                    <div class="section-header">
+                        <h3>SHAPES</h3>
+                    </div>
+
+                    <div class="control-group">
+                        <select id="stem-selector" class="figma-select">
+                            <option value="0">W-Left</option>
+                            <option value="1">W-Cross</option>
+                            <option value="2">W-Right</option>
+                            <option value="3">E-Left</option>
+                            <option value="4">E-Cross</option>
+                            <option value="5">E-Right</option>
+                            <option value="6">3-Left</option>
+                            <option value="7">3-Cross</option>
+                            <option value="8">3-Right</option>
+                        </select>
+                    </div>
+
+                    <div class="batch-actions">
+                        <button class="btn-figma" id="btn-group-outer">Outer</button>
+                        <button class="btn-figma" id="btn-group-cross">Cross</button>
+                        <button class="btn-figma" id="btn-group-all">All</button>
+                    </div>
+
+                    <!-- Shape Properties -->
+                    <div class="control-group">
+                        <label>Width <span id="val-width">40</span></label>
+                        <input type="range" id="input-width" min="6" max="100" value="40" step="3">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-row" style="margin-bottom: 12px;">
+                            <label style="font-size:10px; color:rgba(255,255,255,0.6);">Fill Color</label>
+                            <input type="color" id="input-fill-color" value="#ffcc00">
+                        </div>
+
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="check-stroke"> Keyline (Stroke) <span id="val-stroke"
+                                    style="margin-left: auto; font-family:'JetBrains Mono'; color:var(--accent-color);">0</span>
+                            </label>
+                            <div class="control-row">
+                                <div class="slider-inline">
+                                    <input type="range" id="input-stroke-width" min="0" max="30" value="0" step="3">
+                                </div>
+                                <input type="color" id="input-stroke-color" value="#ffffff">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="check-glow"> Glow <span id="val-glow-blur"
+                                    style="margin-left: auto; font-family:'JetBrains Mono'; color:var(--accent-color);">0</span>
+                            </label>
+                            <div class="control-row">
+                                <div class="slider-inline">
+                                    <input type="range" id="input-glow-blur" min="0" max="100" value="0" step="3">
+                                </div>
+                                <input type="color" id="input-glow-color" value="#ffcc00">
+                            </div>
+                        </div>
+
+                        <div class="appearance-grid">
+                            <div class="grid-label">Corner Radius</div>
+                            <div class="corner-grid mini-grid">
+                                <!-- Top Row: TL (P1), TR (P2) -->
+                                <div class="grid-item">
+                                    <svg class="corner-icon rotate-270" viewBox="0 0 16 16">
+                                        <path d="M4 4h8a4 4 0 0 1 4 4v8" />
+                                    </svg>
+                                    <input type="number" id="input-p1" min="6" max="120" value="0" step="3"
+                                        class="figma-input">
+                                </div>
+                                <div class="grid-item">
+                                    <svg class="corner-icon" viewBox="0 0 16 16">
+                                        <path d="M4 4h8a4 4 0 0 1 4 4v8" />
+                                    </svg>
+                                    <input type="number" id="input-p2" min="6" max="120" value="0" step="3"
+                                        class="figma-input">
+                                </div>
+                                <!-- Bottom Row: BL (P3), BR (P4) -->
+                                <div class="grid-item">
+                                    <svg class="corner-icon rotate-180" viewBox="0 0 16 16">
+                                        <path d="M4 4h8a4 4 0 0 1 4 4v8" />
+                                    </svg>
+                                    <input type="number" id="input-p3" min="6" max="120" value="0" step="3"
+                                        class="figma-input">
+                                </div>
+                                <div class="grid-item">
+                                    <svg class="corner-icon rotate-90" viewBox="0 0 16 16">
+                                        <path d="M4 4h8a4 4 0 0 1 4 4v8" />
+                                    </svg>
+                                    <input type="number" id="input-p4" min="6" max="120" value="0" step="3"
+                                        class="figma-input">
+                                </div>
+                            </div>
+                            <button id="btn-link-corners" class="btn-tool" title="Link Corners">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path fill="currentColor"
+                                        d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z" />
+                                </svg>
+                            </button>
+                        </div>
+                </section>
+
+                <section class="tier-controls-section">
+                    <h3>CONTAINERS</h3>
+
+                    <div class="tier-sub-section">
+                        <h4>TIER A (INNER)</h4>
+                        <div class="control-row">
+                            <label class="checkbox-label"><input type="checkbox" id="check-a" checked> Visible</label>
+                            <div class="slider-inline">
+                                <span>Radius</span>
+                                <input type="range" id="input-radius-a" min="10" max="300" value="100" step="3">
+                            </div>
+                        </div>
+                        <div class="control-row">
+                            <div class="slider-inline">
+                                <span>Morph</span>
+                                <input type="range" id="input-morph-a" min="0" max="100" value="0" step="3">
+                            </div>
+                            <div class="slider-inline">
+                                <span>Shadow</span>
+                                <input type="range" id="input-blur-a" min="0" max="100" value="20" step="3">
+                            </div>
+                            <input type="color" id="input-color-a" value="#ffcc00">
+                        </div>
+                    </div>
+
+                    <div class="tier-sub-section">
+                        <h4>TIER B (MIDDLE)</h4>
+                        <div class="control-row">
+                            <label class="checkbox-label"><input type="checkbox" id="check-b" checked> Visible</label>
+                            <div class="slider-inline">
+                                <span>Radius</span>
+                                <input type="range" id="input-radius-b" min="50" max="450" value="250" step="3">
+                            </div>
+                        </div>
+                        <div class="control-row">
+                            <div class="slider-inline">
+                                <span>Morph</span>
+                                <input type="range" id="input-morph-b" min="0" max="100" value="0" step="3">
+                            </div>
+                            <div class="slider-inline">
+                                <span>Shadow</span>
+                                <input type="range" id="input-blur-b" min="0" max="100" value="20" step="3">
+                            </div>
+                            <input type="color" id="input-color-b" value="#ffcc00">
+                        </div>
+                    </div>
+
+                    <div class="tier-sub-section">
+                        <h4>TIER C (OUTER)</h4>
+                        <div class="control-row">
+                            <label class="checkbox-label"><input type="checkbox" id="check-c" checked> Visible</label>
+                            <div class="slider-inline">
+                                <span>Radius</span>
+                                <input type="range" id="input-radius-c" min="100" max="480" value="400" step="3">
+                            </div>
+                        </div>
+                        <div class="control-row">
+                            <div class="slider-inline">
+                                <span>Morph</span>
+                                <input type="range" id="input-morph-c" min="0" max="100" value="0" step="3">
+                            </div>
+                            <div class="slider-inline">
+                                <span>Shadow</span>
+                                <input type="range" id="input-blur-c" min="0" max="100" value="20" step="3">
+                            </div>
+                            <input type="color" id="input-color-c" value="#ffcc00">
+                        </div>
+                    </div>
+                </section>
+
+                <div class="actions">
+                    <button id="btn-reset">RESET</button>
+                    <button id="btn-export">EXPORT SVG</button>
+                    <button id="btn-export-json">EXPORT STATE</button>
+                    <button id="btn-import-json">IMPORT STATE</button>
+                    <input type="file" id="input-import-file" accept=".json" style="display: none;">
+                </div>
+            </aside>
+        </main>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

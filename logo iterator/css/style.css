@@ -1,0 +1,506 @@
+:root {
+    --bg-color: #08080c;
+    --panel-bg: rgba(15, 15, 20, 0.85);
+    --accent-color: #ffcc00;
+    --accent-glow: rgba(255, 204, 0, 0.5);
+    --text-color: #e0e0e0;
+    --muted-color: #666;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --glass-blur: blur(12px);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Outfit', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    height: 60px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 2px;
+}
+
+.logo-text {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.logo-text .accent {
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+.status-bar {
+    font-size: 0.7rem;
+    color: var(--muted-color);
+}
+
+.status-item {
+    margin-left: 20px;
+}
+
+.status-item .online {
+    color: #00ff88;
+}
+
+.status-item .active {
+    color: var(--accent-color);
+}
+
+main {
+    flex: 1;
+    display: flex;
+    position: relative;
+}
+
+.viewport {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: radial-gradient(circle at center, #1a1a2e 0%, #08080c 70%);
+}
+
+#logo-svg {
+    width: 80vh;
+    height: 80vh;
+    max-width: 90%;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
+}
+
+.boundary {
+    fill: none;
+    stroke: var(--accent-color);
+    stroke-width: 1;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.boundary-tier {
+    transition: all 0.3s ease-out;
+}
+
+#boundary-outer {
+    stroke-width: 2;
+    opacity: 0.3;
+}
+
+.ref-circle {
+    fill: none;
+    stroke: var(--text-color);
+    stroke-width: 1;
+    stroke-dasharray: 4, 4;
+    opacity: 0.1;
+    display: none;
+}
+
+.ref-circle.visible {
+    display: block;
+}
+
+.char-group {
+    fill: none;
+    stroke: var(--accent-color);
+    filter: url(#glow);
+    transition: all 0.2s ease-out;
+}
+
+.segment-label {
+    fill: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.tier-label {
+    fill: var(--accent-color);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: text-before-edge;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+/* Tier Controls Layout */
+.tier-controls-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tier-sub-section {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px;
+    border-radius: 4px;
+    border-left: 2px solid var(--accent-color);
+}
+
+.tier-sub-section h4 {
+    margin: 0 0 8px 0;
+    font-size: 11px;
+    color: var(--accent-color);
+    letter-spacing: 1px;
+}
+
+.control-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.control-row:last-child {
+    margin-bottom: 0;
+}
+
+.slider-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.slider-inline span {
+    font-size: 10px;
+    min-width: 35px;
+    opacity: 0.7;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    margin: 0;
+}
+
+/* Figma-Inspired Appearance UI */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.accent-tag {
+    background: var(--accent-color);
+    color: black;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.figma-select {
+    appearance: none;
+    padding-right: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='white' d='M0 3l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+}
+
+.btn-figma {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 5px 0;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-figma:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.appearance-grid {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.grid-label {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mini-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    flex: 1;
+}
+
+.grid-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 6px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    min-width: 60px;
+}
+
+.figma-input {
+    width: 32px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    text-align: right;
+    padding: 0;
+}
+
+.figma-input::-webkit-inner-spin-button,
+.figma-input::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+}
+
+.grid-item:focus-within {
+    border-color: var(--accent-color);
+}
+
+.corner-icon {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.4);
+    stroke-width: 2;
+    margin-right: 6px;
+}
+
+
+.btn-tool {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.btn-tool.active {
+    color: var(--accent-color);
+}
+
+.rotate-90 {
+    transform: rotate(90deg);
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+.rotate-270 {
+    transform: rotate(270deg);
+}
+
+/* Selection Highlight */
+.selected-stem {
+    filter: drop-shadow(0 0 10px white) !important;
+}
+
+.controls {
+    width: 260px;
+    background: var(--panel-bg);
+    backdrop-filter: var(--glass-blur);
+    border-left: 1px solid var(--border-color);
+    padding: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+}
+
+.controls section {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.controls h3 {
+    margin: 0 0 10px 0;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.control-group {
+    margin-bottom: 12px;
+}
+
+.control-group label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    margin-bottom: 6px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.control-group label span {
+    color: var(--accent-color);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+input[type="range"] {
+    width: 100%;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.08);
+    height: 2px;
+    border-radius: 1px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--bg-color);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.actions {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+}
+
+button {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    transition: all 0.2s;
+}
+
+button:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+#btn-export {
+    background: rgba(255, 255, 255, 0.9);
+    color: black;
+    font-weight: 600;
+}
+
+#btn-export:hover {
+    background: #fff;
+}
+/* New Color Picker Styles */
+input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    overflow: hidden;
+    background: none;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    padding: 0;
+}
+
+input[type="color"]:hover {
+    transform: scale(1.1);
+    border-color: var(--accent-color);
+}
+
+/* Ensure control-row aligns nicely */
+.control-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Disabled State for Shapes Section */
+.disabled-section {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(1);
+}
+
+/* Dynamic Tier Colors */
+/* We will set --tier-x-ui-color in JS */
+.tier-sub-section[data-tier="a"] {
+    border-color: var(--tier-a-color, var(--accent-color));
+}
+.tier-sub-section[data-tier="a"] h4 {
+    color: var(--tier-a-color, var(--accent-color));
+}
+
+.tier-sub-section[data-tier="b"] {
+    border-color: var(--tier-b-color, var(--accent-color));
+}
+.tier-sub-section[data-tier="b"] h4 {
+    color: var(--tier-b-color, var(--accent-color));
+}
+
+.tier-sub-section[data-tier="c"] {
+    border-color: var(--tier-c-color, var(--accent-color));
+}
+.tier-sub-section[data-tier="c"] h4 {
+    color: var(--tier-c-color, var(--accent-color));
+}
