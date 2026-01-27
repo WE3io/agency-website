@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const { slug, study: passedStudy } = Astro.props;
+
+let study = passedStudy;
+
+if (!study) {
+    const caseStudies = await getCollection("posts", ({ id }) => {
+        return id.startsWith(`antigravity/${slug}`);
+    });
+    study = caseStudies[0];
+}
+
+if (!study) {
+    return Astro.redirect("/404");
+}
+
+const { Content } = await study.render();
+---
+
+<BaseLayout title={study.data.title}>
+    <main class="container">
+        <a href="/antigravity/work" class="back-link">← Archive</a>
+        <article class="case-study">
+            <header class="study-header">
+                <span class="category">{study.data.category}</span>
+                <h1>{study.data.title}</h1>
+                <p class="description">{study.data.description}</p>
+            </header>
+            
+            <div class="content">
+                <Content />
+            </div>
+        </article>
+    </main>
+</BaseLayout>
+
+<style>
+    .back-link {
+        display: inline-block;
+        margin-bottom: 2rem;
+        font-family: var(--typography-font-family-mono);
+        font-size: 0.75rem;
+        color: var(--ag-accent);
+        text-decoration: none;
+    }
+    .case-study {
+        max-width: 700px;
+    }
+    .study-header {
+        margin-bottom: var(--spacing-large);
+        border-bottom: 1px solid var(--ag-border);
+        padding-bottom: var(--spacing-medium);
+    }
+    .category { font-family: var(--typography-font-family-mono); font-size: 0.75rem; color: var(--ag-accent); text-transform: uppercase; }
+    h1 { font-size: 3.5rem; margin: 0.5rem 0; }
+    .description { font-size: var(--typography-font-size-large); opacity: 0.8; }
+    
+    .content :global(h2) { font-size: 1.8rem; margin: 2rem 0 1rem; }
+    .content :global(p) { margin-bottom: 1.5rem; opacity: 0.9; }
+</style>

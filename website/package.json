@@ -7,11 +7,15 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "tokens:build": "style-dictionary build --config sd.config.js"
   },
   "dependencies": {
     "astro": "^4.16.0",
     "gray-matter": "^4.0.3",
     "markdown-it": "^14.1.0"
+  },
+  "devDependencies": {
+    "style-dictionary": "^5.2.0"
   }
 }

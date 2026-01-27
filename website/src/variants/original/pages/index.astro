@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const pages = await getCollection("pages");
+const entry = pages.find(p => p.slug === "original" || p.slug === "original/index" || p.id === "original/index.md");
+
+if (!entry) {
+  // Fallback or detailed error
+  const available = pages.map(p => p.slug).join(", ");
+  throw new Error(`Missing content/pages/original/index.md. Available slugs: ${available}`);
+}
+const { Content } = await entry.render();
+---
+<BaseLayout title={entry.data.title}>
+  <article class="content">
+    <Content />
+  </article>
+</BaseLayout>

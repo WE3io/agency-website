@@ -1,0 +1,310 @@
+---
+const { id = "brief-builder" } = Astro.props;
+---
+<section id={id} class="codex-section codex-brief">
+  <div>
+    <p class="codex-section__eyebrow">Brief Builder</p>
+    <h2 class="codex-section__title">Create a clarity-first brief</h2>
+    <div class="codex-section__body">
+      <p>Deterministic, local, and privacy‑first. Nothing is stored on our servers.</p>
+      <p class="codex-muted">Use the example button if you want to see a full output instantly.</p>
+    </div>
+  </div>
+
+  <div class="codex-brief__grid">
+    <div class="codex-brief__panel" data-brief-panel>
+      <span class="codex-tag">Step <span data-step-count>1</span> of 6</span>
+      <div class="codex-brief__step is-active" data-step="1">
+        <label class="codex-brief__label">01 / What problem are you solving?</label>
+        <textarea class="codex-brief__textarea" data-field="problem" rows="4" placeholder="Describe the challenge and context."></textarea>
+      </div>
+      <div class="codex-brief__step" data-step="2">
+        <label class="codex-brief__label">02 / Who are the users or stakeholders?</label>
+        <textarea class="codex-brief__textarea" data-field="users" rows="4" placeholder="Who is affected and who decides?"></textarea>
+      </div>
+      <div class="codex-brief__step" data-step="3">
+        <label class="codex-brief__label">03 / What does success look like?</label>
+        <textarea class="codex-brief__textarea" data-field="success" rows="4" placeholder="Define outcomes, metrics, or signals."></textarea>
+      </div>
+      <div class="codex-brief__step" data-step="4">
+        <label class="codex-brief__label">04 / Constraints or risks?</label>
+        <textarea class="codex-brief__textarea" data-field="constraints" rows="4" placeholder="Constraints in tech, timeline, or org alignment."></textarea>
+      </div>
+      <div class="codex-brief__step" data-step="5">
+        <label class="codex-brief__label">05 / Budget range</label>
+        <select class="codex-brief__select" data-field="budget">
+          <option value="">Select a range</option>
+          <option value="explore">Exploration / discovery focus</option>
+          <option value="build">Build + validate</option>
+          <option value="scale">Scale or multi‑stream</option>
+        </select>
+      </div>
+      <div class="codex-brief__step" data-step="6">
+        <label class="codex-brief__label">06 / Timeline / urgency</label>
+        <select class="codex-brief__select" data-field="timeline">
+          <option value="">Select a timeline</option>
+          <option value="weeks">2–4 weeks</option>
+          <option value="months">1–2 months</option>
+          <option value="quarter">2–3 months</option>
+          <option value="flexible">Flexible</option>
+        </select>
+      </div>
+      <p class="codex-muted" data-brief-error></p>
+      <div class="codex-brief__controls">
+        <button class="codex-button codex-button--ghost" type="button" data-prev>Back</button>
+        <button class="codex-button" type="button" data-next>Next</button>
+        <button class="codex-button" type="button" data-generate>Generate Brief</button>
+        <button class="codex-button codex-button--ghost" type="button" data-demo>Use Example</button>
+      </div>
+    </div>
+
+    <div class="codex-brief__panel">
+      <div>
+        <p class="codex-section__eyebrow">Output</p>
+        <h3 class="codex-section__title">Brief Summary</h3>
+        <div class="codex-brief__summary" data-summary>Fill the prompts to generate your brief.</div>
+      </div>
+      <div class="codex-divider"></div>
+      <div>
+        <p class="codex-section__eyebrow">Fit Check</p>
+        <div class="codex-grid">
+          <div><strong>Crew shape:</strong> <span data-fit-crew>—</span></div>
+          <div><strong>Estimated weeks:</strong> <span data-fit-weeks>—</span></div>
+          <div><strong>Cost band:</strong> <span data-fit-cost>—</span></div>
+        </div>
+        <p class="codex-muted">Weekly rate and detailed breakdown shared after brief review.</p>
+      </div>
+      <div class="codex-brief__controls">
+        <button class="codex-button" type="button" data-copy>Copy Summary</button>
+        <button class="codex-button codex-button--ghost" type="button" data-download>Download JSON</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.currentScript?.closest(".codex-brief");
+  if (!root) {
+    throw new Error("Brief builder root not found");
+  }
+
+  const steps = Array.from(root.querySelectorAll("[data-step]"));
+  const stepCount = root.querySelector("[data-step-count]");
+  const error = root.querySelector("[data-brief-error]");
+  const summary = root.querySelector("[data-summary]");
+  const fitCrew = root.querySelector("[data-fit-crew]");
+  const fitWeeks = root.querySelector("[data-fit-weeks]");
+  const fitCost = root.querySelector("[data-fit-cost]");
+
+  const state = {
+    problem: "",
+    users: "",
+    success: "",
+    constraints: "",
+    budget: "",
+    timeline: "",
+  };
+
+  const example = {
+    problem: "Our innovation team needs a faster way to validate new product concepts without heavy handoffs.",
+    users: "Innovation lead, product owners, internal stakeholders, and pilot customers.",
+    success: "A validated MVP concept, clear success metrics, and leadership alignment.",
+    constraints: "Regulated data environment, limited internal engineering bandwidth, 8‑week deadline.",
+    budget: "build",
+    timeline: "months",
+  };
+
+  let activeStep = 0;
+  const budgetLabels = {
+    explore: "Exploration / discovery focus",
+    build: "Build + validate",
+    scale: "Scale or multi-stream",
+  };
+
+  const timelineLabels = {
+    weeks: "2–4 weeks",
+    months: "1–2 months",
+    quarter: "2–3 months",
+    flexible: "Flexible",
+  };
+
+  const capture = (event, props = {}) => {
+    if (window.posthog && typeof window.posthog.capture === "function") {
+      window.posthog.capture(event, props);
+    }
+  };
+
+  const updateStepUI = () => {
+    steps.forEach((step, index) => {
+      step.classList.toggle("is-active", index === activeStep);
+    });
+    if (stepCount) {
+      stepCount.textContent = String(activeStep + 1);
+    }
+    if (error) {
+      error.textContent = "";
+    }
+  };
+
+  const readInputs = () => {
+    const fields = root.querySelectorAll("[data-field]");
+    fields.forEach((field) => {
+      const key = field.getAttribute("data-field");
+      if (!key) return;
+      state[key] = field.value.trim();
+    });
+  };
+
+  const applyExample = () => {
+    const fields = root.querySelectorAll("[data-field]");
+    fields.forEach((field) => {
+      const key = field.getAttribute("data-field");
+      if (!key) return;
+      field.value = example[key];
+      state[key] = example[key];
+    });
+  };
+
+  const requireField = (key) => {
+    if (!state[key]) {
+      if (error) {
+        error.textContent = "Please complete this step before moving on.";
+      }
+      return false;
+    }
+    return true;
+  };
+
+  const buildSummary = () => {
+    const fallback = "Not provided";
+    const budgetLabel = budgetLabels[state.budget] ?? state.budget;
+    const timelineLabel = timelineLabels[state.timeline] ?? state.timeline;
+    return [
+      "WE3 BRIEF SUMMARY",
+      "",
+      `Problem: ${state.problem || fallback}`,
+      `Users: ${state.users || fallback}`,
+      `Success: ${state.success || fallback}`,
+      `Constraints: ${state.constraints || fallback}`,
+      `Budget: ${budgetLabel || fallback}`,
+      `Timeline: ${timelineLabel || fallback}`,
+    ].join("\n");
+  };
+
+  const fitCheck = () => {
+    const crewShape = state.budget === "scale"
+      ? "Triad + Fractional + Apprentices"
+      : state.budget === "build"
+        ? "Triad + Fractional"
+        : "Core Triad";
+
+    const weeks = state.timeline === "weeks"
+      ? "2–4 weeks"
+      : state.timeline === "months"
+        ? "4–8 weeks"
+        : state.timeline === "quarter"
+          ? "8–12 weeks"
+          : "12–16 weeks";
+
+    const costBand = state.budget === "scale"
+      ? "Venture Build"
+      : state.budget === "build"
+        ? "Build Cycle"
+        : "Focus Sprint";
+
+    return { crewShape, weeks, costBand };
+  };
+
+  const renderOutput = () => {
+    if (!summary || !fitCrew || !fitWeeks || !fitCost) return;
+    summary.textContent = buildSummary();
+    const fit = fitCheck();
+    fitCrew.textContent = fit.crewShape;
+    fitWeeks.textContent = fit.weeks;
+    fitCost.textContent = fit.costBand;
+  };
+
+  const updateButtons = () => {
+    const prev = root.querySelector("[data-prev]");
+    const next = root.querySelector("[data-next]");
+    const generate = root.querySelector("[data-generate]");
+    if (prev) prev.disabled = activeStep === 0;
+    if (next) next.style.display = activeStep < steps.length - 1 ? "inline-flex" : "none";
+    if (generate) generate.style.display = activeStep === steps.length - 1 ? "inline-flex" : "none";
+  };
+
+  const goNext = () => {
+    readInputs();
+    const stepKey = steps[activeStep]?.querySelector("[data-field]")?.getAttribute("data-field");
+    if (stepKey && !requireField(stepKey)) return;
+    if (activeStep < steps.length - 1) {
+      activeStep += 1;
+      updateStepUI();
+      updateButtons();
+      capture("codex_brief_step_next", { step: activeStep + 1 });
+    }
+  };
+
+  const goPrev = () => {
+    if (activeStep > 0) {
+      activeStep -= 1;
+      updateStepUI();
+      updateButtons();
+      capture("codex_brief_step_back", { step: activeStep + 1 });
+    }
+  };
+
+  const handleGenerate = () => {
+    readInputs();
+    const missing = Object.keys(state).filter((key) => !state[key]);
+    if (missing.length) {
+      if (error) {
+        error.textContent = "Please complete all prompts before generating the brief.";
+      }
+      return;
+    }
+    renderOutput();
+    capture("codex_brief_generated", { steps: steps.length });
+  };
+
+  root.querySelector("[data-next]")?.addEventListener("click", goNext);
+  root.querySelector("[data-prev]")?.addEventListener("click", goPrev);
+  root.querySelector("[data-generate]")?.addEventListener("click", handleGenerate);
+  root.querySelector("[data-demo]")?.addEventListener("click", () => {
+    applyExample();
+    renderOutput();
+    capture("codex_brief_demo_loaded");
+  });
+  root.querySelector("[data-copy]")?.addEventListener("click", async () => {
+    if (!summary) return;
+    await navigator.clipboard.writeText(summary.textContent || "");
+    capture("codex_brief_copy_summary");
+  });
+  root.querySelector("[data-download]")?.addEventListener("click", () => {
+    readInputs();
+    const payload = {
+      id: crypto.randomUUID(),
+      problem: state.problem,
+      users: state.users,
+      goals: state.success ? [state.success] : [],
+      constraints: state.constraints ? [state.constraints] : [],
+      timeline: timelineLabels[state.timeline] ?? state.timeline,
+      budgetRange: budgetLabels[state.budget] ?? state.budget,
+      successCriteria: state.success ? [state.success] : [],
+      createdAt: new Date().toISOString(),
+      version: "v0.2-codex",
+      fitCheck: fitCheck(),
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "we3-brief.json";
+    anchor.click();
+    URL.revokeObjectURL(url);
+    capture("codex_brief_download_json");
+  });
+
+  updateStepUI();
+  updateButtons();
+</script>

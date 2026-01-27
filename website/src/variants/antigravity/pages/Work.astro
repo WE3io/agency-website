@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const workPage = await getCollection("pages", ({ id }) => {
+    return id.startsWith("antigravity/work");
+});
+const caseStudies = await getCollection("posts", ({ id }) => {
+    return id.startsWith("antigravity/");
+});
+
+const content = workPage[0];
+const { Content } = content ? await content.render() : { Content: null };
+---
+
+<BaseLayout title="Work">
+    <main class="container">
+        <article class="work-listing">
+            {Content ? <Content /> : <h1>Collected Specimens</h1>}
+            
+            <div class="case-study-grid">
+                {caseStudies.map(cs => (
+                    <a href={`/antigravity/work/${cs.slug.split('/').pop()}`} class="case-card">
+                        <span class="category">{cs.data.category}</span>
+                        <h3>{cs.data.title}</h3>
+                        <p>{cs.data.description}</p>
+                        <span class="date">{cs.data.date}</span>
+                    </a>
+                ))}
+            </div>
+            {caseStudies.length === 0 && <p>No specimens currently on display.</p>}
+        </article>
+    </main>
+</BaseLayout>
+
+<style>
+    .work-listing {
+        max-width: 800px;
+    }
+    .case-study-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--spacing-medium);
+        margin-top: var(--spacing-large);
+    }
+    .case-card {
+        padding: 2rem;
+        background: var(--ag-surface);
+        border: 1px solid var(--ag-border);
+        border-radius: var(--effect-radius-large);
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+    .case-card:hover { transform: translateY(-5px); border-color: var(--ag-accent); }
+    .case-card h3 { margin: 0.5rem 0; font-size: 1.5rem; }
+    .case-card p { opacity: 0.8; font-size: 0.95rem; flex: 1; }
+    .category { font-family: var(--typography-font-family-mono); font-size: 0.65rem; color: var(--ag-accent); text-transform: uppercase; }
+    .date { font-family: var(--typography-font-family-mono); font-size: 0.6rem; opacity: 0.4; margin-top: 1rem; }
+</style>

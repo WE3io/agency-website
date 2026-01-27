@@ -1,0 +1,415 @@
+/* ==========================================================================
+   WE3 Claude Variant - "The Curated Collector"
+
+   Design Direction: Warm, confident, curious, slightly unexpected
+   Inspiration: Gallery spaces, eclectic interiors, thoughtfully curated collections
+   ========================================================================== */
+
+:root {
+  /* Color Foundations - Curated Collector Palette */
+  --c-bg: #f6f1e8;                    /* Warm beige - paper-like */
+  --c-surface: #fffaf3;               /* Warm white */
+  --c-surface-2: #f3ede2;             /* Light beige */
+  --c-text: #1b1b1b;                  /* Near black */
+  --c-muted: #6e6961;                 /* Warm gray */
+  --c-border: #d8d2c9;                /* Warm light gray */
+
+  /* Accent Colors - The Collection */
+  --c-accent: #3a7f65;                /* Sage green (WE3 primary) */
+  --c-accent-gold: #e4b96c;           /* Gold - for highlights */
+  --c-accent-terracotta: #c0715a;     /* Terracotta - warmth */
+  --c-accent-navy: #435f9c;           /* Navy - depth */
+  --c-button-text: #fdfbf7;
+
+  /* Typography */
+  --font-display: "Cormorant Garamond", serif;   /* Editorial, narrative */
+  --font-body: "Work Sans", sans-serif;          /* Clean, readable */
+  --font-accent: "IBM Plex Mono", monospace;     /* Technical details */
+
+  /* Type Scale */
+  --text-xs: 0.72rem;
+  --text-sm: 0.85rem;
+  --text-base: 1rem;
+  --text-lg: 1.15rem;
+  --text-xl: 1.35rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: clamp(2rem, 3vw, 2.5rem);
+  --text-hero: clamp(2.6rem, 4vw, 4rem);
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-section: clamp(3rem, 6vw, 5rem);
+
+  /* Effects - Gallery/Object feel */
+  --radius-sm: 8px;
+  --radius-md: 14px;                  /* Cards feel like objects */
+  --radius-lg: 18px;                  /* Larger containers */
+  --radius-full: 999px;
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 14px 35px rgba(52, 42, 30, 0.14);
+
+  /* Decorative Elements */
+  --stripe: repeating-linear-gradient(90deg,
+    #3a7f65 0 12px, #e4b96c 12px 20px,
+    #c0715a 20px 28px, #435f9c 28px 36px);
+  --glow-sage: rgba(58, 127, 101, 0.15);
+  --glow-gold: rgba(228, 185, 108, 0.12);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 220ms ease;
+  --transition-slow: 350ms ease;
+}
+
+/* ==========================================================================
+   Reset & Base
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--text-hero);
+}
+
+h2 {
+  font-size: var(--text-3xl);
+}
+
+h3 {
+  font-size: var(--text-2xl);
+}
+
+h4 {
+  font-size: var(--text-xl);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--c-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Eyebrow / Kicker text */
+.eyebrow {
+  font-family: var(--font-accent);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--c-muted);
+}
+
+.mono {
+  font-family: var(--font-accent);
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.container--narrow {
+  max-width: 800px;
+}
+
+.container--wide {
+  max-width: 1400px;
+}
+
+/* ==========================================================================
+   Panels & Cards - Objects in a Collection
+   ========================================================================== */
+
+.panel {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(var(--space-lg), 4vw, var(--space-xl));
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Card with slight rotation - collection feel */
+.card--tilted {
+  transform: rotate(var(--tilt, -1deg));
+}
+
+.card--tilted:hover {
+  transform: rotate(0deg) translateY(-2px);
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+}
+
+.btn:hover {
+  text-decoration: none;
+}
+
+.btn--primary {
+  background: var(--c-accent);
+  color: var(--c-button-text);
+  box-shadow: 0 8px 20px rgba(58, 127, 101, 0.25);
+}
+
+.btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(58, 127, 101, 0.3);
+}
+
+.btn--secondary {
+  background: transparent;
+  border-color: var(--c-border);
+  color: var(--c-text);
+}
+
+.btn--secondary:hover {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--c-text);
+  padding: 8px 16px;
+}
+
+.btn--ghost:hover {
+  color: var(--c-accent);
+}
+
+/* ==========================================================================
+   Form Elements
+   ========================================================================== */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: var(--text-sm);
+  color: var(--c-muted);
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+  color: var(--c-text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px var(--glow-sage);
+}
+
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* ==========================================================================
+   Decorative Elements
+   ========================================================================== */
+
+.stripe {
+  height: 8px;
+  background: var(--stripe);
+  border-radius: var(--radius-full);
+}
+
+.stripe--thin {
+  height: 4px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--c-border);
+  border: none;
+  margin: var(--space-lg) 0;
+}
+
+.divider--accent {
+  height: 3px;
+  background: var(--stripe);
+  border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   Badges & Pills
+   ========================================================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border);
+  font-family: var(--font-accent);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.badge--accent {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+}
+
+/* ==========================================================================
+   Section Headers
+   ========================================================================== */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.section-header__label {
+  font-family: var(--font-accent);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--c-muted);
+  white-space: nowrap;
+}
+
+.section-header__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--c-border);
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+.text-center { text-align: center; }
+.text-muted { color: var(--c-muted); }
+.text-accent { color: var(--c-accent); }
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-md);
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 2.8rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

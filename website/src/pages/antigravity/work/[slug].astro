@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content";
+import Page from "../../../variants/antigravity/pages/CaseStudy.astro";
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection("posts", ({ id }) => {
+    return id.startsWith("antigravity/");
+  });
+  
+  return caseStudies.map((study) => ({
+    params: { slug: study.slug.split('/').pop() },
+    props: { study },
+  }));
+}
+
+const { slug } = Astro.params;
+const { study } = Astro.props;
+---
+<Page slug={slug} study={study} />
