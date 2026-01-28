@@ -1,6 +1,6 @@
 # Agency Website
 
-## Purpose (front desk)
+## Purpose (front desk )
 This repo is the public front desk for our agency. It holds the copy, structure, and basic assets that explain who we are, what we do, and how to start a conversation.
 
 ## What it is / isn’t
