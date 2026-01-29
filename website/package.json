@@ -17,5 +17,8 @@
   },
   "devDependencies": {
     "style-dictionary": "^5.2.0"
+  },
+  "volta": {
+    "node": "22.22.0"
   }
 }

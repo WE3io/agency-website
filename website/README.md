@@ -41,9 +41,9 @@ graph TD
 
 ## Scripts & CLI
 
-- `npm run dev` - Start the Astro development server.
-- `npm run tokens:build` - Regenerate design tokens from `tokens/tokens.json`.
-- `npm run build` - Build all variants for production.
+- `pnpm run dev` - Start the Astro development server.
+- `pnpm run tokens:build` - Regenerate design tokens from `tokens/tokens.json`.
+- `pnpm run build` - Build all variants for production.
 
 ## Workflow Rules for Agents
 
