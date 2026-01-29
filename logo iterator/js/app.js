@@ -2,6 +2,20 @@
  * WE3 Logo Iterator Engine
  */
 
+const COLOR_PALETTE = [
+    { name: 'Linen', hex: '#f4ede4' },
+    { name: 'Warm White', hex: '#fff7ef' },
+    { name: 'Smoked Ink', hex: '#2e2a25' },
+    { name: 'Coral', hex: '#d96b5a' },
+    { name: 'Teal', hex: '#3fb0a2' },
+    { name: 'Marigold', hex: '#e9b146' },
+    { name: 'Cobalt', hex: '#4a6aa5' },
+    { name: 'Olive', hex: '#7f8b6a' },
+    { name: 'Clay', hex: '#c08a6d' },
+    { name: 'Deep Burgundy', hex: '#5c2a2b' },
+    { name: 'Peacock Blue', hex: '#4a90a4' }
+];
+
 const state = {
     // Global
     zoom: 100,
@@ -25,23 +39,24 @@ const state = {
 
     // Per-tier state
     tiers: {
-        a: { visible: false, morph: 0, shadowBlur: 20, color: '#ffcc00', radius: 100 },
-        b: { visible: false, morph: 0, shadowBlur: 20, color: '#ffcc00', radius: 239 },
-        c: { visible: false, morph: 0, shadowBlur: 20, color: '#ffcc00', radius: 400 }
+        a: { visible: false, morph: 0, shadowBlur: 20, color: '#f4ede4', radius: 100 },
+        b: { visible: false, morph: 0, shadowBlur: 20, color: '#4a6aa5', radius: 239 },
+        c: { visible: false, morph: 0, shadowBlur: 20, color: '#e9b146', radius: 400 }
     },
 
-    // Per-stem state (9 stems) - Updated with custom defaults
-    stems: [
-        { p1: 6, p2: 120, p3: 120, p4: 6, linked: false, width: 51, fill: "#021234", strokeVisible: true, strokeWidth: 3, strokeColor: "#ae00ff", glowVisible: true, glowBlur: 3, glowColor: "#ff0092" },
-        { p1: 6, p2: 120, p3: 120, p4: 6, linked: false, width: 51, fill: "#021234", strokeVisible: true, strokeWidth: 3, strokeColor: "#ae00ff", glowVisible: true, glowBlur: 3, glowColor: "#ff0092" },
-        { p1: 120, p2: 6, p3: 6, p4: 120, linked: false, width: 51, fill: "#021234", strokeVisible: true, strokeWidth: 3, strokeColor: "#ae00ff", glowVisible: true, glowBlur: 3, glowColor: "#ff0092" },
-        { p1: 6, p2: 120, p3: 120, p4: 6, linked: false, width: 51, fill: "#021234", strokeVisible: true, strokeWidth: 3, strokeColor: "#ae00ff", glowVisible: true, glowBlur: 3, glowColor: "#ff0092" },
-        { p1: 6, p2: 6, p3: 120, p4: 120, linked: false, width: 51, fill: "#021234", strokeVisible: true, strokeWidth: 3, strokeColor: "#ae00ff", glowVisible: true, glowBlur: 3, glowColor: "#ff0092" },
-        { p1: 120, p2: 6, p3: 6, p4: 120, linked: false, width: 51, fill: "#021234", strokeVisible: true, strokeWidth: 3, strokeColor: "#ae00ff", glowVisible: true, glowBlur: 3, glowColor: "#ff0092" },
-        { p1: 6, p2: 120, p3: 120, p4: 6, linked: false, width: 51, fill: "#021234", strokeVisible: true, strokeWidth: 3, strokeColor: "#ae00ff", glowVisible: true, glowBlur: 3, glowColor: "#ff0092" },
-        { p1: 120, p2: 120, p3: 6, p4: 6, linked: false, width: 51, fill: "#021234", strokeVisible: true, strokeWidth: 3, strokeColor: "#ae00ff", glowVisible: true, glowBlur: 3, glowColor: "#ff0092" },
-        { p1: 120, p2: 6, p3: 6, p4: 120, linked: false, width: 51, fill: "#021234", strokeVisible: true, strokeWidth: 3, strokeColor: "#ae00ff", glowVisible: true, glowBlur: 3, glowColor: "#ff0092" }
-    ]
+    // Per-stem state (9 stems) - Updated with brand defaults
+    stems: Array(9).fill(null).map(() => ({
+        p1: 6, p2: 120, p3: 120, p4: 6,
+        linked: false,
+        width: 51,
+        fill: "#d96b5a",
+        strokeVisible: true,
+        strokeWidth: 3,
+        strokeColor: "#2e2a25",
+        glowVisible: true,
+        glowBlur: 3,
+        glowColor: "#3fb0a2"
+    }))
 };
 
 const elements = {
@@ -84,15 +99,18 @@ const elements = {
 
     // Controls - Shape Props
     inputWidth: document.getElementById('input-width'),
-    inputFillColor: document.getElementById('input-fill-color'),
     checkStroke: document.getElementById('check-stroke'),
     inputStrokeWidth: document.getElementById('input-stroke-width'),
-    inputStrokeColor: document.getElementById('input-stroke-color'),
-    inputStrokeWidth: document.getElementById('input-stroke-width'),
-    inputStrokeColor: document.getElementById('input-stroke-color'),
     checkGlow: document.getElementById('check-glow'),
     inputGlowBlur: document.getElementById('input-glow-blur'),
-    inputGlowColor: document.getElementById('input-glow-color'),
+
+    // Palette Containers
+    paletteFill: document.getElementById('palette-fill'),
+    paletteStroke: document.getElementById('palette-stroke'),
+    paletteGlow: document.getElementById('palette-glow'),
+    paletteA: document.getElementById('palette-a'),
+    paletteB: document.getElementById('palette-b'),
+    paletteC: document.getElementById('palette-c'),
 
     // Controls - Geometry
     pSliders: [
@@ -106,7 +124,8 @@ const elements = {
     // Controls - Batch
     btnGroupOuter: document.getElementById('btn-group-outer'),
     btnGroupCross: document.getElementById('btn-group-cross'),
-    btnGroupAll: document.getElementById('btn-group-all')
+    btnGroupAll: document.getElementById('btn-group-all'),
+    defs: document.querySelector('defs')
 };
 
 // Character definitions
@@ -130,6 +149,7 @@ const CHAR_MAP = {
 
 function init() {
     setupInputs();
+    initPalettes();
     setupDeselect();
     updateStemUI();
     update();
@@ -146,6 +166,109 @@ function init() {
         downloadAnchorNode.setAttribute("href", dataStr);
         downloadAnchorNode.setAttribute("download", "we3-logo-state.json");
         document.body.appendChild(downloadAnchorNode); // required for firefox
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+    });
+
+    // SVG Export
+    document.getElementById('btn-export').addEventListener('click', async () => {
+        // Clone SVG to modify for export
+        const svgClone = elements.svg.cloneNode(true);
+
+        // --- 1. Fix Transparency: Remove non-logo elements ---
+        // Remove boundary tiers
+        svgClone.querySelectorAll('.boundary').forEach(el => el.remove());
+        // Remove reference circles
+        svgClone.querySelectorAll('.ref-circle').forEach(el => el.remove());
+        // Remove debug labels
+        const labelsGroup = svgClone.getElementById('labels-group');
+        if (labelsGroup) labelsGroup.remove();
+
+        // --- 2. Fix Styling: Ensure logo segments have visible styles without external CSS ---
+        svgClone.querySelectorAll('.char-group').forEach(group => {
+            // Groups often have the filter applied
+            const filterAttr = group.getAttribute('filter');
+            if (filterAttr) {
+                group.setAttribute('filter', filterAttr);
+            }
+        });
+
+        // Loop through all paths to ensure stroke/fill are explicit
+        svgClone.querySelectorAll('path').forEach(path => {
+            // Priority 1: Keep existing attributes if they are meaningful
+            const attrFill = path.getAttribute('fill');
+            if (attrFill && attrFill !== 'none' && attrFill !== 'black' && attrFill !== 'rgb(0, 0, 0)') {
+                // Keep it
+            } else {
+                // Fallback: Check computed style or class-specific defaults
+                const style = window.getComputedStyle(path);
+                const fill = style.fill;
+                if (fill && fill !== 'none' && fill !== 'rgb(0, 0, 0)' && fill !== 'black') {
+                    path.setAttribute('fill', fill);
+                } else if (path.classList.contains('segment')) {
+                    // This is for stems
+                    path.setAttribute('fill', path.style.fill || 'none');
+                } else {
+                    path.setAttribute('fill', 'none');
+                }
+            }
+
+            const attrStroke = path.getAttribute('stroke');
+            if (attrStroke && attrStroke !== 'none') {
+                // Keep it
+            } else {
+                const style = window.getComputedStyle(path);
+                const stroke = style.stroke;
+                const strokeWidth = style.strokeWidth;
+                if (stroke && stroke !== 'none') {
+                    path.setAttribute('stroke', stroke);
+                    path.setAttribute('stroke-width', strokeWidth);
+                }
+            }
+        });
+
+        const serializer = new XMLSerializer();
+        let source = serializer.serializeToString(svgClone);
+
+        // Add namespaces if missing
+        if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+            source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
+        if (!source.match(/^<svg[^>]+xmlns\:xlink="http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+            source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+        }
+
+        // Add XML declaration
+        source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+
+        // --- 3. Save Refinement: File System Access API & Filename ---
+        const fileName = 'we3-logo.svg';
+
+        if ('showSaveFilePicker' in window) {
+            try {
+                const handle = await window.showSaveFilePicker({
+                    suggestedName: fileName,
+                    types: [{
+                        description: 'SVG Image',
+                        accept: { 'image/svg+xml': ['.svg'] },
+                    }],
+                });
+                const writable = await handle.createWritable();
+                await writable.write(source);
+                await writable.close();
+                return;
+            } catch (err) {
+                if (err.name === 'AbortError') return;
+                console.error('File System Access API failed, falling back:', err);
+            }
+        }
+
+        // Fallback for browsers without showSaveFilePicker
+        const url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", url);
+        downloadAnchorNode.setAttribute("download", fileName);
+        document.body.appendChild(downloadAnchorNode);
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
     });
@@ -210,7 +333,7 @@ function updateUIFromState() {
         document.getElementById(`input-radius-${t}`).value = tier.radius;
         document.getElementById(`input-morph-${t}`).value = tier.morph;
         document.getElementById(`input-blur-${t}`).value = tier.shadowBlur;
-        document.getElementById(`input-color-${t}`).value = tier.color;
+        updatePaletteSelection(`palette-${t}`, tier.color);
     });
 
     // Stem Selector
@@ -277,21 +400,15 @@ function setupInputs() {
     // 3. Shape Properties (Per-Stem)
     const shapeInputs = [
         { el: elements.inputWidth, prop: 'width', num: true },
-        { el: elements.inputFillColor, prop: 'fill' },
-        { el: elements.inputStrokeWidth, prop: 'strokeWidth', num: true },
-        { el: elements.inputStrokeColor, prop: 'strokeColor' },
         { el: elements.inputGlowBlur, prop: 'glowBlur', num: true },
-        { el: elements.inputGlowColor, prop: 'glowColor' }
+        { el: elements.inputStrokeWidth, prop: 'strokeWidth', num: true }
     ];
 
     shapeInputs.forEach(item => {
         item.el.addEventListener('input', (e) => {
-            // if (state.selectedStem === -1) return; // Guard removed
-
             const val = item.num ? parseFloat(e.target.value) : e.target.value;
             state.stems[state.selectedStem][item.prop] = val;
 
-            // Validation/UI update only
             if (item.prop === 'width') document.getElementById('val-width').textContent = val;
             if (item.prop === 'glowBlur') document.getElementById('val-glow-blur').textContent = val;
             if (item.prop === 'strokeWidth') document.getElementById('val-stroke').textContent = val;
@@ -379,12 +496,57 @@ function setupInputs() {
             state.tiers[t].shadowBlur = parseFloat(e.target.value);
             update();
         });
+    });
+}
 
-        // Color
-        document.getElementById(`input-color-${t}`).addEventListener('input', (e) => {
-            state.tiers[t].color = e.target.value;
+function initPalettes() {
+    createPalette(elements.paletteFill, (hex) => {
+        state.stems[state.selectedStem].fill = hex;
+        update();
+    });
+    createPalette(elements.paletteStroke, (hex) => {
+        state.stems[state.selectedStem].strokeColor = hex;
+        update();
+    });
+    createPalette(elements.paletteGlow, (hex) => {
+        state.stems[state.selectedStem].glowColor = hex;
+        update();
+    });
+    ['a', 'b', 'c'].forEach(t => {
+        createPalette(document.getElementById(`palette-${t}`), (hex) => {
+            state.tiers[t].color = hex;
             update();
         });
+    });
+}
+
+function createPalette(container, onSelect) {
+    if (!container) return;
+    COLOR_PALETTE.forEach(color => {
+        const swatch = document.createElement('div');
+        swatch.className = 'swatch';
+        swatch.style.backgroundColor = color.hex;
+        swatch.title = color.name;
+        swatch.dataset.hex = color.hex;
+        swatch.addEventListener('click', () => {
+            // Clear previous selection in THIS container
+            container.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+            swatch.classList.add('active');
+            onSelect(color.hex);
+        });
+        container.appendChild(swatch);
+    });
+}
+
+function updatePaletteSelection(containerId, activeHex) {
+    const container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
+    if (!container) return;
+    container.querySelectorAll('.swatch').forEach(s => {
+        if (s.dataset.hex.toLowerCase() === activeHex.toLowerCase()) {
+            s.classList.add('active');
+        } else {
+            s.classList.remove('active');
+        }
     });
 }
 
@@ -415,21 +577,17 @@ function updateStemUI() {
     elements.inputWidth.value = s.width;
     document.getElementById('val-width').textContent = s.width;
 
-    elements.inputFillColor.value = s.fill;
+    updatePaletteSelection(elements.paletteFill, s.fill);
 
     elements.checkStroke.checked = s.strokeVisible;
     elements.inputStrokeWidth.value = s.strokeWidth;
     document.getElementById('val-stroke').textContent = s.strokeWidth;
-    elements.inputStrokeColor.value = s.strokeColor;
+    updatePaletteSelection(elements.paletteStroke, s.strokeColor);
 
     elements.checkGlow.checked = s.glowVisible;
     elements.inputGlowBlur.value = s.glowBlur;
     document.getElementById('val-glow-blur').textContent = s.glowBlur;
-    elements.inputGlowColor.value = s.glowColor;
-
-    elements.inputGlowBlur.value = s.glowBlur;
-    document.getElementById('val-glow-blur').textContent = s.glowBlur;
-    elements.inputGlowColor.value = s.glowColor;
+    updatePaletteSelection(elements.paletteGlow, s.glowColor);
 
     // Geometry
     elements.pSliders[0].value = s.p1;
@@ -480,10 +638,39 @@ function update() {
     elements.middleRef.setAttribute('r', state.middleRadius);
     elements.outerRef.setAttribute('r', state.outerRadius);
 
+    // Clear and Manage Dynamic Filters
+    // elements.defs.innerHTML = ''; // Don't clear if static filters exist, or manage them.
+    // Better: Only clear generated ones.
+    document.querySelectorAll('.dynamic-glow').forEach(f => f.remove());
+
     updateBoundaries();
     drawSpacers();
     drawCharacters();
     drawTierLabels();
+}
+
+function getGlowFilterId(color, blur) {
+    const id = `glow-${color.replace('#', '')}-${blur.toString().replace('.', '_')}`;
+    if (!document.getElementById(id)) {
+        const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+        filter.setAttribute('id', id);
+        filter.setAttribute('class', 'dynamic-glow');
+        filter.setAttribute('x', '-50%');
+        filter.setAttribute('y', '-50%');
+        filter.setAttribute('width', '200%');
+        filter.setAttribute('height', '200%');
+
+        const dropShadow = document.createElementNS('http://www.w3.org/2000/svg', 'feDropShadow');
+        dropShadow.setAttribute('dx', '0');
+        dropShadow.setAttribute('dy', '0');
+        dropShadow.setAttribute('stdDeviation', (blur / 2).toString()); // CSS blur is roughly double SVG deviation
+        dropShadow.setAttribute('flood-color', color);
+        dropShadow.setAttribute('flood-opacity', '1');
+
+        filter.appendChild(dropShadow);
+        elements.defs.appendChild(filter);
+    }
+    return id;
 }
 
 
@@ -498,11 +685,12 @@ function updateBoundaries() {
             el.setAttribute('d', getNonagonPath(tier.radius, tier.morph));
             // Style
             el.style.stroke = tier.color;
-            // Shadow Blur using drop-shadow
+            // Shadow Blur using SVG Filter for Export Compatibility
             if (tier.shadowBlur > 0) {
-                el.style.filter = `drop-shadow(0 0 ${tier.shadowBlur}px ${tier.color})`;
+                const filterId = getGlowFilterId(tier.color, tier.shadowBlur);
+                el.setAttribute('filter', `url(#${filterId})`);
             } else {
-                el.style.filter = 'none';
+                el.removeAttribute('filter');
             }
 
             // Update Dynamic UI Color
@@ -628,6 +816,7 @@ function drawStem(container, x1, y1, x2, y2, width, stemIdx) {
 
     const el = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     el.setAttribute('d', path);
+    el.classList.add('segment');
     // Apply Per-Stem Styles
     el.setAttribute('fill', s.fill);
 
@@ -638,12 +827,12 @@ function drawStem(container, x1, y1, x2, y2, width, stemIdx) {
         el.setAttribute('stroke', 'none');
     }
 
-    // Apply Glow via drop-shadow
-    // Apply Glow via drop-shadow
+    // Apply Glow via SVG Filter for Export Compatibility
     if (s.glowVisible && s.glowBlur > 0) {
-        el.style.filter = `drop-shadow(0 0 ${s.glowBlur}px ${s.glowColor})`;
+        const filterId = getGlowFilterId(s.glowColor, s.glowBlur);
+        el.setAttribute('filter', `url(#${filterId})`);
     } else {
-        el.style.filter = 'none';
+        el.removeAttribute('filter');
     }
 
     if (state.selectedStem === stemIdx && state.selectedStem !== -1 && state.selectionHighlighted) {

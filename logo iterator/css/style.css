@@ -343,11 +343,13 @@ main {
 
 .controls {
     width: 260px;
+    height: calc(100vh - 60px);
     background: var(--panel-bg);
     backdrop-filter: var(--glass-blur);
     border-left: 1px solid var(--border-color);
     padding: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     font-family: 'Inter', sans-serif;
@@ -438,41 +440,56 @@ button:hover {
 #btn-export:hover {
     background: #fff;
 }
-/* New Color Picker Styles */
-input[type="color"] {
-    -webkit-appearance: none;
-    border: none;
-    width: 20px;
-    height: 20px;
-    padding: 0;
-    overflow: hidden;
-    background: none;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: transform 0.2s;
-}
 
-input[type="color"]::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-
-input[type="color"]::-webkit-color-swatch {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    padding: 0;
-}
-
-input[type="color"]:hover {
-    transform: scale(1.1);
-    border-color: var(--accent-color);
-}
-
-/* Ensure control-row aligns nicely */
-.control-row {
+/* New Color Palette Swatch Styles */
+.palette-container {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
     width: 100%;
+}
+
+.swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.swatch:hover {
+    transform: scale(1.2);
+    z-index: 2;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.swatch.active {
+    border: 2px solid white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+.swatch.active::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    border: 1px solid white;
+    opacity: 0.3;
+}
+
+/* Ensure control-row aligns nicely with palettes */
+.control-row {
+    flex-direction: column;
+    align-items: flex-start !important;
 }
 
 /* Disabled State for Shapes Section */
@@ -487,6 +504,7 @@ input[type="color"]:hover {
 .tier-sub-section[data-tier="a"] {
     border-color: var(--tier-a-color, var(--accent-color));
 }
+
 .tier-sub-section[data-tier="a"] h4 {
     color: var(--tier-a-color, var(--accent-color));
 }
@@ -494,6 +512,7 @@ input[type="color"]:hover {
 .tier-sub-section[data-tier="b"] {
     border-color: var(--tier-b-color, var(--accent-color));
 }
+
 .tier-sub-section[data-tier="b"] h4 {
     color: var(--tier-b-color, var(--accent-color));
 }
@@ -501,6 +520,7 @@ input[type="color"]:hover {
 .tier-sub-section[data-tier="c"] {
     border-color: var(--tier-c-color, var(--accent-color));
 }
+
 .tier-sub-section[data-tier="c"] h4 {
     color: var(--tier-c-color, var(--accent-color));
 }
