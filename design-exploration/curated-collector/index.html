@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Studio Aesthetic Explorer - The Curated Collector</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@300;400;500&family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Space+Grotesk:wght@400;500;600&family=Work+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../curated-collector.css" />
+  </head>
+  <body data-theme="gallery">
+    <div class="backdrop" aria-hidden="true"></div>
+    <div class="page">
+      <header class="intro">
+        <div class="intro-main">
+          <a class="back-link" href="../index.html">All concepts</a>
+          <p class="eyebrow">Studio Aesthetic Explorer</p>
+          <h1>The Curated Collector</h1>
+          <p class="intro-text">
+            Exploring the venture studio as a carefully assembled collection of objects, ideas, and
+            characters. Warm, curious, and confidently crafted.
+          </p>
+        </div>
+        <div class="intro-meta">
+          <div class="meta-pill">
+            <span class="meta-dot"></span>
+            <span id="active-theme">Gallery</span>
+          </div>
+          <p id="theme-description" class="meta-description">Gallery calm with curated detail.</p>
+        </div>
+      </header>
+
+      <nav class="tabs" role="tablist" aria-label="Curated collection tabs">
+        <button type="button" class="tab" role="tab" aria-selected="true" data-theme="gallery">
+          Gallery
+        </button>
+        <button type="button" class="tab" role="tab" aria-selected="false" data-theme="domestic">
+          Domestic
+        </button>
+        <button type="button" class="tab" role="tab" aria-selected="false" data-theme="domestic_rich">
+          Domestic Rich
+        </button>
+        <button type="button" class="tab" role="tab" aria-selected="false" data-theme="playful">
+          Playful
+        </button>
+        <button type="button" class="tab" role="tab" aria-selected="false" data-theme="refined">
+          Refined
+        </button>
+      </nav>
+
+      <main class="content" role="tabpanel">
+        <section class="panel vignette">
+          <div class="section-head">
+            <p class="section-label">Opening Vignette</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="vignette-grid">
+            <div class="vignette-text">
+              <p class="vignette-kicker">Collected since 2023</p>
+              <h2 class="vignette-title">A place for ideas with character.</h2>
+              <p class="vignette-subline">
+                Thoughtful curation meets builder instinct. Each concept is treated like a rare
+                artifact, not a commodity.
+              </p>
+              <div class="vignette-actions">
+                <button type="button" class="btn primary">Primary</button>
+                <button type="button" class="btn secondary">Secondary</button>
+                <button type="button" class="btn icon" aria-label="Open archive">+</button>
+              </div>
+            </div>
+            <div class="vignette-frame">
+              <div class="stripe"></div>
+              <span class="easter-egg corner" aria-hidden="true">Archive 07</span>
+              <div class="frame-content">
+                <p class="frame-title">Shelf note</p>
+                <p class="frame-body">"Builds feel best when they are curated, not rushed."</p>
+                <p class="frame-caption">From the studio archive</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel palette">
+          <div class="section-head">
+            <p class="section-label">Color Palette</p>
+            <div class="section-rule"></div>
+          </div>
+          <div id="palette-groups" class="palette-groups"></div>
+        </section>
+
+        <section class="panel typography">
+          <div class="section-head">
+            <p class="section-label">Typography Pairing</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="type-grid">
+            <article class="type-sample">
+              <p class="type-role">Display</p>
+              <h3 class="type-headline">Collected with intent.</h3>
+              <p class="type-body">
+                Display type should feel storied and precise, like a label in a well-lit gallery.
+              </p>
+              <div class="type-meta">
+                <span class="meta-label">Font</span>
+                <span class="meta-value" data-font-role="display"></span>
+              </div>
+            </article>
+            <article class="type-sample">
+              <p class="type-role">Body</p>
+              <h3 class="type-headline body">Warm, measured, clear.</h3>
+              <p class="type-body">
+                Body typography balances readability with warmth. It should feel like a curator's
+                note.
+              </p>
+              <div class="type-meta">
+                <span class="meta-label">Font</span>
+                <span class="meta-value" data-font-role="body"></span>
+              </div>
+            </article>
+            <article class="type-sample accent">
+              <p class="type-role">Accent</p>
+              <p class="accent-sample">COLLECTION / 04 / STATUS: ON DISPLAY</p>
+              <p class="type-body">
+                Accent typography is for inventory, signatures, and small moments of wit.
+              </p>
+              <div class="type-meta">
+                <span class="meta-label">Font</span>
+                <span class="meta-value" data-font-role="accent"></span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel imagery">
+          <div class="section-head">
+            <p class="section-label">Image Treatment</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="image-grid">
+            <figure class="image-card">
+              <div class="image-frame frame-a"></div>
+              <figcaption>
+                <span class="caption-title">Object study</span>
+                <span class="caption-note">Matte edge, generous spacing.</span>
+              </figcaption>
+            </figure>
+            <figure class="image-card">
+              <div class="image-frame frame-b"></div>
+              <figcaption>
+                <span class="caption-title">Studio snapshot</span>
+                <span class="caption-note">Borderless crop, soft grain.</span>
+              </figcaption>
+            </figure>
+            <figure class="image-card">
+              <div class="image-frame frame-c"></div>
+              <figcaption>
+                <span class="caption-title">Exhibit detail</span>
+                <span class="caption-note">Structured frame, label strip.</span>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="panel ui">
+          <div class="section-head">
+            <p class="section-label">UI Components</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="ui-grid">
+            <div class="ui-block">
+              <p class="ui-label">Core Controls</p>
+              <div class="ui-row">
+                <button type="button" class="btn primary">Primary</button>
+                <button type="button" class="btn secondary">Secondary</button>
+                <button type="button" class="btn icon" aria-label="Save">+</button>
+              </div>
+              <a class="text-link" href="#">View archive</a>
+            </div>
+            <div class="ui-block">
+              <p class="ui-label">Form Elements</p>
+              <div class="field">
+                <label for="name-field">Object title</label>
+                <input id="name-field" type="text" placeholder="Enter a title" />
+              </div>
+              <div class="field">
+                <label for="note-field">Collector note</label>
+                <textarea id="note-field" placeholder="Add a short description"></textarea>
+              </div>
+              <div class="field">
+                <label for="select-field">Collection status</label>
+                <select id="select-field">
+                  <option>On display</option>
+                  <option>In review</option>
+                  <option>Archived</option>
+                </select>
+              </div>
+            </div>
+            <div class="ui-block">
+              <p class="ui-label">States</p>
+              <div class="checklist">
+                <label class="check">
+                  <input type="checkbox" checked />
+                  <span>Ready for catalog</span>
+                </label>
+                <label class="check">
+                  <input type="checkbox" />
+                  <span>Needs framing</span>
+                </label>
+                <label class="check">
+                  <input type="radio" name="tone" checked />
+                  <span>Signature piece</span>
+                </label>
+                <label class="check">
+                  <input type="radio" name="tone" />
+                  <span>Supporting piece</span>
+                </label>
+                <label class="check disabled">
+                  <input type="checkbox" disabled />
+                  <span>Paused</span>
+                </label>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" checked />
+                <span class="toggle-track"></span>
+                <span class="toggle-label">Curator mode</span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel cards">
+          <div class="section-head">
+            <p class="section-label">Cards & Containers</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="card-grid">
+            <article class="collection-card">
+              <p class="card-kicker">Exhibit label</p>
+              <h3>Prototype Series 01</h3>
+              <p>Explorations in material, feedback, and collected signals.</p>
+              <div class="card-meta">
+                <span class="badge">Active</span>
+                <span class="badge outline">Filed</span>
+              </div>
+            </article>
+            <article class="collection-card note">
+              <p class="card-kicker">Collection note</p>
+              <p>
+                "Keep the accent color like a rare fabric swatch. Let the typography carry the
+                story."
+              </p>
+            </article>
+            <article class="collection-card">
+              <p class="card-kicker">Divider studies</p>
+              <div class="divider"></div>
+              <div class="divider thin"></div>
+              <div class="divider dotted"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel collection">
+          <div class="section-head">
+            <p class="section-label">The Collection</p>
+            <div class="section-rule"></div>
+          </div>
+          <div class="collection-board">
+            <div class="collection-item">
+              <p class="item-title">Archive 12</p>
+              <p class="item-body">A speculative product card with a hand-stamped label.</p>
+            </div>
+            <div class="collection-item wide">
+              <p class="item-title">Specimen A4</p>
+              <p class="item-body">Material swatches and a restrained color note.</p>
+            </div>
+            <div class="collection-item tall">
+              <p class="item-title">Studio Sketch</p>
+              <p class="item-body">Loose annotations and staging notes.</p>
+            </div>
+            <div class="collection-item">
+              <p class="item-title">Object 03</p>
+              <p class="item-body">A signature accent used sparingly.</p>
+            </div>
+            <div class="collection-item wide">
+              <p class="item-title">Collector Index</p>
+              <p class="item-body">Measured type, modern spacing, small wit.</p>
+            </div>
+            <span class="easter-egg board" aria-hidden="true">Hidden in plain sight</span>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../curated-collector.js"></script>
+  </body>
+</html>

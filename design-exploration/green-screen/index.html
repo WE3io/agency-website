@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Studio Aesthetic Explorer - The Green Screen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=Sora:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&family=Syne:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+
+<body data-theme="editorial">
+  <div class="backdrop" aria-hidden="true"></div>
+  <div class="page">
+    <header class="intro">
+      <div>
+        <a class="back-link" href="../index.html">All concepts</a>
+        <p class="eyebrow">Studio Aesthetic Explorer</p>
+        <h1>The Green Screen</h1>
+        <p class="intro-text">
+          A quick visual mood board to compare tone, typography, and green signal across multiple
+          expressions.
+        </p>
+      </div>
+      <div class="intro-meta">
+        <div class="meta-pill">
+          <span class="meta-dot"></span>
+          <span id="active-theme">Editorial</span>
+        </div>
+        <p id="theme-description" class="meta-description">
+          Calm, confident, and composed.
+        </p>
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="Aesthetic tabs">
+      <button type="button" class="tab" role="tab" aria-selected="true" data-theme="editorial">
+        Editorial
+      </button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-theme="system">
+        System
+      </button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-theme="expressive">
+        Expressive
+      </button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-theme="minimal">
+        Minimal
+      </button>
+    </nav>
+
+    <main id="theme-panel" class="content" role="tabpanel">
+      <section class="panel hero">
+        <div class="section-head">
+          <p class="section-label">Opening Vignette</p>
+          <div class="section-rule"></div>
+        </div>
+        <div class="hero-grid">
+          <div>
+            <h2 class="hero-title">We build ideas until they work.</h2>
+            <p class="hero-subline">
+              We partner with founders to prototype, validate, and ship ambitious ventures with
+              focus and momentum.
+            </p>
+            <div class="actions">
+              <button type="button" class="btn primary">Primary</button>
+              <button type="button" class="btn secondary">Secondary</button>
+            </div>
+          </div>
+          <div class="signal-card">
+            <p class="signal-title">Current signal</p>
+            <div class="signal-metrics">
+              <div>
+                <p class="signal-value">06</p>
+                <p class="signal-label">Active builds</p>
+              </div>
+              <div>
+                <p class="signal-value">18</p>
+                <p class="signal-label">Concepts tested</p>
+              </div>
+              <div>
+                <p class="signal-value">72%</p>
+                <p class="signal-label">Validation rate</p>
+              </div>
+            </div>
+            <p class="signal-note">Signal stays strong when green is used with restraint.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel palette">
+        <div class="section-head">
+          <p class="section-label">Color Palette</p>
+          <div class="section-rule"></div>
+        </div>
+        <div class="swatch-grid">
+          <div class="swatch" data-swatch-index="0">
+            <div class="swatch-color"></div>
+            <div class="swatch-meta">
+              <span class="swatch-label"></span>
+              <span class="swatch-hex"></span>
+            </div>
+          </div>
+          <div class="swatch" data-swatch-index="1">
+            <div class="swatch-color"></div>
+            <div class="swatch-meta">
+              <span class="swatch-label"></span>
+              <span class="swatch-hex"></span>
+            </div>
+          </div>
+          <div class="swatch" data-swatch-index="2">
+            <div class="swatch-color"></div>
+            <div class="swatch-meta">
+              <span class="swatch-label"></span>
+              <span class="swatch-hex"></span>
+            </div>
+          </div>
+          <div class="swatch" data-swatch-index="3">
+            <div class="swatch-color"></div>
+            <div class="swatch-meta">
+              <span class="swatch-label"></span>
+              <span class="swatch-hex"></span>
+            </div>
+          </div>
+          <div class="swatch" data-swatch-index="4">
+            <div class="swatch-color"></div>
+            <div class="swatch-meta">
+              <span class="swatch-label"></span>
+              <span class="swatch-hex"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel typography">
+        <div class="section-head">
+          <p class="section-label">Typography Pairing</p>
+          <div class="section-rule"></div>
+        </div>
+        <div class="type-grid">
+          <article class="type-sample">
+            <p class="type-role">Headline</p>
+            <h3 class="type-headline">Systems for builders.</h3>
+            <p class="type-body">
+              Clear, composed typography carries most of the emotional weight and keeps the
+              workspace feeling confident.
+            </p>
+            <div class="type-meta">
+              <span class="meta-label">Font</span>
+              <span class="meta-value" data-font-role="headline"></span>
+            </div>
+          </article>
+          <article class="type-sample">
+            <p class="type-role">Body</p>
+            <h3 class="type-headline body">Focus without noise.</h3>
+            <p class="type-body">
+              Body text should stay readable in dense layouts while letting green act as an
+              intentional signal.
+            </p>
+            <div class="type-meta">
+              <span class="meta-label">Font</span>
+              <span class="meta-value" data-font-role="body"></span>
+            </div>
+          </article>
+          <article class="type-sample mono">
+            <p class="type-role">Utility</p>
+            <p class="mono-sample">STATUS: BUILDING / SYNC 03:16 / SIGNAL STABLE</p>
+            <p class="type-body">
+              Mono elements are functional accents for labels, metadata, and system feedback.
+            </p>
+            <div class="type-meta">
+              <span class="meta-label">Font</span>
+              <span class="meta-value" data-font-role="mono"></span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel imagery">
+        <div class="section-head">
+          <p class="section-label">Image Treatment</p>
+          <div class="section-rule"></div>
+        </div>
+        <div class="image-grid">
+          <figure class="image-card">
+            <div class="image-frame frame-a"></div>
+            <figcaption>
+              <span class="caption-title">Signal capture</span>
+              <span class="caption-note">Soft glow, minimal frame.</span>
+            </figcaption>
+          </figure>
+          <figure class="image-card">
+            <div class="image-frame frame-b"></div>
+            <figcaption>
+              <span class="caption-title">Workspace view</span>
+              <span class="caption-note">Balanced contrast, sharp edges.</span>
+            </figcaption>
+          </figure>
+          <figure class="image-card">
+            <div class="image-frame frame-c"></div>
+            <figcaption>
+              <span class="caption-title">Prototype detail</span>
+              <span class="caption-note">Dense texture, restrained light.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="panel ui">
+        <div class="section-head">
+          <p class="section-label">UI Components</p>
+          <div class="section-rule"></div>
+        </div>
+        <div class="ui-grid">
+          <div class="ui-block">
+            <p class="ui-label">Core Controls</p>
+            <div class="ui-row">
+              <button type="button" class="btn primary">Primary</button>
+              <button type="button" class="btn secondary">Secondary</button>
+              <button type="button" class="btn icon" aria-label="Open panel">+</button>
+            </div>
+            <button type="button" class="btn tertiary">Tertiary action</button>
+            <a class="text-link" href="#">View workspace</a>
+            <div class="ui-row">
+              <span class="tag">Prototype</span>
+              <span class="tag ghost">Queued</span>
+              <span class="tag outline">Signal</span>
+              <span class="tag outline pink">Neon</span>
+            </div>
+          </div>
+          <div class="ui-block">
+            <p class="ui-label">Form Elements</p>
+            <div class="field">
+              <label for="signal-name">Signal name</label>
+              <input id="signal-name" type="text" placeholder="Enter label" />
+            </div>
+            <div class="field">
+              <label for="signal-note">Notes</label>
+              <textarea id="signal-note" placeholder="Add a short note"></textarea>
+            </div>
+            <div class="field">
+              <label for="signal-status">Status</label>
+              <select id="signal-status">
+                <option>Active</option>
+                <option>Monitoring</option>
+                <option>Archived</option>
+              </select>
+            </div>
+          </div>
+          <div class="ui-block">
+            <p class="ui-label">States</p>
+            <div class="checklist">
+              <label class="check">
+                <input type="checkbox" checked />
+                <span>Ready</span>
+              </label>
+              <label class="check">
+                <input type="checkbox" />
+                <span>Queued</span>
+              </label>
+              <label class="check">
+                <input type="radio" name="tone" checked />
+                <span>Primary signal</span>
+              </label>
+              <label class="check">
+                <input type="radio" name="tone" />
+                <span>Secondary signal</span>
+              </label>
+              <label class="check disabled">
+                <input type="checkbox" disabled />
+                <span>Disabled</span>
+              </label>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" checked />
+              <span class="toggle-track"></span>
+              <span class="toggle-label">Live mode</span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel cards">
+        <div class="section-head">
+          <p class="section-label">Cards & Containers</p>
+          <div class="section-rule"></div>
+        </div>
+        <div class="card-grid">
+          <article class="collection-card">
+            <p class="card-kicker">System card</p>
+            <h3>Concept 07</h3>
+            <p>Measured typography and selective green accents.</p>
+            <div class="card-meta">
+              <span class="badge"><span class="badge-dot"></span>Active</span>
+              <span class="badge soft">Queued</span>
+              <span class="badge pink"><span class="badge-dot pink"></span>Alert</span>
+            </div>
+          </article>
+          <article class="collection-card note">
+            <p class="card-kicker">Operator note</p>
+            <p>
+              “Let the interface feel like a workspace. Green should stay a controlled signal.”
+            </p>
+          </article>
+          <article class="collection-card">
+            <p class="card-kicker">Dividers</p>
+            <div class="divider thick"></div>
+            <div class="divider"></div>
+            <div class="divider dotted"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel collection">
+        <div class="section-head">
+          <p class="section-label">The Collection</p>
+          <div class="section-rule"></div>
+        </div>
+        <div class="collection-board">
+          <div class="collection-item">
+            <p class="item-title">Signal 12</p>
+            <p class="item-body">Monitoring queue with active green states.</p>
+          </div>
+          <div class="collection-item wide">
+            <p class="item-title">Operator log</p>
+            <p class="item-body">Dense metadata and system feedback.</p>
+          </div>
+          <div class="collection-item tall">
+            <p class="item-title">Prototype run</p>
+            <p class="item-body">Drafted outputs in a structured grid.</p>
+          </div>
+          <div class="collection-item">
+            <p class="item-title">Control node</p>
+            <p class="item-body">Minimal UI with sharp boundaries.</p>
+          </div>
+          <div class="collection-item wide">
+            <p class="item-title">Archive view</p>
+            <p class="item-body">Neutral surfaces with bright signal trims.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../app.js"></script>
+</body>
+
+</html>

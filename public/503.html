@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gallery Temporarily Closed | WE3</title>
+  <meta name="description" content="We're performing scheduled maintenance on the collection." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=IBM+Plex+Mono:wght@300;400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: "Work Sans", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1b1b1b;
+      background: #f6f1e8;
+      background-image:
+        radial-gradient(600px circle at 30% 20%, rgba(228, 185, 108, 0.12), transparent 70%),
+        radial-gradient(500px circle at 70% 80%, rgba(58, 127, 101, 0.15), transparent 60%);
+      padding: 2rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+      text-align: center;
+      max-width: 580px;
+    }
+
+    /* ── Hanging display ── */
+    .frame-display {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 48px;
+    }
+
+    .frame-display::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(circle at 40% 35%, #7a7068, #3e3832);
+      border-radius: 50%;
+      box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.4),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.3);
+    }
+
+    .frame-display::after {
+      content: "";
+      position: absolute;
+      top: 9px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 38px;
+      background:
+        linear-gradient(to bottom left, transparent calc(50% - 0.5px), #8a8078 calc(50% - 0.5px), #8a8078 calc(50% + 0.5px), transparent calc(50% + 0.5px)) right / 50% 100% no-repeat,
+        linear-gradient(to bottom right, transparent calc(50% - 0.5px), #8a8078 calc(50% - 0.5px), #8a8078 calc(50% + 0.5px), transparent calc(50% + 0.5px)) left / 50% 100% no-repeat;
+      pointer-events: none;
+    }
+
+    /* ── Ornate frame ── */
+    .frame {
+      position: relative;
+      width: clamp(200px, 40vw, 320px);
+      aspect-ratio: 1;
+      padding: 24px;
+      background: linear-gradient(145deg, #d4a34a, #e4b96c 30%, #f0d090 50%, #e4b96c 70%, #c49340);
+      border-radius: 4px;
+      box-shadow:
+        inset 2px 2px 4px rgba(255, 248, 220, 0.6),
+        inset -2px -2px 4px rgba(120, 80, 20, 0.4),
+        inset 0 0 0 3px rgba(160, 110, 40, 0.5),
+        0 8px 32px rgba(0, 0, 0, 0.18),
+        0 2px 8px rgba(0, 0, 0, 0.12);
+      transform: rotate(2deg);
+    }
+
+    .frame::before,
+    .frame::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 240, 200, 0.5);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .frame::before {
+      top: 6px;
+      left: 6px;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 2px 0 0 0;
+    }
+
+    .frame::after {
+      bottom: 6px;
+      right: 6px;
+      border-left: none;
+      border-top: none;
+      border-radius: 0 0 2px 0;
+    }
+
+    .frame__mat {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 12px;
+      background: #2a2520;
+      border-radius: 2px;
+      box-shadow:
+        inset 0 2px 8px rgba(0, 0, 0, 0.5),
+        inset 0 0 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .frame__mat::before,
+    .frame__mat::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 240, 200, 0.5);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .frame__mat::before {
+      top: -18px;
+      right: -18px;
+      border-left: none;
+      border-bottom: none;
+      border-radius: 0 2px 0 0;
+    }
+
+    .frame__mat::after {
+      bottom: -18px;
+      left: -18px;
+      border-right: none;
+      border-top: none;
+      border-radius: 0 0 0 2px;
+    }
+
+    .frame__inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #fffaf3;
+      border-radius: 1px;
+    }
+
+    .frame__logo {
+      width: 85%;
+      height: 85%;
+    }
+
+    /* ── Plaque ── */
+    .plaque {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .plaque__eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #e4b96c;
+    }
+
+    .plaque__heading {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .plaque__body {
+      font-size: 1.15rem;
+      color: #6e6961;
+      max-width: 44ch;
+      line-height: 1.6;
+    }
+
+    .plaque__actions {
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      font-family: "Work Sans", sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn--primary {
+      background: #3a7f65;
+      color: #fdfbf7;
+    }
+
+    .note {
+      margin-top: 1rem;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
+      color: #6e6961;
+      letter-spacing: 0.05em;
+    }
+
+    .note a {
+      color: #3a7f65;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .note a:hover {
+      color: #1b1b1b;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .frame {
+        width: clamp(180px, 60vw, 260px);
+      }
+
+      .plaque__heading {
+        font-size: 1.75rem;
+      }
+
+      .plaque__body {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+
+    <!-- Hanging Wire + Ornate Frame with Static Logo -->
+    <div class="frame-display">
+      <div class="frame">
+        <div class="frame__mat">
+          <div class="frame__inner">
+          <svg class="frame__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" aria-hidden="true">
+            <defs>
+              <filter id="s-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#3fb0a2" flood-opacity="1"/>
+              </filter>
+            </defs>
+            <g>
+              <path d="M 298.99111460513524,172.99142565201524 L 316.10090986524955,163.63701994363544 A 25.5,25.5 0 0 1 350.7079419009726,173.77868320359602 L 473.52129643465275,398.4120182103001 A 6,6 0 0 1 471.1350227264267,406.5548492775291 L 454.0252274663124,415.9092549859089 A 25.5,25.5 0 0 1 419.4181954305893,405.7675917259483 L 296.6048408969092,181.1342567192442 A 6,6 0 0 1 298.99111460513524,172.99142565201524 Z" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#s-glow)"/>
+              <path d="M 480.5,275.4134636321679 L 500,275.4134636321679 A 25.5,25.5 0 0 1 525.5,300.9134636321679 L 525.5,400.0307379214091 A 6,6 0 0 1 519.5,406.0307379214091 L 500,406.0307379214091 A 25.5,25.5 0 0 1 474.5,380.5307379214091 L 474.5,281.4134636321679 A 6,6 0 0 1 480.5,275.4134636321679 Z" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#s-glow)"/>
+              <path d="M 666.7892948746362,154.28261423525575 L 683.8990901347506,163.63701994363555 A 25.5,25.5 0 0 1 694.0407533947113,198.24405197935866 L 571.227398861031,422.8773869860627 A 6,6 0 0 1 563.0845677938021,425.2636606942887 L 545.9747725336877,415.9092549859089 A 25.5,25.5 0 0 1 535.833109273727,381.30222295018575 L 658.6464638074073,156.66888794348176 A 6,6 0 0 1 666.7892948746362,154.28261423525575 Z" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#s-glow)"/>
+            </g>
+            <g>
+              <path d="M 883.7021753381196,489.4254860356445 L 883.2484306888255,508.920206238644 A 25.5,25.5 0 0 1 857.1619766512108,533.8199435011819 L 601.2171247317448,527.8627609479815 A 6,6 0 0 1 595.3583630229123,521.7247717626605 L 595.8121076722064,502.230051559661 A 25.5,25.5 0 0 1 621.898561709821,477.33031429712315 L 877.843413629287,483.28749685032335 A 6,6 0 0 1 883.7021753381196,489.4254860356445 Z" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#s-glow)"/>
+              <path d="M 704.2476458425003,595.4057728101195 L 684.7476458425003,629.1807635577127 A 6,6 0 0 1 676.5514934197937,631.3769159804193 L 590.7134159314406,581.8182788357987 A 25.5,25.5 0 0 1 581.3797681349374,546.9846310392954 L 581.3797681349374,546.9846310392954 A 25.5,25.5 0 0 1 616.2134159314406,537.6509832427922 L 702.0514934197937,587.2096203874129 A 6,6 0 0 1 704.2476458425003,595.4057728101195 Z" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#s-glow)"/>
+              <path d="M 699.3493405540748,827.4427738177204 L 682.6932899432546,837.5830883123401 A 6,6 0 0 1 674.4482545261961,835.5782464304323 L 541.3167571404103,616.9020939769285 A 25.5,25.5 0 0 1 549.8373351385187,581.8606934544301 L 566.4933857493389,571.7203789598104 A 6,6 0 0 1 574.7384211663974,573.7252208417183 L 707.8699185521832,792.401373295222 A 25.5,25.5 0 0 1 699.3493405540748,827.4427738177204 Z" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#s-glow)"/>
+            </g>
+            <g>
+              <path d="M 300.65065944592527,827.4427738177205 L 283.99460883510505,817.3024593231008 A 6,6 0 0 1 281.9897669531972,809.0574239060423 L 415.12126433898294,590.3812714525385 A 25.5,25.5 0 0 1 450.1626648614813,581.8606934544301 L 466.8187154723015,592.0010079490498 A 6,6 0 0 1 468.82355735420936,600.2460433661083 L 335.6920599684236,818.9221958196122 A 25.5,25.5 0 0 1 300.65065944592527,827.4427738177205 Z" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#s-glow)"/>
+              <path d="M 305.50235415749967,612.2932681839161 L 305.50235415749967,612.2932681839161 A 25.5,25.5 0 0 1 314.8360019540028,577.4596203874129 L 400.674079442356,527.9009832427922 A 6,6 0 0 1 408.87023186506264,530.0971356654989 L 428.37023186506264,563.872126413092 A 6,6 0 0 1 426.174079442356,572.0682788357987 L 340.3360019540028,621.6269159804193 A 25.5,25.5 0 0 1 305.50235415749967,612.2932681839161 Z" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#s-glow)"/>
+              <path d="M 117.2053139604687,528.4149264416436 L 116.75156931117459,508.9202062386441 A 25.5,25.5 0 0 1 141.65130657371242,482.83375220102937 L 397.5961584931784,476.8765696478291 A 6,6 0 0 1 403.73414767849954,482.73533135666156 L 404.18789232779363,502.2300515596611 A 25.5,25.5 0 0 1 379.2881550652558,528.3165055972758 L 123.3433031457898,534.2736881504761 A 6,6 0 0 1 117.2053139604687,528.4149264416436 Z" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#s-glow)"/>
+            </g>
+          </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Museum Plaque -->
+    <div class="plaque">
+      <p class="plaque__eyebrow">Status 503</p>
+      <h1 class="plaque__heading">Gallery Temporarily Closed</h1>
+      <p class="plaque__body">
+        We're performing scheduled maintenance on the collection.
+        The gallery will reopen shortly.
+      </p>
+      <div class="plaque__actions">
+        <button class="btn btn--primary" onclick="window.location.reload()">Try Again</button>
+      </div>
+      <p class="note">If this persists, contact us at <a href="mailto:hello@we3.io">hello@we3.io</a></p>
+    </div>
+
+  </div>
+</body>
+</html>

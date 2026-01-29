@@ -1,0 +1,23 @@
+---
+const {
+  eyebrow = "WE3 / Agency Front Desk",
+  title,
+  lead,
+  ctaPrimary = { label: "Create Your Brief", href: "#brief-builder" },
+  ctaSecondary = { label: "See How WE3 Works", href: "#why-we3" },
+} = Astro.props;
+---
+<section class="codex-hero" id="top">
+  <div class="codex-hero__stripe" aria-hidden="true"></div>
+  <p class="codex-hero__eyebrow">{eyebrow}</p>
+  <h1 class="codex-hero__title">{title}</h1>
+  <p class="codex-hero__lead">{lead}</p>
+  <div class="codex-hero__body">
+    <slot />
+  </div>
+  <div class="codex-hero__actions">
+    <a class="codex-button" href={ctaPrimary.href}>{ctaPrimary.label}</a>
+    <a class="codex-button codex-button--ghost" href={ctaSecondary.href}>{ctaSecondary.label}</a>
+  </div>
+  <span class="codex-tag">Fixed team · Weekly booking</span>
+</section>

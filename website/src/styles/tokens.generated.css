@@ -1,0 +1,68 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --color-background-primary: #f4ede4;
+  --color-background-secondary: #fff7ef;
+  --color-background-tertiary: #2e2a25;
+  --color-codex-bg-light: #f4ede4;
+  --color-codex-bg-dark: #2e2a25;
+  --color-codex-surface-light: #fff7ef;
+  --color-codex-surface-dark: #5c2a2b;
+  --color-codex-ink-light: #2e2a25;
+  --color-codex-ink-dark: #fff7ef;
+  --color-codex-muted-light: #6c645b;
+  --color-codex-muted-dark: #efe2d6;
+  --color-codex-border-light: #d7cfc2;
+  --color-codex-border-dark: #c08a6d;
+  --color-codex-accent-light: #d96b5a;
+  --color-codex-accent-dark: #e9b146;
+  --color-codex-highlight-light: #4a90a4;
+  --color-codex-highlight-dark: #4a6aa5;
+  --color-text-primary: #2e2a25;
+  --color-text-secondary: #6c645b;
+  --color-text-accent: #d96b5a;
+  --color-base-linen: #f4ede4;
+  --color-base-warm-white: #fff7ef;
+  --color-base-warm-stone: #efe2d6;
+  --color-base-smoked-ink: #2e2a25;
+  --color-base-muted-brown: #6c645b;
+  --color-base-border-neutral: #d7cfc2;
+  --color-base-coral: #d96b5a;
+  --color-base-teal: #3fb0a2;
+  --color-base-marigold: #e9b146;
+  --color-base-cobalt: #4a6aa5;
+  --color-base-olive: #7f8b6a;
+  --color-base-clay: #c08a6d;
+  --color-base-deep-burgundy: #5c2a2b;
+  --color-base-peacock-blue: #4a90a4;
+  --color-base-burnt-orange: #d96b5a;
+  --typography-font-family-display: 'Newsreader', serif;
+  --typography-font-family-body: 'Work Sans', sans-serif;
+  --typography-font-family-mono: 'IBM Plex Mono', monospace;
+  --typography-font-size-small: 0.75rem;
+  --typography-font-size-base: 1rem;
+  --typography-font-size-large: 1.25rem;
+  --typography-font-size-xlarge: 2.3rem;
+  --typography-font-size-hero: clamp(2.3rem, 3.3vw, 3.6rem);
+  --typography-font-weight-regular: 400;
+  --typography-font-weight-medium: 500;
+  --typography-font-weight-semibold: 600;
+  --typography-line-height-body: 1.6;
+  --typography-line-height-tight: 1.2;
+  --typography-letter-spacing-tight: 0.008em;
+  --typography-letter-spacing-normal: 0.01em;
+  --spacing-small: 1rem;
+  --spacing-medium: 2rem;
+  --spacing-large: 4rem;
+  --effect-shadow-panel: 0 22px 40px rgba(60, 49, 38, 0.14);
+  --effect-shadow-image: 0 18px 35px rgba(60, 49, 38, 0.2);
+  --effect-border-width: 1px;
+  --effect-radius-large: 20px;
+  --effect-radius-medium: 12px;
+  --effect-texture-paper: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.02) 0, rgba(0, 0, 0, 0.02) 1px, transparent 1px, transparent 10px);
+  --asset-stripe-domestic: repeating-linear-gradient(90deg, #d96b5a 0 12px, #e9b146 12px 20px, #3fb0a2 20px 28px, #4a6aa5 28px 36px, #f4ede4 36px 42px, #2e2a25 42px 46px);
+  --asset-glow-primary: rgba(217, 107, 90, 0.18);
+  --asset-glow-secondary: rgba(63, 176, 162, 0.16);
+}

@@ -1,0 +1,288 @@
+@import "../../../styles/tokens.generated.css";
+
+body[data-variant="codex"] {
+  --codex-bg: var(--color-codex-bg-light);
+  --codex-surface: var(--color-codex-surface-light);
+  --codex-ink: var(--color-codex-ink-light);
+  --codex-muted: var(--color-codex-muted-light);
+  --codex-accent: var(--color-codex-accent-light);
+  --codex-border: var(--color-codex-border-light);
+  --codex-highlight: var(--color-codex-highlight-light);
+  --codex-stripe: var(--asset-stripe-domestic);
+
+  margin: 0;
+  min-height: 100vh;
+  background: var(--codex-bg);
+  color: var(--codex-ink);
+  font-family: var(--typography-font-family-body);
+  letter-spacing: var(--typography-letter-spacing-normal);
+  line-height: var(--typography-line-height-body);
+}
+
+html[data-theme="dark"] body[data-variant="codex"] {
+  --codex-bg: var(--color-codex-bg-dark);
+  --codex-surface: var(--color-codex-surface-dark);
+  --codex-ink: var(--color-codex-ink-dark);
+  --codex-muted: var(--color-codex-muted-dark);
+  --codex-accent: var(--color-codex-accent-dark);
+  --codex-border: var(--color-codex-border-dark);
+  --codex-highlight: var(--color-codex-highlight-dark);
+}
+
+body[data-variant="codex"] * {
+  box-sizing: border-box;
+}
+
+body[data-variant="codex"] a {
+  color: inherit;
+}
+
+body[data-variant="codex"] .codex-page {
+  display: grid;
+  gap: var(--spacing-large);
+  padding: var(--spacing-large) var(--spacing-medium);
+}
+
+body[data-variant="codex"] .codex-container {
+  width: 100%;
+  max-width: 72ch;
+  margin: 0 auto;
+  display: grid;
+  gap: var(--spacing-large);
+}
+
+body[data-variant="codex"] .codex-hero {
+  display: grid;
+  gap: var(--spacing-medium);
+  padding: var(--spacing-large);
+  border: var(--effect-border-width) solid var(--codex-border);
+  border-radius: var(--effect-radius-large);
+  background: linear-gradient(135deg, var(--codex-surface), var(--codex-bg));
+  box-shadow: var(--effect-shadow-panel);
+  position: relative;
+  overflow: hidden;
+}
+
+body[data-variant="codex"] .codex-hero::after {
+  content: "";
+  position: absolute;
+  inset: var(--spacing-medium);
+  border-radius: var(--effect-radius-medium);
+  border: var(--effect-border-width) dashed var(--codex-border);
+  pointer-events: none;
+}
+
+body[data-variant="codex"] .codex-hero__stripe {
+  height: var(--spacing-small);
+  background: var(--codex-stripe);
+  border-radius: var(--effect-radius-medium);
+}
+
+body[data-variant="codex"] .codex-hero__eyebrow {
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--typography-font-size-small);
+  text-transform: uppercase;
+  letter-spacing: var(--typography-letter-spacing-normal);
+  color: var(--codex-muted);
+}
+
+body[data-variant="codex"] .codex-hero__title {
+  font-family: var(--typography-font-family-display);
+  font-size: var(--typography-font-size-hero);
+  margin: 0;
+}
+
+body[data-variant="codex"] .codex-hero__lead {
+  font-size: var(--typography-font-size-large);
+  margin: 0;
+  color: var(--codex-muted);
+}
+
+body[data-variant="codex"] .codex-hero__body {
+  color: var(--codex-muted);
+  line-height: var(--typography-line-height-body);
+}
+
+body[data-variant="codex"] .codex-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-small);
+}
+
+body[data-variant="codex"] .codex-button {
+  padding: calc(var(--spacing-small) * 0.6) var(--spacing-small);
+  border-radius: var(--effect-radius-medium);
+  border: var(--effect-border-width) solid var(--codex-border);
+  background: var(--codex-ink);
+  color: var(--codex-bg);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-base);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing-small) * 0.4);
+  cursor: pointer;
+}
+
+body[data-variant="codex"] .codex-button--ghost {
+  background: transparent;
+  color: var(--codex-ink);
+}
+
+body[data-variant="codex"] .codex-section {
+  display: grid;
+  gap: var(--spacing-small);
+  padding: var(--spacing-medium);
+  border: var(--effect-border-width) solid var(--codex-border);
+  border-radius: var(--effect-radius-medium);
+  background: var(--codex-surface);
+}
+
+body[data-variant="codex"] .codex-section__eyebrow {
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--typography-font-size-small);
+  letter-spacing: var(--typography-letter-spacing-normal);
+  text-transform: uppercase;
+  color: var(--codex-accent);
+}
+
+body[data-variant="codex"] .codex-section__title {
+  font-family: var(--typography-font-family-display);
+  font-size: var(--typography-font-size-xlarge);
+  margin: 0;
+}
+
+body[data-variant="codex"] .codex-section__body {
+  color: var(--codex-muted);
+  line-height: var(--typography-line-height-body);
+}
+
+body[data-variant="codex"] .codex-section__body h3 {
+  color: var(--codex-ink);
+  font-family: var(--typography-font-family-display);
+}
+
+body[data-variant="codex"] .codex-section__body ul {
+  margin: 0;
+  padding-left: var(--spacing-medium);
+  display: grid;
+  gap: calc(var(--spacing-small) * 0.4);
+}
+
+body[data-variant="codex"] .codex-grid {
+  display: grid;
+  gap: var(--spacing-small);
+}
+
+body[data-variant="codex"] .codex-grid--two {
+  grid-template-columns: repeat(auto-fit, minmax(calc(var(--spacing-large) * 4), 1fr));
+}
+
+body[data-variant="codex"] .codex-card {
+  border: var(--effect-border-width) solid var(--codex-border);
+  border-radius: var(--effect-radius-medium);
+  padding: var(--spacing-small);
+  background: var(--codex-bg);
+  display: grid;
+  gap: calc(var(--spacing-small) * 0.5);
+}
+
+body[data-variant="codex"] .codex-card__title {
+  font-weight: var(--typography-font-weight-semibold);
+}
+
+body[data-variant="codex"] .codex-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing-small) * 0.3);
+  padding: calc(var(--spacing-small) * 0.3) calc(var(--spacing-small) * 0.6);
+  border-radius: var(--effect-radius-medium);
+  border: var(--effect-border-width) solid var(--codex-border);
+  font-size: var(--typography-font-size-small);
+  font-family: var(--typography-font-family-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--typography-letter-spacing-normal);
+  color: var(--codex-muted);
+}
+
+body[data-variant="codex"] .codex-brief {
+  display: grid;
+  gap: var(--spacing-medium);
+}
+
+body[data-variant="codex"] .codex-brief__grid {
+  display: grid;
+  gap: var(--spacing-medium);
+  grid-template-columns: repeat(auto-fit, minmax(calc(var(--spacing-large) * 5), 1fr));
+}
+
+body[data-variant="codex"] .codex-brief__panel {
+  border: var(--effect-border-width) solid var(--codex-border);
+  border-radius: var(--effect-radius-medium);
+  padding: var(--spacing-small);
+  background: var(--codex-bg);
+  display: grid;
+  gap: var(--spacing-small);
+}
+
+body[data-variant="codex"] .codex-brief__step {
+  display: none;
+  gap: var(--spacing-small);
+}
+
+body[data-variant="codex"] .codex-brief__step.is-active {
+  display: grid;
+}
+
+body[data-variant="codex"] .codex-brief__label {
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--typography-font-size-small);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--codex-muted);
+}
+
+body[data-variant="codex"] .codex-brief__input,
+body[data-variant="codex"] .codex-brief__textarea,
+body[data-variant="codex"] .codex-brief__select {
+  border: var(--effect-border-width) solid var(--codex-border);
+  border-radius: var(--effect-radius-medium);
+  padding: calc(var(--spacing-small) * 0.6);
+  background: var(--codex-surface);
+  color: var(--codex-ink);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-base);
+}
+
+body[data-variant="codex"] .codex-brief__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing-small) * 0.5);
+}
+
+body[data-variant="codex"] .codex-brief__summary {
+  white-space: pre-wrap;
+  background: var(--codex-surface);
+  border: var(--effect-border-width) solid var(--codex-border);
+  border-radius: var(--effect-radius-medium);
+  padding: var(--spacing-small);
+  font-size: var(--typography-font-size-small);
+}
+
+body[data-variant="codex"] .codex-muted {
+  color: var(--codex-muted);
+}
+
+body[data-variant="codex"] .codex-divider {
+  height: calc(var(--spacing-small) * 0.2);
+  background: var(--codex-border);
+  border-radius: var(--effect-radius-medium);
+}
+
+body[data-variant="codex"] .codex-footer {
+  display: grid;
+  gap: var(--spacing-small);
+  padding-top: var(--spacing-small);
+  border-top: var(--effect-border-width) solid var(--codex-border);
+  font-size: var(--typography-font-size-small);
+}

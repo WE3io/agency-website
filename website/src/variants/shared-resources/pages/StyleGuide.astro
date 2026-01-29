@@ -1,0 +1,258 @@
+---
+import "../styles/style-guide.css";
+import * as tokens from "../../../tokens/tokens.generated";
+
+const palette = [
+  {
+    title: "Foundations",
+    swatches: [
+      { name: "Linen", var: "--color-base-linen", value: tokens.ColorBaseLinen },
+      { name: "Warm White", var: "--color-base-warm-white", value: tokens.ColorBaseWarmWhite },
+      { name: "Smoked Ink", var: "--color-base-smoked-ink", value: tokens.ColorBaseSmokedInk },
+    ]
+  },
+  {
+    title: "Collected Accents",
+    swatches: [
+      { name: "Coral", var: "--color-base-coral", value: tokens.ColorBaseCoral },
+      { name: "Teal", var: "--color-base-teal", value: tokens.ColorBaseTeal },
+      { name: "Marigold", var: "--color-base-marigold", value: tokens.ColorBaseMarigold },
+    ]
+  },
+  {
+    title: "Unexpected Notes",
+    swatches: [
+      { name: "Cobalt", var: "--color-base-cobalt", value: tokens.ColorBaseCobalt },
+      { name: "Olive", var: "--color-base-olive", value: tokens.ColorBaseOlive },
+      { name: "Clay", var: "--color-base-clay", value: tokens.ColorBaseClay },
+    ]
+  },
+  {
+    title: "Rich Exploration",
+    swatches: [
+      { name: "Deep Burgundy", var: "--color-base-deep-burgundy", value: tokens.ColorBaseDeepBurgundy },
+      { name: "Peacock Blue", var: "--color-base-peacock-blue", value: tokens.ColorBasePeacockBlue },
+      { name: "Burnt Orange", var: "--color-base-burnt-orange", value: tokens.ColorBaseBurntOrange },
+    ]
+  }
+];
+
+const typeHierarchy = [
+  { role: "Display / Hero", class: "hero-text", size: tokens.TypographyFontSizeHero, font: tokens.TypographyFontFamilyDisplay },
+  { role: "Display / Subhead", class: "display-text", size: tokens.TypographyFontSizeXlarge, font: tokens.TypographyFontFamilyDisplay },
+  { role: "Body / Default", class: "body-text", size: tokens.TypographyFontSizeBase, font: tokens.TypographyFontFamilyBody },
+  { role: "Mono / Label", class: "mono-text", size: tokens.TypographyFontSizeSmall, font: tokens.TypographyFontFamilyMono },
+];
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>WE3 Shared Style Guide (Exhaustive Domestic)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:wght@300;400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="style-guide-wrapper">
+        <div class="style-guide">
+            <header class="guide-header">
+                <p style="font-family: var(--typography-font-family-mono); font-size: 0.75rem; letter-spacing: 0.25em; color: var(--color-base-coral);">WE3 / ECOSYSTEM / DOMESTIC baseline</p>
+                <h1 style="font-family: var(--typography-font-family-display); font-size: 4rem; margin: 0.5rem 0;">Exhaustive Style Guide</h1>
+                <p style="max-width: 60ch; font-size: 1.1rem; opacity: 0.8;">A ground-truth reference for the <strong>Curated Collector Domestic</strong> theme. All agents extend from this set using token extensions.</p>
+            </header>
+
+            <!-- 1. Palette Exploration -->
+            <section class="guide-section">
+                <h2>The Domestic Palette</h2>
+                <div style="display: grid; gap: 2rem;">
+                    {palette.map(group => (
+                        <div>
+                            <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">{group.title}</h3>
+                            <div class="swatch-grid">
+                                {group.swatches.map(c => (
+                                    <div class="swatch-card">
+                                        <div class="swatch-color" style={{ backgroundColor: `var(${c.var})` }}></div>
+                                        <div class="swatch-info">
+                                            <strong>{c.name}</strong><br/>
+                                            <code>{c.var}</code><br/>
+                                            <span style="opacity: 0.5;">{c.value}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <!-- 2. Typography Hierarchy -->
+            <section class="guide-section">
+                <h2>Typography Pairings</h2>
+                <div style="display: grid; gap: 2.5rem;">
+                    {typeHierarchy.map(t => (
+                        <div class="type-sample">
+                            <p class="type-label" style="font-family: var(--typography-font-family-mono); font-size: 0.65rem; text-transform: uppercase; color: var(--color-base-coral);">{t.role}</p>
+                            <div style={`font-family: ${t.font}; font-size: ${t.size};`}>
+                                {t.role.includes("Display") ? "Collected with intent." : "Warm, measured, clear. Body typography balances readability with warmth. It should feel like a curator's note."}
+                            </div>
+                            {t.role.includes("Mono") && <div style="margin-top: 0.5rem; font-family: var(--typography-font-family-mono); letter-spacing: 0.2em;">COLLECTION / 04 / STATUS: ON DISPLAY</div>}
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <!-- 3. Vignettes & Signature Layouts -->
+            <section class="guide-section">
+                <h2>Surface & Vignettes</h2>
+                <div class="vignette-grid">
+                    <div>
+                        <p style="font-family: var(--typography-font-family-mono); font-size: 0.7rem; text-transform: uppercase; color: var(--color-base-coral); margin-bottom: 1rem;">Opening Vignette</p>
+                        <h3 style="font-family: var(--typography-font-family-display); font-size: 3rem; line-height: 1.1; margin-bottom: 1.5rem;">A place for ideas with character.</h3>
+                        <p style="max-width: 45ch; opacity: 0.8;">Thoughtful curation meets builder instinct. Each concept is treated like a rare artifact, not a commodity. We extend freely but express through tokens.</p>
+                        <div class="demo-grid" style="margin-top: 2rem;">
+                            <button class="btn primary">Primary Build</button>
+                            <button class="btn secondary">View Archive</button>
+                        </div>
+                    </div>
+                    <div class="vignette-frame">
+                        <div class="stripe"></div>
+                        <span style="position: absolute; top: 1rem; right: 1rem; font-family: var(--typography-font-family-mono); font-size: 0.6rem; opacity: 0.3;">Archive 07</span>
+                        <p style="font-family: var(--typography-font-family-mono); font-size: 0.65rem; text-transform: uppercase;">Found note</p>
+                        <p style="font-family: var(--typography-font-family-display); font-size: 1.8rem; font-style: italic; margin: 1rem 0;">"Builds feel best when they are curated, not rushed."</p>
+                        <p style="font-size: 0.8rem; opacity: 0.6;">From the studio archive</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Image Elements -->
+            <section class="guide-section">
+                <h2>Image Treatment</h2>
+                <div class="image-grid">
+                    <figure class="image-card">
+                        <div class="image-placeholder">OBJECT STUDY</div>
+                        <figcaption style="margin-top: 1rem;">
+                            <span style="font-family: var(--typography-font-family-body); font-weight: 600;">Matte Edge</span><br/>
+                            <span style="font-size: 0.85rem; opacity: 0.7;">Generous padding within deep surface frame.</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="image-card" style="transform: rotate(1deg);">
+                        <div class="image-placeholder" style="background: color-mix(in srgb, var(--color-base-marigold) 15%, transparent);">STUDIO SNAPSHOT</div>
+                        <figcaption style="margin-top: 1rem;">
+                            <span style="font-family: var(--typography-font-family-body); font-weight: 600;">Borderless Crop</span><br/>
+                            <span style="font-size: 0.85rem; opacity: 0.7;">Soft edges, organic rotation, shadow depth.</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- 5. Collection Board (Interactive Specimen) -->
+            <section class="guide-section">
+                <h2>The Collection Board</h2>
+                <div class="collection-board">
+                    <div class="collection-item" style="top: 30px; left: 40px; --tilt: -3deg; transform: rotate(-3deg);">
+                        <p style="font-family: var(--typography-font-family-mono); font-size: 0.65rem; color: var(--color-base-coral);">Archive 12</p>
+                        <p style="font-family: var(--typography-font-family-display); font-size: 1.2rem; margin: 0.5rem 0;">Speculative Product Card</p>
+                        <p style="font-size: 0.85rem; opacity: 0.7;">Loose annotations and staging notes from the field.</p>
+                    </div>
+                    <div class="collection-item" style="bottom: 40px; right: 50px; --tilt: 2deg; transform: rotate(2deg); width: 260px;">
+                        <p style="font-family: var(--typography-font-family-mono); font-size: 0.65rem; color: var(--color-base-teal);">Specimen A4</p>
+                        <p style="font-family: var(--typography-font-family-display); font-size: 1.2rem; margin: 0.5rem 0;">Measured Collection Index</p>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                            <span class="badge">ACTIVE</span>
+                            <span class="badge" style="background: var(--color-base-teal); color: #fff;">FILED</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Atmospheric Effects -->
+            <section class="guide-section">
+                <h2>Atmospheric Effects</h2>
+                <p style="max-width: 60ch; opacity: 0.8; margin-bottom: 2rem;">Backdrop glows, paper grain, and vignette bloom create the curated-gallery atmosphere. These sit behind content as fixed or absolute layers — subtle enough to feel ambient, present enough to establish mood.</p>
+
+                <!-- Backdrop Glow Specimens -->
+                <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">Backdrop Glows</h3>
+                <div class="atmos-grid">
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="burgundy-gold">
+                            <span class="atmos-label">Burgundy + Gold</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(92, 42, 43, 0.18)</code> / <code>rgba(228, 185, 108, 0.12)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Warm, rich — current Tools page direction</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="coral-teal">
+                            <span class="atmos-label">Coral + Teal</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(217, 107, 90, 0.18)</code> / <code>rgba(63, 176, 162, 0.16)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Default domestic glow pair</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="sage-gold">
+                            <span class="atmos-label">Sage + Gold</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(58, 127, 101, 0.15)</code> / <code>rgba(228, 185, 108, 0.12)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Gallery theme — original concept</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="burgundy-cobalt">
+                            <span class="atmos-label">Burgundy + Cobalt</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(92, 42, 43, 0.18)</code> / <code>rgba(74, 106, 165, 0.14)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Deep, evening tone — rich exploration</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paper Texture -->
+                <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin: 2rem 0 1rem; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">Paper Texture</h3>
+                <div class="atmos-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview atmos-preview--texture" data-texture="120deg">
+                            <span class="atmos-label">120° Grain</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>repeating-linear-gradient(120deg, …)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Gallery direction — diagonal grain</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview atmos-preview--texture" data-texture="90deg">
+                            <span class="atmos-label">90° Grain</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>repeating-linear-gradient(90deg, …)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Domestic baseline — vertical grain</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combined Preview -->
+                <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin: 2rem 0 1rem; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">Combined — Glow + Grain + Content</h3>
+                <div class="atmos-combined">
+                    <div class="atmos-combined__glow"></div>
+                    <div class="atmos-combined__grain"></div>
+                    <div class="atmos-combined__content">
+                        <p style="font-family: var(--typography-font-family-mono); font-size: 0.65rem; text-transform: uppercase; color: var(--color-base-coral); margin-bottom: 0.5rem;">Atmosphere specimen</p>
+                        <h3 style="font-family: var(--typography-font-family-display); font-size: 2.2rem; line-height: 1.15; margin-bottom: 1rem;">Collected with intent.</h3>
+                        <p style="max-width: 45ch; opacity: 0.8; font-size: 0.95rem;">The backdrop creates a warm, ambient field behind content. Paper grain adds tactile depth. Together they evoke a gallery space rather than a digital interface.</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--guide-border); font-family: var(--typography-font-family-mono); font-size: 0.6rem; opacity: 0.4;">
+                WE3 / STUDIO / COPROCESSOR / V0.2 / EXHAUSTIVE_DOMESTIC_BASELINE
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

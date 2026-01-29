@@ -1,0 +1,46 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="logo-svg" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="4" result="blur"/>
+                            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                            <feGaussianBlur stdDeviation="15" result="largeBlur"/>
+                            <feMerge>
+                                <feMergeNode in="largeBlur"/>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <!-- Individual Tier Filters -->
+                        <filter id="glow-a" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur id="blur-a" stdDeviation="5" result="blur"/>
+                            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                        </filter>
+                        <filter id="glow-b" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur id="blur-b" stdDeviation="5" result="blur"/>
+                            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                        </filter>
+                        <filter id="glow-c" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur id="blur-c" stdDeviation="5" result="blur"/>
+                            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                        </filter>
+                    <filter id="glow-3fb0a2-3" class="dynamic-glow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#3fb0a2" flood-opacity="1"/></filter></defs>
+                    <!-- Concentric Nonagon Tiers -->
+                    
+                    
+                    
+
+                    <!-- Reference Circles (Hidden by default or toggled) -->
+                    
+                    
+                    
+
+                    <!-- Character Groups -->
+                    <g/><g id="char-w" class="char-group"><path d="M 298.99111460513524,172.99142565201524 L 316.10090986524955,163.63701994363544 A 25.5,25.5 0 0 1 350.7079419009726,173.77868320359602 L 473.52129643465275,398.4120182103001 A 6,6 0 0 1 471.1350227264267,406.5548492775291 L 454.0252274663124,415.9092549859089 A 25.5,25.5 0 0 1 419.4181954305893,405.7675917259483 L 296.6048408969092,181.1342567192442 A 6,6 0 0 1 298.99111460513524,172.99142565201524 Z" class="segment" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#glow-3fb0a2-3)" style="cursor: pointer;"/><path d="M 480.5,275.4134636321679 L 500,275.4134636321679 A 25.5,25.5 0 0 1 525.5,300.9134636321679 L 525.5,400.0307379214091 A 6,6 0 0 1 519.5,406.0307379214091 L 500,406.0307379214091 A 25.5,25.5 0 0 1 474.5,380.5307379214091 L 474.5,281.4134636321679 A 6,6 0 0 1 480.5,275.4134636321679 Z" class="segment" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#glow-3fb0a2-3)" style="cursor: pointer;"/><path d="M 666.7892948746362,154.28261423525575 L 683.8990901347506,163.63701994363555 A 25.5,25.5 0 0 1 694.0407533947113,198.24405197935866 L 571.227398861031,422.8773869860627 A 6,6 0 0 1 563.0845677938021,425.2636606942887 L 545.9747725336877,415.9092549859089 A 25.5,25.5 0 0 1 535.833109273727,381.30222295018575 L 658.6464638074073,156.66888794348176 A 6,6 0 0 1 666.7892948746362,154.28261423525575 Z" class="segment" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#glow-3fb0a2-3)" style="cursor: pointer;"/></g>
+                    <g id="char-e" class="char-group"><path d="M 883.7021753381196,489.4254860356445 L 883.2484306888255,508.920206238644 A 25.5,25.5 0 0 1 857.1619766512108,533.8199435011819 L 601.2171247317448,527.8627609479815 A 6,6 0 0 1 595.3583630229123,521.7247717626605 L 595.8121076722064,502.230051559661 A 25.5,25.5 0 0 1 621.898561709821,477.33031429712315 L 877.843413629287,483.28749685032335 A 6,6 0 0 1 883.7021753381196,489.4254860356445 Z" class="segment" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#glow-3fb0a2-3)" style="cursor: pointer;"/><path d="M 704.2476458425003,595.4057728101195 L 684.7476458425003,629.1807635577127 A 6,6 0 0 1 676.5514934197937,631.3769159804193 L 590.7134159314406,581.8182788357987 A 25.5,25.5 0 0 1 581.3797681349374,546.9846310392954 L 581.3797681349374,546.9846310392954 A 25.5,25.5 0 0 1 616.2134159314406,537.6509832427922 L 702.0514934197937,587.2096203874129 A 6,6 0 0 1 704.2476458425003,595.4057728101195 Z" class="segment" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#glow-3fb0a2-3)" style="cursor: pointer;"/><path d="M 699.3493405540748,827.4427738177204 L 682.6932899432546,837.5830883123401 A 6,6 0 0 1 674.4482545261961,835.5782464304323 L 541.3167571404103,616.9020939769285 A 25.5,25.5 0 0 1 549.8373351385187,581.8606934544301 L 566.4933857493389,571.7203789598104 A 6,6 0 0 1 574.7384211663974,573.7252208417183 L 707.8699185521832,792.401373295222 A 25.5,25.5 0 0 1 699.3493405540748,827.4427738177204 Z" class="segment" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#glow-3fb0a2-3)" style="cursor: pointer;"/></g>
+                    <g id="char-3" class="char-group"><path d="M 300.65065944592527,827.4427738177205 L 283.99460883510505,817.3024593231008 A 6,6 0 0 1 281.9897669531972,809.0574239060423 L 415.12126433898294,590.3812714525385 A 25.5,25.5 0 0 1 450.1626648614813,581.8606934544301 L 466.8187154723015,592.0010079490498 A 6,6 0 0 1 468.82355735420936,600.2460433661083 L 335.6920599684236,818.9221958196122 A 25.5,25.5 0 0 1 300.65065944592527,827.4427738177205 Z" class="segment" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#glow-3fb0a2-3)" style="cursor: pointer;"/><path d="M 305.50235415749967,612.2932681839161 L 305.50235415749967,612.2932681839161 A 25.5,25.5 0 0 1 314.8360019540028,577.4596203874129 L 400.674079442356,527.9009832427922 A 6,6 0 0 1 408.87023186506264,530.0971356654989 L 428.37023186506264,563.872126413092 A 6,6 0 0 1 426.174079442356,572.0682788357987 L 340.3360019540028,621.6269159804193 A 25.5,25.5 0 0 1 305.50235415749967,612.2932681839161 Z" class="segment" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#glow-3fb0a2-3)" style="cursor: pointer;"/><path d="M 117.2053139604687,528.4149264416436 L 116.75156931117459,508.9202062386441 A 25.5,25.5 0 0 1 141.65130657371242,482.83375220102937 L 397.5961584931784,476.8765696478291 A 6,6 0 0 1 403.73414767849954,482.73533135666156 L 404.18789232779363,502.2300515596611 A 25.5,25.5 0 0 1 379.2881550652558,528.3165055972758 L 123.3433031457898,534.2736881504761 A 6,6 0 0 1 117.2053139604687,528.4149264416436 Z" class="segment" fill="#d96b5a" stroke="#2e2a25" stroke-width="3" filter="url(#glow-3fb0a2-3)" style="cursor: pointer;"/></g>
+
+                    <!-- Debug Labels -->
+                    
+                    <g id="tier-labels-group"/>
+                </svg>
