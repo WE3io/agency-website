@@ -12,13 +12,13 @@
   --c-surface-2: #f3ede2;             /* Light beige */
   --c-text: #1b1b1b;                  /* Near black */
   --c-muted: #6e6961;                 /* Warm gray */
-  --c-border: #d8d2c9;                /* Warm light gray */
+  --c-border: #d7cfc2;                /* Border Neutral */
 
-  /* Accent Colors - The Collection */
-  --c-accent: #3a7f65;                /* Sage green (WE3 primary) */
-  --c-accent-gold: #e4b96c;           /* Gold - for highlights */
-  --c-accent-terracotta: #c0715a;     /* Terracotta - warmth */
-  --c-accent-navy: #435f9c;           /* Navy - depth */
+  /* Accent Colors - Domestic Palette */
+  --c-accent: #d96b5a;                /* Coral (primary) */
+  --c-accent-gold: #e9b146;           /* Marigold */
+  --c-accent-terracotta: #c0715a;     /* Terracotta - warmth (TODO: align) */
+  --c-accent-navy: #4a6aa5;           /* Cobalt */
   --c-button-text: #fdfbf7;
 
   /* Typography */
@@ -58,8 +58,8 @@
 
   /* Decorative Elements */
   --stripe: repeating-linear-gradient(90deg,
-    #3a7f65 0 12px, #e4b96c 12px 20px,
-    #c0715a 20px 28px, #435f9c 28px 36px);
+    #d96b5a 0 12px, #e9b146 12px 20px,
+    #3fb0a2 20px 28px, #4a6aa5 28px 36px);
   --glow-sage: rgba(92, 42, 43, 0.18);   /* Burgundy — was sage green */
   --glow-gold: rgba(228, 185, 108, 0.12);
 
@@ -228,12 +228,12 @@ a:hover {
 .btn--primary {
   background: var(--c-accent);
   color: var(--c-button-text);
-  box-shadow: 0 8px 20px rgba(58, 127, 101, 0.25);
+  box-shadow: 0 8px 20px rgba(217, 107, 90, 0.25);
 }
 
 .btn--primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgba(58, 127, 101, 0.3);
+  box-shadow: 0 12px 28px rgba(217, 107, 90, 0.3);
 }
 
 .btn--secondary {
