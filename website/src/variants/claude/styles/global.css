@@ -60,7 +60,7 @@
   --stripe: repeating-linear-gradient(90deg,
     #3a7f65 0 12px, #e4b96c 12px 20px,
     #c0715a 20px 28px, #435f9c 28px 36px);
-  --glow-sage: rgba(58, 127, 101, 0.15);
+  --glow-sage: rgba(92, 42, 43, 0.18);   /* Burgundy — was sage green */
   --glow-gold: rgba(228, 185, 108, 0.12);
 
   /* Transitions */

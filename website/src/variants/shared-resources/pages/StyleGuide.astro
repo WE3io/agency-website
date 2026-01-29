@@ -167,6 +167,88 @@ const typeHierarchy = [
                 </div>
             </section>
 
+            <!-- 6. Atmospheric Effects -->
+            <section class="guide-section">
+                <h2>Atmospheric Effects</h2>
+                <p style="max-width: 60ch; opacity: 0.8; margin-bottom: 2rem;">Backdrop glows, paper grain, and vignette bloom create the curated-gallery atmosphere. These sit behind content as fixed or absolute layers — subtle enough to feel ambient, present enough to establish mood.</p>
+
+                <!-- Backdrop Glow Specimens -->
+                <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">Backdrop Glows</h3>
+                <div class="atmos-grid">
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="burgundy-gold">
+                            <span class="atmos-label">Burgundy + Gold</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(92, 42, 43, 0.18)</code> / <code>rgba(228, 185, 108, 0.12)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Warm, rich — current Tools page direction</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="coral-teal">
+                            <span class="atmos-label">Coral + Teal</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(217, 107, 90, 0.18)</code> / <code>rgba(63, 176, 162, 0.16)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Default domestic glow pair</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="sage-gold">
+                            <span class="atmos-label">Sage + Gold</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(58, 127, 101, 0.15)</code> / <code>rgba(228, 185, 108, 0.12)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Gallery theme — original concept</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="burgundy-cobalt">
+                            <span class="atmos-label">Burgundy + Cobalt</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(92, 42, 43, 0.18)</code> / <code>rgba(74, 106, 165, 0.14)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Deep, evening tone — rich exploration</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paper Texture -->
+                <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin: 2rem 0 1rem; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">Paper Texture</h3>
+                <div class="atmos-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview atmos-preview--texture" data-texture="120deg">
+                            <span class="atmos-label">120° Grain</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>repeating-linear-gradient(120deg, …)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Gallery direction — diagonal grain</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview atmos-preview--texture" data-texture="90deg">
+                            <span class="atmos-label">90° Grain</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>repeating-linear-gradient(90deg, …)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Domestic baseline — vertical grain</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combined Preview -->
+                <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin: 2rem 0 1rem; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">Combined — Glow + Grain + Content</h3>
+                <div class="atmos-combined">
+                    <div class="atmos-combined__glow"></div>
+                    <div class="atmos-combined__grain"></div>
+                    <div class="atmos-combined__content">
+                        <p style="font-family: var(--typography-font-family-mono); font-size: 0.65rem; text-transform: uppercase; color: var(--color-base-coral); margin-bottom: 0.5rem;">Atmosphere specimen</p>
+                        <h3 style="font-family: var(--typography-font-family-display); font-size: 2.2rem; line-height: 1.15; margin-bottom: 1rem;">Collected with intent.</h3>
+                        <p style="max-width: 45ch; opacity: 0.8; font-size: 0.95rem;">The backdrop creates a warm, ambient field behind content. Paper grain adds tactile depth. Together they evoke a gallery space rather than a digital interface.</p>
+                    </div>
+                </div>
+            </section>
+
             <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--guide-border); font-family: var(--typography-font-family-mono); font-size: 0.6rem; opacity: 0.4;">
                 WE3 / STUDIO / COPROCESSOR / V0.2 / EXHAUSTIVE_DOMESTIC_BASELINE
             </footer>
