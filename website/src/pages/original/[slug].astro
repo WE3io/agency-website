@@ -1,0 +1,6 @@
+---
+export { getStaticPaths } from "../../variants/original/pages/[slug].astro";
+import Page from "../../variants/original/pages/[slug].astro";
+const { props } = Astro;
+---
+<Page {...props} />

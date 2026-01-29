@@ -1,0 +1,10 @@
+---
+const { id, eyebrow, title } = Astro.props;
+---
+<section id={id} class="codex-section">
+  {eyebrow ? <p class="codex-section__eyebrow">{eyebrow}</p> : null}
+  {title ? <h2 class="codex-section__title">{title}</h2> : null}
+  <div class="codex-section__body">
+    <slot />
+  </div>
+</section>

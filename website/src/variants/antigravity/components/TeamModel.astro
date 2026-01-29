@@ -1,0 +1,50 @@
+---
+---
+<section class="team-model">
+    <h2>The Three-Layer Team Model</h2>
+    <div class="model-grid">
+        <div class="layer core">
+            <h3>1. The Core Triad</h3>
+            <p>Senior Product, Design, and Engineering leads forming the dedicated heart of every project.</p>
+        </div>
+        <div class="layer fractional">
+            <h3>2. Fractional Specialists</h3>
+            <p>On-demand talent for specific deep-dives: Growth, Security, Brand, or niche Infra.</p>
+        </div>
+        <div class="layer apprentices">
+            <h3>3. Apprentices</h3>
+            <p>Rising talent supported by the Core, adding scale and fresh perspective while gaining elite experience.</p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .team-model {
+        margin: var(--spacing-large) 0;
+    }
+    .model-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-medium);
+        margin-top: var(--spacing-medium);
+    }
+    .layer {
+        padding: var(--spacing-medium);
+        background: var(--ag-surface);
+        border: 1px solid var(--ag-border);
+        border-radius: var(--effect-radius-medium);
+        transition: transform 0.2s ease;
+    }
+    .layer:hover {
+        transform: translateY(-4px);
+        border-color: var(--ag-accent);
+    }
+    .layer h3 {
+        font-size: 1.25rem;
+        color: var(--ag-accent);
+        margin-bottom: 1rem;
+    }
+    @media (max-width: 900px) {
+        .model-grid { grid-template-columns: 1fr; }
+    }
+</style>

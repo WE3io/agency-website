@@ -122,6 +122,15 @@ const themeConfigs = {
           { label: "Clay", color: "#c08a6d" },
         ],
       },
+      {
+        title: "Rich Exploration",
+        note: "Derived from interior study. Lean into these for more depth.",
+        swatches: [
+          { label: "Deep Burgundy", color: "#5c2a2b" },
+          { label: "Peacock Blue", color: "#4a90a4" },
+          { label: "Burnt Orange", color: "#d96b5a" },
+        ],
+      },
     ],
     vars: {
       "--bg": "#f4ede4",
@@ -165,6 +174,89 @@ const themeConfigs = {
       "--image-blend": "soft-light",
       "--image-shadow": "0 18px 35px rgba(60, 49, 38, 0.2)",
       "--image-border": "rgba(0, 0, 0, 0.14)",
+      "--image-saturation": "1.08",
+      "--image-contrast": "1.03",
+    },
+  },
+  domestic_rich: {
+    label: "Domestic Rich",
+    description: "Deep, saturated exploration of the interior study.",
+    fonts: {
+      display: "Newsreader",
+      body: "Work Sans",
+      accent: "IBM Plex Mono",
+    },
+    paletteGroups: [
+      {
+        title: "Foundations",
+        note: "Hinted neutrals, avoiding pure black/white.",
+        swatches: [
+          { label: "Silk White", color: "#fdfcf8" },
+          { label: "Stone Gray", color: "#6c625f" },
+          { label: "Ink Burgundy", color: "#1f1818" },
+        ],
+      },
+      {
+        title: "Rich Accents",
+        note: "Saturated tones inspired by the room's character.",
+        swatches: [
+          { label: "Deep Burgundy", color: "#5c2a2b" },
+          { label: "Peacock Blue", color: "#4a90a4" },
+          { label: "Burnt Orange", color: "#d96b5a" },
+        ],
+      },
+      {
+        title: "Complementary Notes",
+        note: "Mustard light and complementary depth.",
+        swatches: [
+          { label: "Mustard", color: "#e9b146" },
+          { label: "Deep Teal", color: "#264653" },
+          { label: "Clay", color: "#c08a6d" },
+        ],
+      },
+    ],
+    vars: {
+      "--bg": "#fdfcf8",
+      "--surface": "#fffdfa",
+      "--surface-2": "#f5f0e8",
+      "--text": "#1f1818",
+      "--muted": "#6c625f",
+      "--border": "#e3ded6",
+      "--accent": "#5c2a2b",
+      "--button-text": "#fdfcf8",
+      "--stripe":
+        "repeating-linear-gradient(90deg, #5c2a2b 0 12px, #e9b146 12px 20px, #4a90a4 20px 28px, #d96b5a 28px 36px, #fdfcf8 36px 42px, #1f1818 42px 46px)",
+      "--glow-1": "rgba(92, 42, 43, 0.15)",
+      "--glow-2": "rgba(74, 144, 164, 0.12)",
+      "--font-display": '"Newsreader", serif',
+      "--font-body": '"Work Sans", sans-serif',
+      "--font-accent": '"IBM Plex Mono", monospace',
+      "--radius": "20px",
+      "--tracking": "0.008em",
+      "--hero-size": "clamp(2.3rem, 3.3vw, 3.6rem)",
+      "--shadow": "0 22px 40px rgba(60, 49, 38, 0.12)",
+      "--paper-texture":
+        "repeating-linear-gradient(90deg, rgba(92, 42, 43, 0.02) 0, rgba(92, 42, 43, 0.02) 1px, transparent 1px, transparent 10px)",
+      "--vignette-shapes":
+        "radial-gradient(circle at 15% 25%, rgba(92, 42, 43, 0.3) 0 34%, transparent 36%), radial-gradient(circle at 86% 10%, rgba(74, 144, 164, 0.28) 0 28%, transparent 30%), radial-gradient(140% 120% at 80% 120%, rgba(233, 177, 70, 0.25) 0 44%, transparent 46%)",
+      "--vignette-bloom": "radial-gradient(circle at 70% 20%, rgba(92, 42, 43, 0.22), transparent 70%)",
+      "--vignette-frame-x": "10px",
+      "--vignette-frame-y": "-10px",
+      "--vignette-text-x": "-6px",
+      "--vignette-text-y": "0px",
+      "--collection-shapes":
+        "radial-gradient(circle at 15% 25%, rgba(74, 144, 164, 0.18) 0 28%, transparent 29%), radial-gradient(circle at 80% 70%, rgba(92, 42, 43, 0.15) 0 30%, transparent 31%)",
+      "--image-a": imageA,
+      "--image-b": imageB,
+      "--image-c": imageA,
+      "--image-overlay":
+        "radial-gradient(circle at 20% 15%, rgba(92, 42, 43, 0.3) 0 26%, transparent 28%), radial-gradient(circle at 80% 0%, rgba(74, 144, 164, 0.25) 0 30%, transparent 32%), linear-gradient(140deg, rgba(233, 177, 70, 0.2), rgba(255, 255, 255, 0))",
+      "--image-highlight":
+        "radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.3) 0 30%, transparent 60%)",
+      "--image-highlight-opacity": "0.4",
+      "--image-blend": "soft-light",
+      "--image-shadow": "0 18px 35px rgba(60, 49, 38, 0.18)",
+      "--image-border": "rgba(92, 42, 43, 0.1)",
       "--image-saturation": "1.08",
       "--image-contrast": "1.03",
     },

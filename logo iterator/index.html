@@ -131,7 +131,7 @@
                     <div class="control-group">
                         <div class="control-row" style="margin-bottom: 12px;">
                             <label style="font-size:10px; color:rgba(255,255,255,0.6);">Fill Color</label>
-                            <input type="color" id="input-fill-color" value="#ffcc00">
+                            <div id="palette-fill" class="palette-container"></div>
                         </div>
 
                         <div class="control-group">
@@ -143,7 +143,7 @@
                                 <div class="slider-inline">
                                     <input type="range" id="input-stroke-width" min="0" max="30" value="0" step="3">
                                 </div>
-                                <input type="color" id="input-stroke-color" value="#ffffff">
+                                <div id="palette-stroke" class="palette-container"></div>
                             </div>
                         </div>
 
@@ -156,7 +156,7 @@
                                 <div class="slider-inline">
                                     <input type="range" id="input-glow-blur" min="0" max="100" value="0" step="3">
                                 </div>
-                                <input type="color" id="input-glow-color" value="#ffcc00">
+                                <div id="palette-glow" class="palette-container"></div>
                             </div>
                         </div>
 
@@ -224,7 +224,7 @@
                                 <span>Shadow</span>
                                 <input type="range" id="input-blur-a" min="0" max="100" value="20" step="3">
                             </div>
-                            <input type="color" id="input-color-a" value="#ffcc00">
+                            <div id="palette-a" class="palette-container"></div>
                         </div>
                     </div>
 
@@ -246,7 +246,7 @@
                                 <span>Shadow</span>
                                 <input type="range" id="input-blur-b" min="0" max="100" value="20" step="3">
                             </div>
-                            <input type="color" id="input-color-b" value="#ffcc00">
+                            <div id="palette-b" class="palette-container"></div>
                         </div>
                     </div>
 
@@ -268,7 +268,7 @@
                                 <span>Shadow</span>
                                 <input type="range" id="input-blur-c" min="0" max="100" value="20" step="3">
                             </div>
-                            <input type="color" id="input-color-c" value="#ffcc00">
+                            <div id="palette-c" class="palette-container"></div>
                         </div>
                     </div>
                 </section>

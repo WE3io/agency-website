@@ -1,0 +1,30 @@
+@import "../../../styles/tokens.generated.css";
+
+/* Root Isolation */
+.variant-antigravity {
+    --ag-bg: var(--color-background-primary);
+    --ag-text: var(--color-text-primary);
+    --ag-accent: var(--color-text-accent);
+    --ag-border: var(--color-base-border-neutral);
+    --ag-surface: var(--color-background-secondary);
+
+    background-color: var(--ag-bg);
+    color: var(--ag-text);
+    font-family: var(--typography-font-family-body);
+    line-height: 1.6;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.variant-antigravity h1,
+.variant-antigravity h2,
+.variant-antigravity h3 {
+    font-family: var(--typography-font-family-display);
+    font-weight: 600;
+}
+
+.variant-antigravity .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: var(--spacing-large) var(--spacing-medium);
+}
