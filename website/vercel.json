@@ -1,0 +1,9 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "astro",
+  "installCommand": "npm install",
+  "redirects": [
+    { "source": "/", "destination": "/claude", "permanent": false }
+  ]
+}

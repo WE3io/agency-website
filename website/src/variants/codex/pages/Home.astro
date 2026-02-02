@@ -116,7 +116,7 @@ const { initialSection = "" } = Astro.props;
 
 {initialSection ? (
   <script>
-    const target = document.getElementById({JSON.stringify(initialSection)});
+    const target = document.getElementById(initialSection);
     if (target) target.scrollIntoView({ behavior: "smooth" });
   </script>
 ) : null}

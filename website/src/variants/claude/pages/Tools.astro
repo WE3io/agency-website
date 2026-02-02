@@ -316,16 +316,16 @@ const tools = [
     grid-template-columns: auto 1fr;
     gap: var(--space-xl);
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
-    box-shadow: var(--shadow-sm);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    box-shadow: none;
+    transition: transform var(--transition-base);
   }
 
   .tool-card:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: none;
   }
 
   /* Badge */
@@ -443,16 +443,16 @@ const tools = [
     gap: var(--space-md);
     padding: var(--space-lg);
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-md);
     text-decoration: none;
     color: inherit;
-    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    transition: transform var(--transition-base), border-color var(--transition-base);
   }
 
   .ref-card:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
     border-color: var(--c-accent);
     text-decoration: none;
   }
@@ -558,7 +558,7 @@ const tools = [
     background: var(--c-surface, #fff);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
+    box-shadow: none;
     z-index: 1;
   }
 

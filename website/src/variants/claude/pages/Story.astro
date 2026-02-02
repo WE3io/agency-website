@@ -4,7 +4,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
 <ClaudeLayout title="Our Story" description="Why WE3 exists - small senior teams, community-driven innovation, and a better way to build.">
   <!-- Page Header -->
-  <section class="page-header">
+  <section class="page-header reveal-up">
     <div class="container container--narrow">
       <p class="eyebrow">The WE3 Story</p>
       <h1>Small Teams for Big Challenges</h1>
@@ -17,14 +17,14 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- The Shift -->
-  <section class="section">
+  <section class="section reveal-up">
     <div class="container container--narrow">
       <div class="section-header">
         <span class="section-header__label">The Changing Landscape</span>
         <div class="section-header__rule"></div>
       </div>
 
-      <article class="narrative">
+      <article class="narrative reveal-up stagger-1">
         <h2>Why WE3 Exists</h2>
 
         <p>
@@ -59,14 +59,14 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- The Vision -->
-  <section class="section section--alt">
+  <section class="section section--alt reveal-up">
     <div class="container container--narrow">
       <div class="section-header">
         <span class="section-header__label">Our Vision</span>
         <div class="section-header__rule"></div>
       </div>
 
-      <article class="narrative">
+      <article class="narrative reveal-up stagger-1">
         <h2>Bridging Strategy and Execution</h2>
 
         <p>
@@ -99,14 +99,14 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- Values -->
-  <section class="section">
+  <section class="section reveal-up">
     <div class="container">
       <div class="section-header">
         <span class="section-header__label">Our Values</span>
         <div class="section-header__rule"></div>
       </div>
 
-      <div class="values-intro">
+      <div class="values-intro reveal-up stagger-1">
         <h2>Culture isn't what you say. It's what you do.</h2>
         <p>
           Underpinning everything at WE3—from how we treat clients, to how we mentor
@@ -116,7 +116,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
       </div>
 
       <div class="values-grid">
-        <article class="value-card">
+        <article class="value-card reveal-up stagger-1">
           <div class="value-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -130,7 +130,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
           </p>
         </article>
 
-        <article class="value-card">
+        <article class="value-card reveal-up stagger-2">
           <div class="value-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -147,7 +147,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
           </p>
         </article>
 
-        <article class="value-card">
+        <article class="value-card reveal-up stagger-3">
           <div class="value-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <circle cx="11" cy="11" r="8"/>
@@ -162,7 +162,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
           </p>
         </article>
 
-        <article class="value-card">
+        <article class="value-card reveal-up stagger-4">
           <div class="value-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
@@ -176,7 +176,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
           </p>
         </article>
 
-        <article class="value-card">
+        <article class="value-card reveal-up stagger-5">
           <div class="value-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -190,7 +190,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
           </p>
         </article>
 
-        <article class="value-card">
+        <article class="value-card reveal-up stagger-6">
           <div class="value-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -208,14 +208,14 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- Community -->
-  <section class="section section--alt">
+  <section class="section section--alt reveal-up">
     <div class="container container--narrow">
       <div class="section-header">
         <span class="section-header__label">Community</span>
         <div class="section-header__rule"></div>
       </div>
 
-      <article class="narrative">
+      <article class="narrative reveal-up stagger-1">
         <h2>Beyond Consulting</h2>
 
         <p>
@@ -399,18 +399,18 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
   .value-card {
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-md);
     padding: var(--space-lg);
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    transition: transform var(--transition-base);
   }
 
   .value-card:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: none;
   }
 
   .value-card__icon {

@@ -19,7 +19,7 @@
   --glow-1: rgba(58, 127, 101, 0.18);
   --glow-2: rgba(208, 168, 92, 0.14);
   --radius: 18px;
-  --shadow: 0 24px 50px rgba(42, 36, 28, 0.12);
+  --shadow: none;
 }
 
 * {

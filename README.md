@@ -30,6 +30,9 @@ This repo is the public front desk for our agency. It holds the copy, structure,
 ## Website (Astro)
 The site lives in `website/` and renders Markdown from `content/`.
 
+### Build locally
+From the repo root, install dependencies and build. Output goes to `website/dist/`. Use `pnpm run dev` to run the dev server (port 4321) or `pnpm run preview` to serve the built site.
+
 ### Install
 ```sh
 cd website

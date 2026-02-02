@@ -4,7 +4,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
 <ClaudeLayout title="Brief Builder" description="Define your project brief with WE3's free tool. Get clarity, get a fit check, get started.">
   <!-- Page Header -->
-  <section class="page-header">
+  <section class="page-header reveal-up">
     <div class="container container--narrow">
       <p class="eyebrow">Clarity as a Service</p>
       <h1>Brief Builder</h1>
@@ -23,7 +23,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- Brief Builder -->
-  <section class="section brief-section">
+  <section class="section brief-section reveal-up">
     <div class="container">
       <div class="brief-container">
         <!-- Progress -->
@@ -48,7 +48,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- Results Section (hidden initially) -->
-  <section class="section results-section" id="resultsSection" style="display: none;">
+  <section class="section results-section reveal-up" id="resultsSection" style="display: none;">
     <div class="container">
       <div class="results-container">
         <div class="section-header">
@@ -58,21 +58,21 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
         <div class="results-grid">
           <!-- Engagement Recommendation -->
-          <div class="result-card result-card--primary" id="engagementCard">
+          <div class="result-card result-card--primary reveal-up stagger-1" id="engagementCard">
             <h3>Recommended Engagement</h3>
             <p class="result-value" id="engagementValue">Consulting</p>
             <p class="result-description" id="engagementDesc"></p>
           </div>
 
           <!-- Cost Band -->
-          <div class="result-card" id="costCard">
+          <div class="result-card reveal-up stagger-2" id="costCard">
             <h3>Cost Band</h3>
             <p class="result-value" id="costLabel">Build</p>
             <p class="result-meta"><span id="costRange">$75k - $200k</span> · <span id="costDuration">2-4 months</span></p>
           </div>
 
           <!-- Team Shape -->
-          <div class="result-card" id="teamCard">
+          <div class="result-card reveal-up stagger-3" id="teamCard">
             <h3>Suggested Team</h3>
             <div class="team-list" id="teamList">
               <!-- Team members will be inserted here -->
@@ -80,7 +80,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
           </div>
 
           <!-- Confidence -->
-          <div class="result-card" id="confidenceCard">
+          <div class="result-card reveal-up stagger-4" id="confidenceCard">
             <h3>Confidence</h3>
             <div class="confidence-meter">
               <div class="confidence-fill" id="confidenceFill"></div>
@@ -302,7 +302,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   .input-wrapper textarea:focus {
     outline: none;
     border-color: var(--c-accent);
-    box-shadow: 0 0 0 3px var(--glow-sage);
+    box-shadow: none;
   }
 
   .input-wrapper select {
@@ -358,13 +358,13 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
   .result-card {
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-md);
     padding: var(--space-lg);
   }
 
   .result-card--primary {
-    border-color: var(--c-accent);
+    border-color: transparent;
     grid-column: span 2;
   }
 

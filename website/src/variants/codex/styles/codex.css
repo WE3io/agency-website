@@ -58,7 +58,7 @@ body[data-variant="codex"] .codex-hero {
   border: var(--effect-border-width) solid var(--codex-border);
   border-radius: var(--effect-radius-large);
   background: linear-gradient(135deg, var(--codex-surface), var(--codex-bg));
-  box-shadow: var(--effect-shadow-panel);
+  box-shadow: none;
   position: relative;
   overflow: hidden;
 }
@@ -179,7 +179,7 @@ body[data-variant="codex"] .codex-grid--two {
 }
 
 body[data-variant="codex"] .codex-card {
-  border: var(--effect-border-width) solid var(--codex-border);
+  border: none;
   border-radius: var(--effect-radius-medium);
   padding: var(--spacing-small);
   background: var(--codex-bg);

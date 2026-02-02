@@ -46,9 +46,9 @@
     margin-bottom: var(--spacing-large);
     padding: var(--spacing-medium);
     background: var(--guide-surface);
-    border: 1px solid var(--guide-border);
+    border: none;
     border-radius: var(--effect-radius-large);
-    box-shadow: var(--effect-shadow-panel);
+    box-shadow: none;
     position: relative;
     overflow: hidden;
 }
@@ -88,7 +88,7 @@
 
 .vignette-frame {
     background: var(--guide-surface-deep);
-    border: 1px solid var(--guide-border);
+    border: none;
     padding: var(--spacing-medium);
     border-radius: var(--effect-radius-medium);
     position: relative;
@@ -118,8 +118,8 @@
     width: 220px;
     padding: 1.5rem;
     background: var(--guide-surface);
-    border: 1px solid var(--guide-border);
-    box-shadow: var(--effect-shadow-panel);
+    border: none;
+    box-shadow: none;
     border-radius: var(--effect-radius-medium);
     transition: transform 0.3s ease;
 }
@@ -137,10 +137,10 @@
 
 .image-card {
     background: var(--guide-surface-deep);
-    border: 1px solid var(--guide-border);
+    border: none;
     padding: 16px;
     border-radius: var(--effect-radius-medium);
-    box-shadow: var(--effect-shadow-image);
+    box-shadow: none;
 }
 
 .image-placeholder {
@@ -177,7 +177,7 @@
     background: var(--guide-accent);
     color: #fff;
     border-color: transparent;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
 }
 
 .btn.secondary {
@@ -204,7 +204,7 @@
 
 .swatch-card {
     background: var(--guide-bg);
-    border: 1px solid var(--guide-border);
+    border: none;
     border-radius: 12px;
     padding: 0.5rem;
 }

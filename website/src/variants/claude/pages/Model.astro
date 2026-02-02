@@ -4,7 +4,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
 <ClaudeLayout title="The Model" description="WE3's three-layer team structure - senior triads, fractional specialists, and apprentices working together.">
   <!-- Page Header -->
-  <section class="page-header">
+  <section class="page-header reveal-up">
     <div class="container container--narrow">
       <p class="eyebrow">The WE3 Model</p>
       <h1>Three Layers. Zero Waste.</h1>
@@ -16,11 +16,11 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- Model Visualization -->
-  <section class="section">
+  <section class="section reveal-up">
     <div class="container">
       <div class="model-visual">
         <!-- Core Triad -->
-        <div class="model-layer model-layer--core">
+        <div class="model-layer model-layer--core reveal-up stagger-1">
           <div class="model-layer__header">
             <span class="badge badge--accent">Core</span>
             <h2>Senior Triad</h2>
@@ -71,7 +71,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
         </div>
 
         <!-- Fractional Specialists -->
-        <div class="model-layer model-layer--fractional">
+        <div class="model-layer model-layer--fractional reveal-up stagger-2">
           <div class="model-layer__header">
             <span class="badge">Flexible</span>
             <h2>Fractional Specialists</h2>
@@ -92,7 +92,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
         </div>
 
         <!-- Apprentice Triad -->
-        <div class="model-layer model-layer--apprentice">
+        <div class="model-layer model-layer--apprentice reveal-up stagger-3">
           <div class="model-layer__header">
             <span class="badge">Future</span>
             <h2>Apprentice Triad</h2>
@@ -336,14 +336,14 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
   .model-layer {
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
   }
 
   .model-layer--core {
     border-color: var(--c-accent);
-    box-shadow: var(--shadow-lg);
+    box-shadow: none;
   }
 
   .model-layer__header {
@@ -391,15 +391,15 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
     gap: var(--space-xs);
     padding: var(--space-lg);
     background: var(--c-surface-2);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-md);
     min-width: 140px;
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    transition: transform var(--transition-base);
   }
 
   .triad-node:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
   }
 
   .triad-node__icon {
@@ -489,7 +489,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
     gap: var(--space-lg);
     padding: var(--space-lg);
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-md);
   }
 
@@ -532,7 +532,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
   .cost-card {
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-md);
     padding: var(--space-lg);
     display: flex;
@@ -542,7 +542,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
   .cost-card--featured {
     border-color: var(--c-accent);
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
   }
 
   .cost-card__header {

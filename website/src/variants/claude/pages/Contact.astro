@@ -4,7 +4,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
 <ClaudeLayout title="Contact" description="Get in touch with WE3 - let's discuss your next project or just say hello.">
   <!-- Page Header -->
-  <section class="page-header">
+  <section class="page-header reveal-up">
     <div class="container container--narrow">
       <p class="eyebrow">Get in Touch</p>
       <h1>Let's Talk</h1>
@@ -16,11 +16,11 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- Contact Options -->
-  <section class="section">
+  <section class="section reveal-up">
     <div class="container">
       <div class="contact-grid">
         <!-- Contact Form -->
-        <div class="contact-form-container">
+        <div class="contact-form-container reveal-up stagger-1">
           <div class="section-header">
             <span class="section-header__label">Send a Message</span>
             <div class="section-header__rule"></div>
@@ -76,7 +76,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
         </div>
 
         <!-- Contact Options -->
-        <div class="contact-options">
+        <div class="contact-options reveal-up stagger-2">
           <div class="section-header">
             <span class="section-header__label">Other Ways to Reach Us</span>
             <div class="section-header__rule"></div>
@@ -282,7 +282,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   .contact-form select:focus {
     outline: none;
     border-color: var(--c-accent);
-    box-shadow: 0 0 0 3px var(--glow-sage);
+    box-shadow: none;
   }
 
   .contact-form textarea {
@@ -316,7 +316,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
     gap: var(--space-md);
     padding: var(--space-lg);
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-md);
   }
 
@@ -367,7 +367,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
   .faq-item {
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-md);
     overflow: hidden;
   }

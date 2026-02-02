@@ -11,6 +11,7 @@ const caseStudies = [
     description: "Transformed a legacy payment platform into a modern, user-centric experience that increased conversion by 40%.",
     tags: ["Product Strategy", "UX Design", "Engineering"],
     featured: true,
+    impact: { kgYr: 12500, gbpYr: 4200 },
   },
   {
     slug: "enterprise-dashboard",
@@ -20,6 +21,7 @@ const caseStudies = [
     description: "Built an internal analytics platform that reduced decision-making time from weeks to hours.",
     tags: ["Data Visualization", "React", "Enterprise"],
     featured: true,
+    impact: { kgYr: 8200, gbpYr: 3100 },
   },
   {
     slug: "healthtech-mvp",
@@ -29,6 +31,7 @@ const caseStudies = [
     description: "Took a healthcare compliance tool from concept to market in 12 weeks with validated product-market fit.",
     tags: ["MVP Development", "Healthcare", "Compliance"],
     featured: false,
+    impact: { kgYr: 5600, gbpYr: 1800 },
   },
   {
     slug: "ai-integration",
@@ -38,13 +41,14 @@ const caseStudies = [
     description: "Developed and implemented an AI strategy that automated 60% of manual processes across three portfolio companies.",
     tags: ["AI/ML", "Strategy", "Automation"],
     featured: false,
+    impact: { kgYr: 15200, gbpYr: 5400 },
   },
 ];
 ---
 
 <ClaudeLayout title="Work" description="Case studies and projects from WE3 - see how our senior triads deliver real outcomes.">
   <!-- Page Header -->
-  <section class="page-header">
+  <section class="page-header reveal-up">
     <div class="container container--narrow">
       <p class="eyebrow">Proof of Work</p>
       <h1>Ideas Made Real</h1>
@@ -63,9 +67,9 @@ const caseStudies = [
         <div class="section-header__rule"></div>
       </div>
 
-      <div class="featured-grid">
+      <div class="featured-grid fluid-grid">
         {caseStudies.filter(c => c.featured).map((study, i) => (
-          <article class={`case-card case-card--featured ${i === 0 ? 'case-card--large' : ''}`}>
+          <article class={`case-card work-card case-card--featured reveal-up ${i === 0 ? 'case-card--large' : ''} ${i % 3 === 1 ? 'satellite' : ''}`} data-work-card tabindex={0} role="button">
             <div class="case-card__image" aria-hidden="true">
               <div class="case-card__placeholder"></div>
             </div>
@@ -83,6 +87,15 @@ const caseStudies = [
               </div>
               <span class="case-card__link">View case study &rarr;</span>
             </div>
+            <div class="details-pane">
+              <h4 class="details-pane__title">Project Impact</h4>
+              <div class="data-row">
+                <span class="text-data mono" data-value={study.impact.kgYr} data-suffix=" kg/yr">0 kg/yr</span>
+              </div>
+              <div class="data-row">
+                <span class="text-data mono" data-value={study.impact.gbpYr} data-suffix=" £/yr">0 £/yr</span>
+              </div>
+            </div>
           </article>
         ))}
       </div>
@@ -97,9 +110,9 @@ const caseStudies = [
         <div class="section-header__rule"></div>
       </div>
 
-      <div class="work-grid">
-        {caseStudies.filter(c => !c.featured).map((study) => (
-          <article class="case-card">
+      <div class="work-grid fluid-grid">
+        {caseStudies.filter(c => !c.featured).map((study, i) => (
+          <article class={`case-card work-card reveal-up ${i % 3 === 1 ? 'satellite' : ''}`} data-work-card tabindex={0} role="button">
             <div class="case-card__content">
               <div class="case-card__meta">
                 <span class="badge">{study.category}</span>
@@ -113,6 +126,15 @@ const caseStudies = [
                 ))}
               </div>
               <span class="case-card__link">View case study &rarr;</span>
+            </div>
+            <div class="details-pane">
+              <h4 class="details-pane__title">Project Impact</h4>
+              <div class="data-row">
+                <span class="text-data mono" data-value={study.impact.kgYr} data-suffix=" kg/yr">0 kg/yr</span>
+              </div>
+              <div class="data-row">
+                <span class="text-data mono" data-value={study.impact.gbpYr} data-suffix=" £/yr">0 £/yr</span>
+              </div>
             </div>
           </article>
         ))}
@@ -236,8 +258,8 @@ const caseStudies = [
     background: var(--c-surface-2);
   }
 
-  /* Featured Grid */
-  .featured-grid {
+  /* Featured Grid – 2-col only when not using fluid-grid (12-col scatter) */
+  .featured-grid:not(.fluid-grid) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-lg);
@@ -250,18 +272,18 @@ const caseStudies = [
   /* Case Card */
   .case-card {
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-md);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    transition: transform var(--transition-base);
     cursor: pointer;
   }
 
   .case-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: none;
   }
 
   .case-card__image {
@@ -344,8 +366,8 @@ const caseStudies = [
     margin-top: var(--space-xs);
   }
 
-  /* Work Grid */
-  .work-grid {
+  /* Work Grid – auto-fit when not using fluid-grid (12-col scatter from global) */
+  .work-grid:not(.fluid-grid) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: var(--space-lg);
@@ -415,9 +437,9 @@ const caseStudies = [
     margin: 0;
     padding: var(--space-xl);
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
   }
 
   .testimonial p {

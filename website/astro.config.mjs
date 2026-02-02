@@ -5,6 +5,8 @@ export default defineConfig({
   publicDir: "../public",
   vite: {
     server: {
+      port: 4321,
+      strictPort: true,
       allowedHosts: true,
       fs: {
         allow: [".."],

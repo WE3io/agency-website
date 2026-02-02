@@ -8,15 +8,18 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
     <div class="hero__backdrop" aria-hidden="true"></div>
 
     <div class="container hero__content">
-      <div class="hero__text">
-        <p class="eyebrow">WE3 Venture Studio</p>
-        <h1>Small Teams for<br />Big Challenges</h1>
-        <p class="hero__lead">
+      <div class="hero__text momentum-hero">
+        <p class="eyebrow reveal-up stagger-1">WE3 Venture Studio</p>
+        <h1 class="hero__title">
+          <span class="reveal-up stagger-2">Small Teams for</span><br />
+          <span class="reveal-up stagger-3">Big Challenges</span>
+        </h1>
+        <p class="hero__lead reveal-up stagger-4">
           We build products and companies with senior triads—product, design, and engineering
           working as one. No armies of juniors. No layers of hierarchy. Just focused expertise
           delivering real outcomes.
         </p>
-        <div class="hero__actions">
+        <div class="hero__actions reveal-up stagger-5">
           <a href="/claude/brief" class="btn btn--primary">Start Your Brief</a>
           <a href="/claude/story" class="btn btn--secondary">Our Story</a>
         </div>
@@ -37,7 +40,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- The Problem / Why We Exist -->
-  <section class="section">
+  <section class="section reveal-up">
     <div class="container container--narrow">
       <div class="section-header">
         <span class="section-header__label">The Shift</span>
@@ -60,7 +63,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- The Model / Three Layers -->
-  <section class="section section--alt">
+  <section class="section section--alt reveal-up">
     <div class="container">
       <div class="section-header">
         <span class="section-header__label">The Model</span>
@@ -76,7 +79,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
       </div>
 
       <div class="model-grid">
-        <article class="model-card model-card--primary">
+        <article class="model-card model-card--primary reveal-up stagger-1">
           <div class="model-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <circle cx="12" cy="8" r="4" />
@@ -92,7 +95,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
           </p>
         </article>
 
-        <article class="model-card">
+        <article class="model-card reveal-up stagger-2">
           <div class="model-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -110,7 +113,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
           </p>
         </article>
 
-        <article class="model-card">
+        <article class="model-card reveal-up stagger-3">
           <div class="model-card__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <path d="M12 2L2 7l10 5 10-5-10-5z" />
@@ -135,7 +138,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- Engagement Modes -->
-  <section class="section">
+  <section class="section reveal-up">
     <div class="container">
       <div class="section-header">
         <span class="section-header__label">Engagements</span>
@@ -148,7 +151,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
       </div>
 
       <div class="engagements-grid">
-        <a href="/claude/engagements#consulting" class="engagement-card">
+        <a href="/claude/engagements#consulting" class="engagement-card reveal-up stagger-1">
           <span class="engagement-card__number mono">01</span>
           <h3>Strategic Consulting</h3>
           <p>
@@ -158,7 +161,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
           <span class="engagement-card__link">Learn more &rarr;</span>
         </a>
 
-        <a href="/claude/engagements#co-building" class="engagement-card">
+        <a href="/claude/engagements#co-building" class="engagement-card reveal-up stagger-2">
           <span class="engagement-card__number mono">02</span>
           <h3>Co-Building Startups</h3>
           <p>
@@ -168,7 +171,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
           <span class="engagement-card__link">Learn more &rarr;</span>
         </a>
 
-        <a href="/claude/engagements#ventures" class="engagement-card">
+        <a href="/claude/engagements#ventures" class="engagement-card reveal-up stagger-3">
           <span class="engagement-card__number mono">03</span>
           <h3>Venture Creation</h3>
           <p>
@@ -178,7 +181,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
           <span class="engagement-card__link">Learn more &rarr;</span>
         </a>
 
-        <a href="/claude/engagements#community" class="engagement-card">
+        <a href="/claude/engagements#community" class="engagement-card reveal-up stagger-4">
           <span class="engagement-card__number mono">04</span>
           <h3>Community</h3>
           <p>
@@ -192,7 +195,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- Values Teaser -->
-  <section class="section section--alt">
+  <section class="section section--alt reveal-up">
     <div class="container container--narrow">
       <div class="section-header">
         <span class="section-header__label">Our Values</span>
@@ -217,7 +220,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   </section>
 
   <!-- CTA / Brief Builder -->
-  <section class="section cta-section">
+  <section class="section cta-section reveal-up">
     <div class="container">
       <div class="cta-panel panel">
         <div class="cta-panel__content">
@@ -295,10 +298,10 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
   .hero__frame {
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-lg);
     padding: var(--space-md);
-    box-shadow: var(--shadow-card);
+    box-shadow: none;
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
@@ -380,22 +383,22 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
 
   .model-card {
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-md);
     padding: var(--space-lg);
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    transition: transform var(--transition-base);
   }
 
   .model-card:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: none;
   }
 
   .model-card--primary {
-    border-color: var(--c-accent);
+    border-color: transparent;
   }
 
   .model-card__icon {
@@ -453,7 +456,7 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
     gap: var(--space-sm);
     padding: var(--space-lg);
     background: var(--c-surface);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-md);
     text-decoration: none;
     color: var(--c-text);
@@ -461,9 +464,9 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
   }
 
   .engagement-card:hover {
-    border-color: var(--c-accent);
+    border-color: transparent;
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
     text-decoration: none;
   }
 
@@ -553,10 +556,10 @@ import ClaudeLayout from "../layouts/ClaudeLayout.astro";
     position: absolute;
     padding: var(--space-sm) var(--space-md);
     background: var(--c-surface-2);
-    border: 1px solid var(--c-border);
+    border: none;
     border-radius: var(--radius-sm);
     font-size: var(--text-sm);
-    box-shadow: var(--shadow-sm);
+    box-shadow: none;
   }
 
   .cta-graphic-card--1 {
