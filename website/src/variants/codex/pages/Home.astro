@@ -115,8 +115,8 @@ const { initialSection = "" } = Astro.props;
 </CodexLayout>
 
 {initialSection ? (
-  <script>
-    const target = document.getElementById({JSON.stringify(initialSection)});
+  <script define:vars={{ initialSection }}>
+    const target = document.getElementById(initialSection);
     if (target) target.scrollIntoView({ behavior: "smooth" });
   </script>
 ) : null}
