@@ -1,23 +1,29 @@
 ---
 import "../styles/global.css";
+import { Icon } from "astro-icon/components";
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const { title = "WE3", description = "Small teams for big challenges" } = Astro.props;
+const { title = "WE3", description = "Small teams for big challenges" } =
+  Astro.props;
 const currentPath = Astro.url.pathname;
 
 const navLeft = [
-  { href: "/claude/story", label: "Our Story" },
-  { href: "/claude/model", label: "The Model" },
-  { href: "/claude/engagements", label: "Engagements" },
+  { href: "/claude/story", label: "Our Story", icon: "heroicons:book-open" },
+  { href: "/claude/model", label: "The Model", icon: "heroicons:squares-plus" },
+  {
+    href: "/claude/engagements",
+    label: "Engagements",
+    icon: "heroicons:user-group",
+  },
 ];
 const navRight = [
-  { href: "/claude/work", label: "Work" },
-  { href: "/claude/tools", label: "Tools" },
-  { href: "/claude/contact", label: "Contact" },
+  { href: "/claude/work", label: "Work", icon: "heroicons:briefcase" },
+  { href: "/claude/tools", label: "Tools", icon: "heroicons:wrench" },
+  { href: "/claude/contact", label: "Contact", icon: "heroicons:envelope" },
 ];
 const navAll = [...navLeft, ...navRight];
 
@@ -29,274 +35,400 @@ function isActive(href: string): boolean {
 }
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content={description} />
-  <title>{title} | WE3</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} | WE3</title>
 
-  <!-- Fonts: League Gothic (headlines), Inter (body + technical labels), IBM Plex Mono (accent) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=League+Gothic:ital@0;1&display=swap" rel="stylesheet" />
+    <!-- Fonts: League Gothic (headlines), Inter (body + technical labels), IBM Plex Mono (accent) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=League+Gothic:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-</head>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
 
-<body class="variant-claude">
-  <!-- Skip link for accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <body class="variant-claude">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Header / Navigation -->
-  <header class="site-header">
-    <nav class="nav container" aria-label="Main navigation">
-      <!-- Left nav (desktop): Our Story, The Model, Engagements -->
-      <ul class="nav__left" role="list">
-        {navLeft.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class:list={["nav__link", { "nav__link--active": isActive(item.href) }]}
-              aria-current={isActive(item.href) ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <!-- Header / Navigation -->
+    <header class="site-header">
+      <nav class="nav container" aria-label="Main navigation">
+        <!-- Left nav (desktop): Our Story, The Model, Engagements -->
+        <ul class="nav__left" role="list">
+          {
+            navLeft.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    "nav__link",
+                    { "nav__link--active": isActive(item.href) },
+                  ]}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  aria-label={item.label}
+                >
+                  <Icon
+                    name={item.icon}
+                    class="nav__symbol"
+                    aria-hidden="true"
+                  />
+                  <span class="nav__text">{item.label}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
 
-      <!-- Centred logo (Claude: retro purple) -->
-      <a href="/claude" class="nav__logo" aria-label="WE3 Home">
-        <img src="/images/we3-logo-claude.svg" alt="WE3" class="nav__logo-img" width="48" height="48" />
-      </a>
+        <!-- Centred logo (Claude: retro purple) -->
+        <a href="/claude" class="nav__logo" aria-label="WE3 Home">
+          <img
+            src="/images/we3-logo-claude.svg"
+            alt="WE3"
+            class="nav__logo-img"
+            width="48"
+            height="48"
+          />
+        </a>
 
-      <!-- Right nav (desktop): Work, Tools, Contact -->
-      <ul class="nav__right" role="list">
-        {navRight.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class:list={["nav__link", { "nav__link--active": isActive(item.href) }]}
-              aria-current={isActive(item.href) ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+        <!-- Right nav (desktop): Work, Tools, Contact -->
+        <ul class="nav__right" role="list">
+          {
+            navRight.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    "nav__link",
+                    { "nav__link--active": isActive(item.href) },
+                  ]}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  aria-label={item.label}
+                >
+                  <Icon
+                    name={item.icon}
+                    class="nav__symbol"
+                    aria-hidden="true"
+                  />
+                  <span class="nav__text">{item.label}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
 
-      <!-- Hamburger (mobile only), right side -->
-      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-      </button>
+        <!-- Hamburger (mobile only), right side -->
+        <button
+          class="nav__toggle"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+        </button>
 
-      <!-- Mobile dropdown: all links (shown when hamburger open) -->
-      <ul class="nav__menu" role="list">
-        {navAll.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class:list={["nav__link", { "nav__link--active": isActive(item.href) }]}
-              aria-current={isActive(item.href) ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-
-    <!-- Decorative stripe: momentum entry (4px draw-in → 80px) -->
-    <div class="stripe stripe--masthead momentum-entry" id="masthead-stripe" aria-hidden="true"></div>
-  </header>
-
-  <!-- Floating Nav (appears at scroll 200px – contextual, frosted glass) -->
-  <nav class="floating-nav" id="floating-nav" aria-label="Contextual navigation">
-    <a href="/claude" class:list={["floating-nav__link", { "floating-nav__link--active": currentPath === "/claude" || currentPath === "/claude/" }]}>Home</a>
-    {navAll.map((item) => (
-      <a
-        href={item.href}
-        class:list={["floating-nav__link", { "floating-nav__link--active": currentPath === item.href || (item.href !== "/claude" && currentPath.startsWith(item.href)) }]}
-      >
-        {item.label}
-      </a>
-    ))}
-  </nav>
-
-  <!-- Main Content -->
-  <main id="main-content">
-    <slot />
-  </main>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="stripe stripe--footer" aria-hidden="true"></div>
-
-    <div class="footer__content container">
-      <div class="footer__brand">
-        <img src="/images/we3-logo-claude.svg" alt="WE3" class="footer__logo-img" width="56" height="56" />
-        <p class="footer__tagline">Small teams for big challenges.</p>
-      </div>
-
-      <nav class="footer__nav" aria-label="Footer navigation">
-        <ul role="list">
-          <li><a href="/claude/story">Our Story</a></li>
-          <li><a href="/claude/model">The Model</a></li>
-          <li><a href="/claude/engagements">Engagements</a></li>
-          <li><a href="/claude/work">Work</a></li>
-          <li><a href="/claude/tools">Tools</a></li>
-          <li><a href="/claude/contact">Contact</a></li>
+        <!-- Mobile dropdown: all links (shown when hamburger open) -->
+        <ul class="nav__menu" role="list">
+          {
+            navAll.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    "nav__link",
+                    { "nav__link--active": isActive(item.href) },
+                  ]}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
 
-      <div class="footer__cta">
-        <p class="eyebrow">Ready to build?</p>
-        <a href="/claude/brief" class="btn btn--primary">Start Your Brief</a>
+      <!-- Decorative stripe: momentum entry (4px draw-in → 80px) -->
+      <div
+        class="stripe stripe--masthead momentum-entry"
+        id="masthead-stripe"
+        aria-hidden="true"
+      >
       </div>
-    </div>
+    </header>
 
-    <div class="footer__bottom container">
-      <p class="footer__copyright">
-        <span class="mono">&copy; {new Date().getFullYear()}</span> WE3 Ventures Ltd.
-      </p>
-      <a href="/" class="footer__variant-link">Switch variant</a>
-    </div>
-  </footer>
-
-  <!-- Mobile nav script -->
-  <script>
-    const toggle = document.querySelector('.nav__toggle');
-    const menu = document.querySelector('.nav__menu');
-
-    toggle?.addEventListener('click', () => {
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', (!expanded).toString());
-      menu?.classList.toggle('nav__menu--open');
-    });
-  </script>
-
-  <!-- Organic Momentum: floating nav at 200px, reveal-on-scroll, momentum strip -->
-  <script>
-    (function () {
-      const floatingNav = document.getElementById('floating-nav');
-      const mastheadStripe = document.getElementById('masthead-stripe');
-
-      if (floatingNav) {
-        let ticking = false;
-        function updateFloatingNav() {
-          const show = window.scrollY >= 200;
-          floatingNav.classList.toggle('is-visible', show);
-          floatingNav.setAttribute('aria-hidden', !show);
-          ticking = false;
-        }
-        window.addEventListener('scroll', () => {
-          if (!ticking) {
-            requestAnimationFrame(updateFloatingNav);
-            ticking = true;
-          }
-        }, { passive: true });
-        updateFloatingNav();
+    <!-- Floating Nav (appears at scroll 200px – contextual, frosted glass) -->
+    <nav
+      class="floating-nav"
+      id="floating-nav"
+      aria-label="Contextual navigation"
+    >
+      <a
+        href="/claude"
+        class:list={[
+          "floating-nav__link",
+          {
+            "floating-nav__link--active":
+              currentPath === "/claude" || currentPath === "/claude/",
+          },
+        ]}>Home</a
+      >
+      {
+        navAll.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "floating-nav__link",
+              {
+                "floating-nav__link--active":
+                  currentPath === item.href ||
+                  (item.href !== "/claude" &&
+                    currentPath.startsWith(item.href)),
+              },
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
       }
+    </nav>
 
-      if (mastheadStripe) {
-        setTimeout(() => {
-          mastheadStripe.classList.remove('momentum-entry');
-        }, 1500); /* 200ms delay + 1200ms animation */
-      }
+    <!-- Main Content -->
+    <main id="main-content">
+      <slot />
+    </main>
 
-      const revealEls = document.querySelectorAll('.reveal-up');
-      const momentumHero = document.querySelector('.momentum-hero');
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="stripe stripe--footer" aria-hidden="true"></div>
 
-      /* Hero and page content reveal after strip finishes: strip delay 0.2s + duration 1.2s = 1.4s */
-      if (momentumHero && momentumHero.querySelectorAll('.reveal-up').length) {
-        const heroRevealEls = momentumHero.querySelectorAll('.reveal-up');
-        setTimeout(() => {
-          heroRevealEls.forEach((el) => el.classList.add('active'));
-        }, 1500);
-      }
+      <div class="footer__content container">
+        <div class="footer__brand">
+          <img
+            src="/images/we3-logo-claude.svg"
+            alt="WE3"
+            class="footer__logo-img"
+            width="56"
+            height="56"
+          />
+          <p class="footer__tagline">Small teams for big challenges.</p>
+        </div>
 
-      if (revealEls.length && 'IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting && !entry.target.classList.contains('active') && !entry.target.closest('.momentum-hero')) {
-                const randomDelay = Math.floor(Math.random() * 250);
-                setTimeout(() => {
-                  entry.target.classList.add('active');
-                }, randomDelay);
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <ul role="list">
+            <li><a href="/claude/story">Our Story</a></li>
+            <li><a href="/claude/model">The Model</a></li>
+            <li><a href="/claude/engagements">Engagements</a></li>
+            <li><a href="/claude/work">Work</a></li>
+            <li><a href="/claude/tools">Tools</a></li>
+            <li><a href="/claude/contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__cta">
+          <p class="eyebrow">Ready to build?</p>
+          <a href="/claude/brief" class="btn btn--primary">Start Your Brief</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom container">
+        <p class="footer__copyright">
+          <span class="mono">&copy; {new Date().getFullYear()}</span> WE3 Ventures
+          Ltd.
+        </p>
+        <a href="/" class="footer__variant-link">Switch variant</a>
+      </div>
+    </footer>
+
+    <!-- Mobile nav script -->
+    <script>
+      const toggle = document.querySelector(".nav__toggle");
+      const menu = document.querySelector(".nav__menu");
+
+      toggle?.addEventListener("click", () => {
+        const expanded = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", (!expanded).toString());
+        menu?.classList.toggle("nav__menu--open");
+      });
+    </script>
+
+    <!-- Symbol nav tap-to-reveal (touch devices only) -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Only enable tap-to-reveal on touch devices
+        if (window.matchMedia("(hover: none)").matches) {
+          const navLinks = document.querySelectorAll(
+            ".nav__left .nav__link, .nav__right .nav__link",
+          );
+
+          navLinks.forEach((link) => {
+            link.addEventListener("click", (e) => {
+              const isActive = link.classList.contains("is-tapped");
+
+              // Close all other nav items
+              navLinks.forEach((l) => l.classList.remove("is-tapped"));
+
+              // Toggle clicked one
+              if (!isActive) {
+                link.classList.add("is-tapped");
               }
             });
-          },
-          { rootMargin: '0px 0px -50px 0px', threshold: 0.1 }
-        );
-        revealEls.forEach((el) => observer.observe(el));
-      }
-    })();
-  </script>
+          });
 
-  <!-- Magnetic Rectangle Snap Cursor (Claude variant) – morphs to target size -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      if (!document.body.classList.contains('variant-claude')) return;
-
-      const cursor = document.createElement('div');
-      cursor.id = 'custom-cursor';
-      document.body.appendChild(cursor);
-
-      let mouse = { x: -100, y: -100 };
-      let pos = { x: 0, y: 0, w: 12, h: 12 };
-      let targetPos = null;
-      const PAD = 10;
-      const LERP = 0.15;
-
-      document.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-        cursor.classList.remove('is-outside');
-      });
-
-      document.addEventListener('mouseleave', () => {
-        cursor.classList.add('is-outside');
-      });
-
-      const updateCursor = () => {
-        let destX, destY, destW, destH, destR;
-        if (targetPos) {
-          destX = targetPos.x;
-          destY = targetPos.y;
-          destW = targetPos.w;
-          destH = targetPos.h;
-          destR = targetPos.r;
-        } else {
-          destX = mouse.x;
-          destY = mouse.y;
-          destW = 12;
-          destH = 12;
-          destR = 0;
+          // Close nav items when clicking outside
+          document.addEventListener("click", (e) => {
+            if (
+              !e.target.closest(".nav__left") &&
+              !e.target.closest(".nav__right")
+            ) {
+              navLinks.forEach((link) => link.classList.remove("is-tapped"));
+            }
+          });
         }
-        pos.x += (destX - pos.x) * LERP;
-        pos.y += (destY - pos.y) * LERP;
-        pos.w += (destW - pos.w) * LERP;
-        pos.h += (destH - pos.h) * LERP;
-        cursor.style.width = `${Math.round(pos.w)}px`;
-        cursor.style.height = `${Math.round(pos.h)}px`;
-        cursor.style.borderRadius = `${destR}px`;
-        const scale = cursor.classList.contains('is-clicking') ? ' scale(0.7)' : '';
-        cursor.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)${scale}`;
-        requestAnimationFrame(updateCursor);
-      };
-      updateCursor();
+      });
+    </script>
 
-      const selector = 'a, button, .case-card, .work-card, [role="button"]';
-      document.addEventListener('mouseover', (e) => {
-        const el = e.target.closest(selector);
-        if (el) {
-          cursor.classList.add('is-hovering');
+    <!-- Organic Momentum: floating nav at 200px, reveal-on-scroll, momentum strip -->
+    <script>
+      (function () {
+        const floatingNav = document.getElementById("floating-nav");
+        const mastheadStripe = document.getElementById("masthead-stripe");
+
+        if (floatingNav) {
+          let ticking = false;
+          function updateFloatingNav() {
+            const show = window.scrollY >= 200;
+            floatingNav.classList.toggle("is-visible", show);
+            floatingNav.setAttribute("aria-hidden", !show);
+            ticking = false;
+          }
+          window.addEventListener(
+            "scroll",
+            () => {
+              if (!ticking) {
+                requestAnimationFrame(updateFloatingNav);
+                ticking = true;
+              }
+            },
+            { passive: true },
+          );
+          updateFloatingNav();
+        }
+
+        if (mastheadStripe) {
+          setTimeout(() => {
+            mastheadStripe.classList.remove("momentum-entry");
+          }, 1500); /* 200ms delay + 1200ms animation */
+        }
+
+        const revealEls = document.querySelectorAll(".reveal-up");
+        const momentumHero = document.querySelector(".momentum-hero");
+
+        /* Hero and page content reveal after strip finishes: strip delay 0.2s + duration 1.2s = 1.4s */
+        if (
+          momentumHero &&
+          momentumHero.querySelectorAll(".reveal-up").length
+        ) {
+          const heroRevealEls = momentumHero.querySelectorAll(".reveal-up");
+          setTimeout(() => {
+            heroRevealEls.forEach((el) => el.classList.add("active"));
+          }, 1500);
+        }
+
+        if (revealEls.length && "IntersectionObserver" in window) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (
+                  entry.isIntersecting &&
+                  !entry.target.classList.contains("active") &&
+                  !entry.target.closest(".momentum-hero")
+                ) {
+                  const randomDelay = Math.floor(Math.random() * 250);
+                  setTimeout(() => {
+                    entry.target.classList.add("active");
+                  }, randomDelay);
+                }
+              });
+            },
+            { rootMargin: "0px 0px -50px 0px", threshold: 0.1 },
+          );
+          revealEls.forEach((el) => observer.observe(el));
+        }
+      })();
+    </script>
+
+    <!-- Magnetic Rectangle Snap Cursor (Claude variant) – morphs to target size -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!document.body.classList.contains("variant-claude")) return;
+
+        const cursor = document.createElement("div");
+        cursor.id = "custom-cursor";
+        document.body.appendChild(cursor);
+
+        let mouse = { x: -100, y: -100 };
+        let pos = { x: 0, y: 0, w: 12, h: 12 };
+        let targetPos = null;
+        const PAD = 10;
+        const LERP = 0.15;
+
+        document.addEventListener("mousemove", (e) => {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+          cursor.classList.remove("is-outside");
+        });
+
+        document.addEventListener("mouseleave", () => {
+          cursor.classList.add("is-outside");
+        });
+
+        const updateCursor = () => {
+          let destX, destY, destW, destH, destR;
+          if (targetPos) {
+            destX = targetPos.x;
+            destY = targetPos.y;
+            destW = targetPos.w;
+            destH = targetPos.h;
+            destR = targetPos.r;
+          } else {
+            destX = mouse.x;
+            destY = mouse.y;
+            destW = 12;
+            destH = 12;
+            destR = 0;
+          }
+          pos.x += (destX - pos.x) * LERP;
+          pos.y += (destY - pos.y) * LERP;
+          pos.w += (destW - pos.w) * LERP;
+          pos.h += (destH - pos.h) * LERP;
+          cursor.style.width = `${Math.round(pos.w)}px`;
+          cursor.style.height = `${Math.round(pos.h)}px`;
+          cursor.style.borderRadius = `${destR}px`;
+          const scale = cursor.classList.contains("is-clicking")
+            ? " scale(0.7)"
+            : "";
+          cursor.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)${scale}`;
+          requestAnimationFrame(updateCursor);
+        };
+        updateCursor();
+
+        const selector = 'a, button, .case-card, .work-card, [role="button"]';
+        let hoveredElement = null;
+        let resizeObserver = null;
+        let isTrackingSize = false;
+
+        const updateTargetPos = (el) => {
+          if (!el) return;
           const rect = el.getBoundingClientRect();
           const style = window.getComputedStyle(el);
           const r = parseInt(style.borderRadius, 10) || 0;
@@ -305,63 +437,121 @@ function isActive(href: string): boolean {
             y: rect.top + rect.height / 2,
             w: rect.width + PAD,
             h: rect.height + PAD,
-            r: isNaN(r) ? 0 : r
+            r: isNaN(r) ? 0 : r,
           };
-        }
-      });
-      document.addEventListener('mouseout', (e) => {
-        const next = e.relatedTarget && e.relatedTarget.closest(selector);
-        if (!next) {
-          cursor.classList.remove('is-hovering');
-          targetPos = null;
-        }
-      });
+        };
 
-      document.addEventListener('mousedown', () => cursor.classList.add('is-clicking'));
-      document.addEventListener('mouseup', () => cursor.classList.remove('is-clicking'));
-    });
-  </script>
-
-  <!-- Work-card expand toggle + Satellite parallax -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.work-card[data-work-card]').forEach((card) => {
-        card.addEventListener('click', (e) => {
-          if (e.target.closest('a')) return;
-          card.classList.toggle('is-expanded');
-        });
-        card.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            card.classList.toggle('is-expanded');
+        // Continuously track element size during hover (for CSS transitions)
+        const trackElementSize = () => {
+          if (hoveredElement && isTrackingSize) {
+            updateTargetPos(hoveredElement);
+            requestAnimationFrame(trackElementSize);
           }
-        });
-      });
+        };
 
-      const satellites = document.querySelectorAll('.satellite');
-      if (satellites.length && 'requestAnimationFrame' in window) {
-        let ticking = false;
-        const updateParallax = () => {
-          const y = window.scrollY;
-          const offset = y * 0.05;
-          satellites.forEach((el) => {
-            if (el.classList.contains('reveal-up') && el.classList.contains('active')) {
-              el.style.transform = `translateY(${offset}px) rotate(0deg) scale(1)`;
+        // Use ResizeObserver as primary method, with RAF fallback
+        if (window.ResizeObserver) {
+          resizeObserver = new ResizeObserver(() => {
+            if (hoveredElement) {
+              updateTargetPos(hoveredElement);
             }
           });
-          ticking = false;
-        };
-        window.addEventListener('scroll', () => {
-          if (!ticking) {
-            requestAnimationFrame(updateParallax);
-            ticking = true;
+        }
+
+        document.addEventListener("mouseover", (e) => {
+          const el = e.target.closest(selector);
+          if (el) {
+            cursor.classList.add("is-hovering");
+            hoveredElement = el;
+            isTrackingSize = true;
+            updateTargetPos(el);
+
+            // Observe element for size changes
+            if (resizeObserver) {
+              resizeObserver.observe(el);
+            }
+
+            // Start continuous tracking for smooth transitions
+            trackElementSize();
           }
-        }, { passive: true });
-        updateParallax();
-      }
-    });
-  </script>
-</body>
+        });
+
+        document.addEventListener("mouseout", (e) => {
+          const next = e.relatedTarget && e.relatedTarget.closest(selector);
+          if (!next) {
+            cursor.classList.remove("is-hovering");
+            hoveredElement = null;
+            isTrackingSize = false;
+            targetPos = null;
+
+            // Stop observing
+            if (resizeObserver && e.target.closest) {
+              const el = e.target.closest(selector);
+              if (el) {
+                resizeObserver.unobserve(el);
+              }
+            }
+          }
+        });
+
+        document.addEventListener("mousedown", () =>
+          cursor.classList.add("is-clicking"),
+        );
+        document.addEventListener("mouseup", () =>
+          cursor.classList.remove("is-clicking"),
+        );
+      });
+    </script>
+
+    <!-- Work-card expand toggle + Satellite parallax -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .querySelectorAll(".work-card[data-work-card]")
+          .forEach((card) => {
+            card.addEventListener("click", (e) => {
+              if (e.target.closest("a")) return;
+              card.classList.toggle("is-expanded");
+            });
+            card.addEventListener("keydown", (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                card.classList.toggle("is-expanded");
+              }
+            });
+          });
+
+        const satellites = document.querySelectorAll(".satellite");
+        if (satellites.length && "requestAnimationFrame" in window) {
+          let ticking = false;
+          const updateParallax = () => {
+            const y = window.scrollY;
+            const offset = y * 0.05;
+            satellites.forEach((el) => {
+              if (
+                el.classList.contains("reveal-up") &&
+                el.classList.contains("active")
+              ) {
+                el.style.transform = `translateY(${offset}px) rotate(0deg) scale(1)`;
+              }
+            });
+            ticking = false;
+          };
+          window.addEventListener(
+            "scroll",
+            () => {
+              if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+              }
+            },
+            { passive: true },
+          );
+          updateParallax();
+        }
+      });
+    </script>
+  </body>
 </html>
 
 <style>
@@ -477,19 +667,127 @@ function isActive(href: string): boolean {
     padding: 0;
   }
 
-  .nav__link {
-    display: block;
-    padding: 8px 14px;
+  /* Desktop nav links: symbol-based with smooth width expansion on hover */
+  .nav__left .nav__link,
+  .nav__right .nav__link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    padding: 0;
+    overflow: hidden;
     font-size: var(--text-sm);
     color: var(--c-muted);
     text-decoration: none;
     border-radius: var(--radius-full);
-    transition: color var(--transition-fast), background var(--transition-fast);
+    /* Slower, delayed shrink when not hovered */
+    transition:
+      width 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.15s,
+      min-width 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.15s,
+      padding-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.15s,
+      padding-right 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.15s,
+      justify-content 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.15s,
+      color var(--transition-fast),
+      background var(--transition-fast);
   }
 
-  .nav__link:hover {
+  .nav__symbol {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    color: currentColor;
+  }
+
+  .nav__text {
+    opacity: 0;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    font-size: var(--text-sm);
+    line-height: 1;
+    color: var(--c-muted);
+    /* Slower shrink with delay when not hovered */
+    transition:
+      opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+      width 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.15s,
+      color var(--transition-fast);
+    pointer-events: none;
+    width: 0;
+    overflow: hidden;
+  }
+
+  /* Hover reveal (mouse devices) - expand width smoothly */
+  @media (hover: hover) and (pointer: fine) {
+    .nav__left .nav__link:hover,
+    .nav__right .nav__link:hover {
+      min-width: 150px;
+      width: auto;
+      justify-content: center;
+      padding-left: 14px;
+      padding-right: 14px;
+      color: var(--c-text);
+      text-decoration: none;
+      /* Faster expansion on hover (no delay) */
+      transition:
+        width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        min-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        padding-left 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        padding-right 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        justify-content 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .nav__left .nav__link:hover .nav__symbol,
+    .nav__right .nav__link:hover .nav__symbol {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .nav__left .nav__link:hover .nav__text,
+    .nav__right .nav__link:hover .nav__text {
+      opacity: 1;
+      width: auto;
+      margin: 0;
+      color: var(--c-text);
+      /* Faster expansion on hover (no delay) */
+      transition:
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        color var(--transition-fast);
+    }
+  }
+
+  /* Tap reveal (touch devices) - expand width smoothly */
+  .nav__left .nav__link.is-tapped,
+  .nav__right .nav__link.is-tapped {
+    min-width: 150px;
+    width: auto;
+    justify-content: center;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .nav__left .nav__link.is-tapped .nav__symbol,
+  .nav__right .nav__link.is-tapped .nav__symbol {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .nav__left .nav__link.is-tapped .nav__text,
+  .nav__right .nav__link.is-tapped .nav__text {
+    opacity: 1;
+    width: auto;
+    margin: 0;
     color: var(--c-text);
-    text-decoration: none;
+    pointer-events: none;
   }
 
   .nav__link--active {
@@ -616,7 +914,9 @@ function isActive(href: string): boolean {
     color: var(--c-muted);
     text-decoration: none;
     border-radius: 9999px;
-    transition: color 0.2s, background 0.2s;
+    transition:
+      color 0.2s,
+      background 0.2s;
   }
 
   .floating-nav__link:hover,
@@ -672,8 +972,26 @@ function isActive(href: string): boolean {
       display: flex;
     }
 
-    .nav__link {
+    /* Mobile menu: text only, reset symbol styles */
+    .nav__menu .nav__link {
+      position: static;
+      display: block;
+      width: auto;
+      height: auto;
       padding: 12px 16px;
+      overflow: visible;
+    }
+
+    .nav__menu .nav__symbol {
+      display: none;
+    }
+
+    .nav__menu .nav__text {
+      position: static;
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+      padding: 0;
     }
 
     .footer__content {
