@@ -1,0 +1,392 @@
+/* Shared Style Guide CSS - Powered by Style Dictionary Tokens (Domestic Focus) */
+@import "../../../styles/tokens.generated.css";
+
+:root {
+    --guide-bg: var(--color-background-primary);
+    --guide-text: var(--color-text-primary);
+    --guide-muted: var(--color-text-secondary);
+    --guide-border: var(--color-base-border-neutral);
+    --guide-surface: var(--color-background-secondary);
+    --guide-surface-deep: var(--color-base-warm-stone);
+    --guide-accent: var(--color-text-accent);
+}
+
+.style-guide-wrapper {
+    background-color: var(--guide-bg);
+    background-image: var(--asset-glow-primary), var(--asset-glow-secondary);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.style-guide {
+    font-family: var(--typography-font-family-body);
+    color: var(--guide-text);
+    padding: var(--spacing-large) var(--spacing-medium);
+    max-width: 1240px;
+    margin: 0 auto;
+    line-height: 1.6;
+    position: relative;
+}
+
+.guide-header {
+    margin-bottom: var(--spacing-large);
+    border-bottom: 1px solid var(--guide-border);
+    padding-bottom: var(--spacing-medium);
+}
+
+.guide-header h1 {
+    font-family: var(--typography-font-family-display);
+    font-size: var(--typography-font-size-xlarge);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: var(--typography-letter-spacing-tight);
+}
+
+/* Panel Primitives */
+.guide-section {
+    margin-bottom: var(--spacing-large);
+    padding: var(--spacing-medium);
+    background: var(--guide-surface);
+    border: none;
+    border-radius: var(--effect-radius-large);
+    box-shadow: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.guide-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--effect-texture-paper);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.guide-section>* {
+    position: relative;
+    z-index: 1;
+}
+
+.guide-section h2 {
+    font-family: var(--typography-font-family-mono);
+    font-size: var(--typography-font-size-small);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--guide-muted);
+    margin-bottom: var(--spacing-medium);
+    border-bottom: 1px solid var(--guide-border);
+    padding-bottom: 1rem;
+}
+
+/* Vignette Component */
+.vignette-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-large);
+    align-items: center;
+}
+
+.vignette-frame {
+    background: var(--guide-surface-deep);
+    border: none;
+    padding: var(--spacing-medium);
+    border-radius: var(--effect-radius-medium);
+    position: relative;
+    transform: translate(10px, -10px);
+}
+
+.stripe {
+    height: 10px;
+    background: var(--asset-stripe-domestic);
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+}
+
+/* Collection Board Component */
+.collection-board {
+    position: relative;
+    min-height: 400px;
+    background: var(--guide-surface-deep);
+    border: 1px dashed var(--guide-border);
+    border-radius: var(--effect-radius-large);
+    padding: var(--spacing-medium);
+    overflow: hidden;
+}
+
+.collection-item {
+    position: absolute;
+    width: 220px;
+    padding: 1.5rem;
+    background: var(--guide-surface);
+    border: none;
+    box-shadow: none;
+    border-radius: var(--effect-radius-medium);
+    transition: transform 0.3s ease;
+}
+
+.collection-item:hover {
+    transform: scale(1.02) rotate(var(--tilt));
+}
+
+/* Image Cards */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-large);
+}
+
+.image-card {
+    background: var(--guide-surface-deep);
+    border: none;
+    padding: 16px;
+    border-radius: var(--effect-radius-medium);
+    box-shadow: none;
+}
+
+.image-placeholder {
+    height: 200px;
+    background: color-mix(in srgb, var(--guide-accent) 15%, transparent);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: grid;
+    place-items: center;
+    font-family: var(--typography-font-family-mono);
+    font-size: 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* UI Elements */
+.demo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-medium);
+    align-items: center;
+}
+
+.btn {
+    padding: 0.75rem 1.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--guide-border);
+    cursor: pointer;
+    font-family: var(--typography-font-family-body);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn.primary {
+    background: var(--guide-accent);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.btn.secondary {
+    background: transparent;
+    color: var(--guide-text);
+}
+
+.badge {
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-family: var(--typography-font-family-mono);
+    font-size: 0.75rem;
+    background: var(--color-base-marigold);
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Palette Visualization */
+.swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-medium);
+}
+
+.swatch-card {
+    background: var(--guide-bg);
+    border: none;
+    border-radius: 12px;
+    padding: 0.5rem;
+}
+
+.swatch-color {
+    height: 100px;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.swatch-info {
+    font-size: 0.8rem;
+    font-family: var(--typography-font-family-mono);
+    padding: 0.5rem;
+}
+
+/* Atmospheric Effects Section */
+.atmos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--spacing-medium);
+}
+
+.atmos-specimen {
+    background: var(--guide-bg);
+    border: 1px solid var(--guide-border);
+    border-radius: var(--effect-radius-medium);
+    overflow: hidden;
+}
+
+.atmos-preview {
+    position: relative;
+    height: 160px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.atmos-preview[data-atmos="burgundy-gold"] {
+    background:
+        radial-gradient(200px circle at 20% 25%, rgba(92, 42, 43, 0.30), transparent 70%),
+        radial-gradient(180px circle at 85% 15%, rgba(228, 185, 108, 0.22), transparent 60%),
+        var(--guide-bg);
+}
+
+.atmos-preview[data-atmos="coral-teal"] {
+    background:
+        radial-gradient(200px circle at 20% 25%, rgba(217, 107, 90, 0.30), transparent 70%),
+        radial-gradient(180px circle at 85% 15%, rgba(63, 176, 162, 0.26), transparent 60%),
+        var(--guide-bg);
+}
+
+.atmos-preview[data-atmos="sage-gold"] {
+    background:
+        radial-gradient(200px circle at 20% 25%, rgba(58, 127, 101, 0.28), transparent 70%),
+        radial-gradient(180px circle at 85% 15%, rgba(228, 185, 108, 0.22), transparent 60%),
+        var(--guide-bg);
+}
+
+.atmos-preview[data-atmos="burgundy-cobalt"] {
+    background:
+        radial-gradient(200px circle at 20% 25%, rgba(92, 42, 43, 0.30), transparent 70%),
+        radial-gradient(180px circle at 85% 15%, rgba(74, 106, 165, 0.26), transparent 60%),
+        var(--guide-bg);
+}
+
+/* Paper texture specimens */
+.atmos-preview--texture {
+    background: var(--guide-bg);
+}
+
+.atmos-preview--texture::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.atmos-preview[data-texture="120deg"]::after {
+    background: repeating-linear-gradient(
+        120deg,
+        rgba(0, 0, 0, 0.04) 0,
+        rgba(0, 0, 0, 0.04) 1px,
+        transparent 1px,
+        transparent 10px
+    );
+}
+
+.atmos-preview[data-texture="90deg"]::after {
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.04) 0,
+        rgba(0, 0, 0, 0.04) 1px,
+        transparent 1px,
+        transparent 10px
+    );
+}
+
+.atmos-label {
+    font-family: var(--typography-font-family-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--guide-muted);
+    position: relative;
+    z-index: 1;
+}
+
+.atmos-meta {
+    padding: 0.75rem 1rem;
+    font-family: var(--typography-font-family-mono);
+    font-size: 0.7rem;
+    border-top: 1px solid var(--guide-border);
+}
+
+.atmos-meta code {
+    font-size: 0.65rem;
+    opacity: 0.7;
+}
+
+/* Combined atmosphere preview */
+.atmos-combined {
+    position: relative;
+    border-radius: var(--effect-radius-large);
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-large);
+    background: var(--guide-bg);
+    border: 1px solid var(--guide-border);
+}
+
+.atmos-combined__glow {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(350px circle at 10% 20%, rgba(92, 42, 43, 0.22), transparent 70%),
+        radial-gradient(300px circle at 95% 10%, rgba(228, 185, 108, 0.16), transparent 60%);
+    pointer-events: none;
+}
+
+.atmos-combined__grain {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        120deg,
+        rgba(0, 0, 0, 0.03) 0,
+        rgba(0, 0, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 10px
+    );
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.atmos-combined__content {
+    position: relative;
+    z-index: 1;
+    max-width: 50ch;
+}
+
+@media (max-width: 900px) {
+    .vignette-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .collection-board {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .collection-item {
+        position: static;
+        width: auto;
+    }
+
+    .atmos-grid {
+        grid-template-columns: 1fr;
+    }
+}

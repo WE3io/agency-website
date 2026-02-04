@@ -1,0 +1,454 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Contact" description="Get in touch with WE3 - let's discuss your next project or just say hello.">
+  <!-- Page Header -->
+  <section class="page-header reveal-up">
+    <div class="container container--narrow">
+      <p class="eyebrow">Get in Touch</p>
+      <h1>Let's Talk</h1>
+      <p class="page-header__lead">
+        Whether you have a project in mind, want to join our community, or just want to
+        say hello—we'd love to hear from you.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Options -->
+  <section class="section reveal-up">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-container reveal-up stagger-1">
+          <div class="section-header">
+            <span class="section-header__label">Send a Message</span>
+            <div class="section-header__rule"></div>
+          </div>
+
+          <form class="contact-form" id="contactForm">
+            <div class="form-row">
+              <div class="field">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required placeholder="Jane Smith" />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="jane@company.com" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="subject">What's this about?</label>
+              <select id="subject" name="subject" required>
+                <option value="">Select a topic...</option>
+                <option value="project">I have a project to discuss</option>
+                <option value="partnership">I'm interested in co-building</option>
+                <option value="venture">I have a venture idea</option>
+                <option value="apprentice">I'm interested in apprenticeships</option>
+                <option value="community">I want to join the community</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required placeholder="Tell us about your challenge, idea, or just say hi..."></textarea>
+            </div>
+
+            <div class="field">
+              <label for="budget">Budget Range (optional)</label>
+              <select id="budget" name="budget">
+                <option value="">Prefer not to say</option>
+                <option value="exploring">Just exploring (< $25k)</option>
+                <option value="small">Small project ($25k - $75k)</option>
+                <option value="medium">Medium engagement ($75k - $200k)</option>
+                <option value="large">Large engagement ($200k+)</option>
+                <option value="equity">Open to equity/revenue share</option>
+              </select>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn--primary">Send Message</button>
+              <p class="form-note">We typically respond within 24 hours.</p>
+            </div>
+          </form>
+        </div>
+
+        <!-- Contact Options -->
+        <div class="contact-options reveal-up stagger-2">
+          <div class="section-header">
+            <span class="section-header__label">Other Ways to Reach Us</span>
+            <div class="section-header__rule"></div>
+          </div>
+
+          <!-- Book a Call -->
+          <div class="contact-option">
+            <div class="contact-option__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <div class="contact-option__content">
+              <h3>Book a Call</h3>
+              <p>Schedule a 30-minute intro call to discuss your project or idea.</p>
+              <a href="https://calendar.app.google/6KH9rszTUYqAa2YF8" target="_blank" rel="noopener noreferrer" class="btn btn--secondary">Schedule Call</a>
+            </div>
+          </div>
+
+          <!-- Email Directly -->
+          <div class="contact-option">
+            <div class="contact-option__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div class="contact-option__content">
+              <h3>Email Us</h3>
+              <p>For direct inquiries or sending project briefs.</p>
+              <a href="mailto:hello@we3.io" class="contact-email">hello@we3.io</a>
+            </div>
+          </div>
+
+          <!-- Brief Builder -->
+          <div class="contact-option contact-option--highlighted">
+            <div class="contact-option__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+            </div>
+            <div class="contact-option__content">
+              <h3>Start with a Brief</h3>
+              <p>Use our Brief Builder to articulate your challenge before reaching out.</p>
+              <a href="/brief" class="btn btn--primary">Build Your Brief</a>
+            </div>
+          </div>
+
+          <!-- Location -->
+          <div class="contact-option">
+            <div class="contact-option__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="contact-option__content">
+              <h3>Where We Are</h3>
+              <p>We work globally with a distributed team, rooted in London and Lisbon.</p>
+              <span class="contact-location mono">London, UK (GMT) · Lisbon, PT (WET)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section-header">
+        <span class="section-header__label">Common Questions</span>
+        <div class="section-header__rule"></div>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>How quickly do you respond?</summary>
+          <p>
+            We aim to respond to all inquiries within 24 hours on business days.
+            For urgent matters, please mention it in your subject line.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What information should I include?</summary>
+          <p>
+            The more context you can share about your challenge, timeline, and budget,
+            the better we can help. If you're not sure, start with our Brief Builder—it
+            will guide you through the key questions.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Do you work with early-stage startups?</summary>
+          <p>
+            Yes! We have engagement models for every stage, from pre-seed to enterprise.
+            For early-stage ventures, we often work on equity or revenue-share arrangements
+            as co-building partners.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What's your minimum engagement size?</summary>
+          <p>
+            Our minimum consulting engagement is typically around $25k. For smaller budgets,
+            we recommend starting with our free Brief Builder and community resources, or
+            exploring co-building arrangements.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I join WE3 as a team member?</summary>
+          <p>
+            We're always looking for talented people who share our values. Check out our
+            apprenticeship program for emerging talent, or reach out directly if you're
+            a senior practitioner interested in joining our network.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Page Header */
+  .page-header {
+    padding: var(--ref-space-xxl) 0 var(--ref-space-xl);
+  }
+
+  .page-header h1 {
+    margin: var(--ref-space-sm) 0 var(--ref-space-md);
+  }
+
+  .page-header__lead {
+    font-size: var(--ref-text-md);
+    color: var(--sys-color-on-surface-muted);
+    line-height: 1.5;
+  }
+
+  /* Sections */
+  .section {
+    padding: clamp(var(--ref-space-xl), 6vw, var(--ref-space-xxl)) 0;
+  }
+
+  .section--alt {
+    background: var(--sys-surface-alt);
+  }
+
+  /* Contact Grid */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ref-space-xxl);
+  }
+
+  /* Contact Form */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ref-space-md);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ref-space-md);
+  }
+
+  .contact-form .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .contact-form label {
+    font-size: var(--ref-text-sm);
+    color: var(--sys-color-on-surface-muted);
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select {
+    padding: 12px 16px;
+    border: 1px solid var(--sys-surface-border);
+    border-radius: var(--ref-radius-sm);
+    background: var(--sys-surface-card);
+    color: var(--sys-color-on-surface);
+    font-family: var(--sys-font-family);
+    font-size: var(--ref-text-base);
+    transition: border-color var(--sys-motion-fast), box-shadow var(--sys-motion-fast);
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus,
+  .contact-form select:focus {
+    outline: none;
+    border-color: var(--sys-color-accent-subtle);
+    box-shadow: none;
+  }
+
+  .contact-form textarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+
+  .form-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--ref-space-md);
+    margin-top: var(--ref-space-sm);
+  }
+
+  .form-note {
+    font-size: var(--ref-text-sm);
+    color: var(--sys-color-on-surface-muted);
+    margin: 0;
+  }
+
+  /* Contact Options */
+  .contact-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ref-space-md);
+  }
+
+  .contact-option {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--ref-space-md);
+    padding: var(--ref-space-lg);
+    background: var(--sys-surface-card);
+    border: none;
+    border-radius: var(--ref-radius-md);
+  }
+
+  .contact-option--highlighted {
+    border-color: var(--sys-color-accent-subtle);
+    background: linear-gradient(135deg, var(--sys-surface-card) 0%, color-mix(in srgb, var(--ref-primitive-surf), transparent 95%) 100%);
+  }
+
+  .contact-option__icon {
+    width: 40px;
+    height: 40px;
+    color: var(--sys-color-accent-subtle);
+  }
+
+  .contact-option__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .contact-option__content h3 {
+    font-size: var(--ref-text-base);
+    margin-bottom: var(--ref-space-xs);
+  }
+
+  .contact-option__content p {
+    font-size: var(--ref-text-sm);
+    color: var(--sys-color-on-surface-muted);
+    margin-bottom: var(--ref-space-sm);
+  }
+
+  .contact-email {
+    font-family: var(--sys-font-mono);
+    font-size: var(--ref-text-base);
+    color: var(--sys-color-accent-subtle);
+  }
+
+  .contact-location {
+    font-size: var(--ref-text-sm);
+    color: var(--sys-color-on-surface-muted);
+  }
+
+  /* FAQ */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ref-space-sm);
+  }
+
+  .faq-item {
+    background: var(--sys-surface-card);
+    border: none;
+    border-radius: var(--ref-radius-md);
+    overflow: hidden;
+  }
+
+  .faq-item summary {
+    padding: var(--ref-space-md) var(--ref-space-lg);
+    font-family: var(--sys-font-display);
+    font-size: var(--ref-text-base);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::after {
+    content: "+";
+    font-family: var(--sys-font-family);
+    font-size: var(--ref-text-md);
+    color: var(--sys-color-accent-subtle);
+    transition: transform var(--sys-motion-fast);
+  }
+
+  .faq-item[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-item p {
+    padding: 0 var(--ref-space-lg) var(--ref-space-md);
+    color: var(--sys-color-on-surface-muted);
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: var(--ref-space-xl);
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<script>
+  // Simple form handling - in production, this would submit to an API
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    // For now, just log and show confirmation
+    console.log('Form submitted:', data);
+
+    // Show success message
+    form.innerHTML = `
+      <div class="form-success panel text-center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--sys-color-accent-subtle); margin-bottom: var(--ref-space-md);">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <h3>Message Sent!</h3>
+        <p style="color: var(--sys-color-on-surface-muted);">
+          Thanks for reaching out. We'll get back to you within 24 hours.
+        </p>
+        <a href="/" class="btn btn--secondary" style="margin-top: var(--ref-space-md);">Back to Home</a>
+      </div>
+    `;
+  });
+</script>

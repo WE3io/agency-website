@@ -1,52 +1,91 @@
-# Variant Setup: A/B/C/D Testing Architecture
+# WE3 Website
 
-This Astro project is configured to host four side-by-side versions of the agency website. Each agent has total remit over their own variant's implementation while sharing the core content and configuration.
+Single-site Astro build. No variant system — one codebase, one output.
 
-## Folder Structure
+## Architecture
 
-```mermaid
-graph TD
-    Root[website/src] --> Variants[variants/]
-    Variants --> Gemini[antigravity/ - Lead interpretation]
-    Variants --> Claude[claude/ - Placeholders]
-    Variants --> Codex[codex/ - Placeholders]
-    Variants --> Original[original/ - Current production code]
-    Variants --> Shared[shared-resources/ - Common components & Style Guide]
-    
-    Root --> Pages[pages/]
-    Pages --> RootIndex[index.astro - The Chooser]
-    Pages --> StyleGuide[style-guide.astro - Proxy to shared-resources]
-    Pages --> AG[antigravity/ - Proxy to variants/antigravity]
-    Pages --> CL[claude/ - Proxy to variants/claude]
-    Pages --> CX[codex/ - Proxy to variants/codex]
-    Pages --> OR[original/ - Proxy to variants/original]
+```
+website/
+  src/
+    layouts/Layout.astro    — Shell: nav, footer, floating dock, scripts
+    lib/site.ts             — Site config (logo variant, etc.)
+    lib/brief-engine.ts     — Brief form logic
+    pages/                  — Route files (.astro)
+    styles/
+      global.css            — Hand-authored styles
+      tokens.generated.css  — Auto-generated from Style Dictionary
+  astro.config.mjs          — publicDir: "../public"
+
+../public/                  — Static assets (one level up, shared)
+  images/logos/             — Logo SVG variants (claude.svg, warm.svg, ...)
+  favicon.svg
 ```
 
-## How it Works
+## Key Systems
 
-1.  **Isolation**: Each agent works almost exclusively inside their `src/variants/[agent-name]` folder. 
-2.  **Proxying**: Files in `src/pages/[agent-name]/` act as proxies, importing and rendering components or pages from the corresponding `variants/` subdirectory.
-3.  **URL Routes**:
-    -   `/` - Variant Chooser (Root)
-    -   `/style-guide` - Shared Design System Reference
-    -   `/antigravity` - Gemini Version
-    -   `/claude` - Claude Version
-    -   `/codex` - Codex Version
-    -   `/original` - Original Production Site
-4.  **Shared Foundation**:
-    -   **Design Tokens**: Managed in `tokens/tokens.json`. Processed via **Style Dictionary**.
-    -   **Content**: All versions use Astro Content Collections pointed at the shared `src/content/` (symlinked from `../../content`).
-    -   **Dependencies**: Controlled via the root `package.json`.
-    -   **Configuration**: Single `astro.config.mjs` for the whole project.
+### Site Config (`src/lib/site.ts`)
+Single source of truth for site-wide settings. Currently controls which logo variant is used:
+```typescript
+export const SITE = {
+  logo: 'warm',   // change to 'claude' or any filename in public/images/logos/
+} as const;
+```
+Layout.astro imports this and derives the logo path. Changing the value swaps nav and footer logos site-wide.
 
-## Scripts & CLI
+### Design Tokens (Style Dictionary)
+Tokens are defined in `sd.config.js` and compiled to `src/styles/tokens.generated.css`:
+```sh
+pnpm run tokens:build
+```
 
-- `pnpm run dev` - Start the Astro development server.
-- `pnpm run tokens:build` - Regenerate design tokens from `tokens/tokens.json`.
-- `pnpm run build` - Build all variants for production.
+### Logo Variants
+SVG logos live in `public/images/logos/`. Add a new variant by dropping an SVG there and updating `SITE.logo` in `src/lib/site.ts`.
 
-## Workflow Rules for Agents
+Current variants:
+- `warm` — Orange/yellow/red warm palette (default)
+- `claude` — Retro purple (#662D91)
 
-- **Stay in Your Room**: Do not modify files in other agents' `variants/` folders.
-- **Scope Your Styles**: Use Astro's component-scoped CSS or unique selectors to prevent style leakage.
-- **Shared Code**: If a helper or library is needed by everyone, place it in a shared `src/lib/` or update the root `package.json`.
+### Tools Pages
+- `/style-guide` — Design system reference modal
+- `/logo-iterator` — Logo iteration/generation tool
+
+### Error Pages
+- `404.astro` — Custom "not found" with inline SVG and drift animations
+- `500.astro` — Custom "server error" with inline SVG and flicker animations
+
+These use bespoke inline SVGs with their own animations — they are decorative art, not brand logos, and are independent of the logo variant system.
+
+### Floating Nav Dock
+A frosted-glass pill nav appears after 200px scroll. On desktop, it docks into the footer stripe with bar-pop contact animations. On mobile, it hides near the footer instead.
+
+## Pages
+
+| Route | File |
+|-------|------|
+| `/` | `index.astro` |
+| `/story` | `story.astro` |
+| `/model` | `model.astro` |
+| `/engagements` | `engagements.astro` |
+| `/work` | `work/index.astro` |
+| `/contact` | `contact.astro` |
+| `/brief` | `brief.astro` |
+| `/tools` | `tools.astro` |
+| `/style-guide` | `style-guide.astro` |
+| `/logo-iterator` | `logo-iterator.astro` |
+
+## Public Directory
+
+Static assets live in `../public` relative to `website/`, configured in `astro.config.mjs` line 5:
+```js
+publicDir: "../public"
+```
+
+## Scripts
+
+```sh
+pnpm run dev          # Dev server (port 4321)
+pnpm run build        # Production build → dist/
+pnpm run preview      # Serve built site locally
+pnpm run deploy       # Deploy to Vercel
+pnpm run tokens:build # Regenerate design tokens
+```

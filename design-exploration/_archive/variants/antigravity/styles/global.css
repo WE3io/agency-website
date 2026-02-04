@@ -1,0 +1,43 @@
+:root {
+  /* Foundations */
+  --bg: #f6f1e8;
+  --surface: #fffaf3;
+  --surface-2: #f1e9dd;
+  --text: #1d1c19;
+  --muted: #6c665f;
+  --border: #d8d0c6;
+  --accent: #3a7f65;
+  --button-text: #fdfbf7;
+  
+  /* Typography */
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "Work Sans", sans-serif;
+  --font-accent: "IBM Plex Mono", monospace;
+  
+  /* Decorative */
+  --stripe: repeating-linear-gradient(90deg, #3a7f65 0 12px, #d4a85c 12px 20px, #c06b52 20px 28px, #355c8a 28px 36px, #f6f1e8 36px 42px, #1d1c19 42px 45px);
+  --glow-1: rgba(58, 127, 101, 0.18);
+  --glow-2: rgba(208, 168, 92, 0.14);
+  --radius: 18px;
+  --shadow: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+}
+
+.mono {
+  font-family: var(--font-accent);
+}

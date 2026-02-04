@@ -1,0 +1,87 @@
+---
+const { title = "Agency" } = Astro.props;
+const navItems = [
+  { href: "/original", label: "Home" },
+  { href: "/original/services", label: "Services" },
+  { href: "/original/work", label: "Work" },
+  { href: "/original/about", label: "About" },
+  { href: "/original/contact", label: "Contact" },
+  { href: "/original/blog", label: "Blog" },
+];
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        margin: 0;
+        font-family: "Charter", "Georgia", serif;
+        line-height: 1.6;
+        color: #1f1f1f;
+        background: #fafafa;
+      }
+      .wrapper {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 48px 24px 72px;
+      }
+      header {
+        margin-bottom: 40px;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+      }
+      nav a {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px solid #1f1f1f;
+      }
+      nav a:hover {
+        border-bottom-color: transparent;
+      }
+      h1, h2, h3 {
+        line-height: 1.25;
+      }
+      article {
+        display: grid;
+        gap: 24px;
+      }
+      footer {
+        margin-top: 48px;
+        font-size: 0.9rem;
+        color: #4a4a4a;
+      }
+      ul {
+        padding-left: 18px;
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=League+Gothic:ital@0;1&family=Cutive&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <nav>
+          {navItems.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))}
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer>
+        <p>We build calm, clear digital work.</p>
+      </footer>
+    </div>
+  </body>
+</html>

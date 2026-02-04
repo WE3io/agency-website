@@ -8,10 +8,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy": "vercel deploy --prod",
     "tokens:build": "style-dictionary build --config sd.config.js"
   },
   "dependencies": {
+    "@iconify-json/heroicons": "^1.2.3",
     "astro": "^4.16.0",
+    "astro-icon": "^1.1.5",
     "gray-matter": "^4.0.3",
     "markdown-it": "^14.1.0"
   },

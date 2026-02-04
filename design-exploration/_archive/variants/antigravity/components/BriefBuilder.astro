@@ -1,0 +1,210 @@
+---
+---
+<div class="brief-builder" id="brief-builder">
+    <div class="step active" data-step="1">
+        <p class="eyebrow">STEP 01 / INTENT</p>
+        <h2>What are we building together?</h2>
+        <div class="field">
+            <label for="project-goal">Define the core challenge in a sentence.</label>
+            <input type="text" id="project-goal" placeholder="e.g. Scaling a crypto-native payments flow..." />
+        </div>
+        <button class="btn primary next-btn">Continue</button>
+    </div>
+
+    <div class="step" data-step="2">
+        <p class="eyebrow">STEP 02 / COMPLEXITY</p>
+        <h2>Select the scope depth.</h2>
+        <div class="options">
+            <label class="option-card">
+                <input type="radio" name="complexity" value="low" checked />
+                <div class="option-content">
+                    <strong>Focused Audit / MVP</strong>
+                    <p>Sharp execution on a specific, bounded problem.</p>
+                </div>
+            </label>
+            <label class="option-card">
+                <input type="radio" name="complexity" value="medium" />
+                <div class="option-content">
+                    <strong>Full Build / Launch</strong>
+                    <p>End-to-end product development and deployment.</p>
+                </div>
+            </label>
+            <label class="option-card">
+                <input type="radio" name="complexity" value="high" />
+                <div class="option-content">
+                    <strong>Venture Incubation</strong>
+                    <p>Deep foundational strategy and long-term roadmap.</p>
+                </div>
+            </label>
+        </div>
+        <button class="btn primary next-btn">Generate Fit Check</button>
+    </div>
+
+    <div class="step result-step" data-step="results">
+        <p class="eyebrow">FIT CHECK / v0.2</p>
+        <h2>Your Crew Strategy</h2>
+        <div class="result-card">
+            <div class="crew-shape">
+                <span class="badge">RECOMENDED CREW</span>
+                <h3 id="result-crew">--</h3>
+            </div>
+            <div class="timeline">
+                <p><strong>ESTIMATED SLOT:</strong> <span id="result-timeline">--</span></p>
+            </div>
+            <p id="result-pricing" class="pricing-note">Pricing confirmed after brief review.</p>
+        </div>
+        
+        <div class="actions">
+            <button class="btn primary" id="download-txt">Export Human-Readable Brief</button>
+            <button class="btn secondary" id="download-json">Export JSON Artifact</button>
+        </div>
+        <button class="btn text-link reset-btn" style="margin-top: 2rem;">Start Over</button>
+    </div>
+</div>
+
+<style>
+    .brief-builder {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: var(--spacing-large) 0;
+    }
+    .step {
+        display: none;
+        animation: fadeIn 0.4s ease-out;
+    }
+    .step.active {
+        display: block;
+    }
+    .eyebrow {
+        font-family: var(--typography-font-family-mono);
+        color: var(--ag-accent);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+    }
+    h2 { font-size: 2.2rem; margin: 0.5rem 0 2rem; }
+    
+    .field { margin-bottom: 2rem; }
+    .field label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.7; }
+    .field input {
+        width: 100%;
+        padding: 1rem;
+        background: var(--ag-surface);
+        border: 1px solid var(--ag-border);
+        border-radius: var(--effect-radius-medium);
+        color: var(--ag-text);
+        font-size: 1.1rem;
+    }
+
+    .options { display: grid; gap: 1rem; margin-bottom: 2rem; }
+    .option-card {
+        display: flex;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: var(--ag-surface);
+        border: none;
+        border-radius: var(--effect-radius-medium);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .option-card:has(input:checked) {
+        border-color: var(--ag-accent);
+        background: color-mix(in srgb, var(--ag-accent) 5%, transparent);
+    }
+    .option-card input { margin-top: 0.3rem; accent-color: var(--ag-accent); }
+    .option-content strong { display: block; font-size: 1.1rem; margin-bottom: 0.25rem; }
+    .option-content p { font-size: 0.9rem; opacity: 0.7; margin: 0; }
+
+    .result-card {
+        padding: 2rem;
+        background: var(--ag-surface);
+        border: none;
+        border-radius: var(--effect-radius-large);
+        margin-bottom: 2rem;
+        box-shadow: none;
+    }
+    .crew-shape h3 { font-size: 1.8rem; margin: 1rem 0; color: var(--ag-accent); }
+    .pricing-note { font-family: var(--typography-font-family-mono); font-size: 0.75rem; opacity: 0.6; }
+
+    .actions { display: flex; gap: 1rem; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<script>
+    const builder = document.getElementById('brief-builder');
+    const steps = builder.querySelectorAll('.step');
+    const nextBtns = builder.querySelectorAll('.next-btn');
+    const resetBtn = builder.querySelector('.reset-btn');
+    
+    let currentStep = 0;
+    const briefData = {
+        goal: '',
+        complexity: 'low'
+    };
+
+    const crewMapping = {
+        low: { crew: 'Core Senior Triad', timeline: '1-2 Core Weeks' },
+        medium: { crew: 'Triad + Fractional Support', timeline: '4-8 Core Weeks' },
+        high: { crew: 'Triad + Apprentices + Specialists', timeline: 'Successive Booking Slots' }
+    };
+
+    function showStep(index) {
+        steps.forEach((s, i) => {
+            s.classList.toggle('active', i === index);
+        });
+        if (index === steps.length - 1) {
+            renderResults();
+        }
+    }
+
+    function renderResults() {
+        const result = crewMapping[briefData.complexity];
+        builder.querySelector('#result-crew').textContent = result.crew;
+        builder.querySelector('#result-timeline').textContent = result.timeline;
+    }
+
+    nextBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep === 0) {
+                briefData.goal = builder.querySelector('#project-goal').value;
+            } else if (currentStep === 1) {
+                briefData.complexity = builder.querySelector('input[name="complexity"]:checked').value;
+            }
+            currentStep++;
+            showStep(currentStep);
+        });
+    });
+
+    resetBtn.addEventListener('click', () => {
+        currentStep = 0;
+        showStep(0);
+    });
+
+    // Export Logic
+    builder.querySelector('#download-json').addEventListener('click', () => {
+        const dataStr = JSON.stringify({
+            version: "0.2",
+            timestamp: new Date().toISOString(),
+            brief: briefData,
+            recommendation: crewMapping[briefData.complexity]
+        }, null, 2);
+        downloadFile(dataStr, 'we3-brief-artifact.json', 'application/json');
+    });
+
+    builder.querySelector('#download-txt').addEventListener('click', () => {
+        const result = crewMapping[briefData.complexity];
+        const content = `WE3 PROJECT BRIEF ARTIFACT\n===========================\n\nGOAL: ${briefData.goal}\nCREW: ${result.crew}\nSLOT: ${result.timeline}\n\nNOTE: Pricing confirmed after brief review.`;
+        downloadFile(content, 'we3-brief-human.txt', 'text/plain');
+    });
+
+    function downloadFile(content, fileName, contentType) {
+        const a = document.createElement("a");
+        const file = new Blob([content], {type: contentType});
+        a.href = URL.createObjectURL(file);
+        a.download = fileName;
+        a.click();
+    }
+</script>

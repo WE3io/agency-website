@@ -1,0 +1,95 @@
+---
+import "../styles/global.css";
+
+const { title = "WE3 Agency" } = Astro.props;
+const navItems = [
+  { href: "/antigravity", label: "Home" },
+  { href: "/antigravity/services", label: "Services" },
+  { href: "/antigravity/work", label: "Work" },
+  { href: "/antigravity/about", label: "About" },
+  { href: "/antigravity/contact", label: "Contact" },
+  { href: "/antigravity/blog", label: "Blog" },
+];
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@300;400;500;600&family=League+Gothic:ital@0;1&family=Cutive&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="backdrop" aria-hidden="true"></div>
+    <div class="wrapper">
+        <header class="main-header">
+            <nav>
+                {navItems.map(item => (
+                    <a href={item.href} class="nav-link">{item.label}</a>
+                ))}
+            </nav>
+        </header>
+        <main>
+            <slot />
+        </main>
+        <footer class="main-footer">
+            <div class="footer-stripe"></div>
+            <p class="mono">WE3 / STUDIO / 2026</p>
+        </footer>
+    </div>
+
+    <style>
+        .backdrop {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(600px circle at 15% 10%, var(--glow-1), transparent 70%),
+                radial-gradient(520px circle at 90% 0%, var(--glow-2), transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+        .main-header {
+            margin-bottom: 80px;
+        }
+        nav {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: var(--muted);
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        .main-footer {
+            margin-top: 100px;
+            text-align: center;
+        }
+        .footer-stripe {
+            height: 4px;
+            background: var(--stripe);
+            margin-bottom: 2rem;
+            border-radius: 999px;
+        }
+        .main-footer p {
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 0.2em;
+        }
+    </style>
+</body>
+</html>

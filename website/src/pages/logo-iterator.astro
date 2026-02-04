@@ -1,0 +1,1619 @@
+---
+import "../styles/global.css";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logo Iterator | WE3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=League+Gothic:ital@0;1&display=swap" rel="stylesheet" />
+</head>
+<body class="variant-claude">
+  <div id="app">
+    <header class="li-header">
+      <div class="li-logo-text">WE3 <span class="li-accent">PROTO_TYPE</span></div>
+      <div class="li-status-bar">
+        <span class="li-status-item">SYSTEM: <span class="li-online">ONLINE</span></span>
+        <span class="li-status-item">MODE: <span class="li-active">INTERACTIVE</span></span>
+      </div>
+    </header>
+
+    <main class="li-main">
+      <div class="li-viewport">
+        <svg id="logo-svg" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="4" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              <feGaussianBlur stdDeviation="15" result="largeBlur" />
+              <feMerge>
+                <feMergeNode in="largeBlur" />
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="glow-a" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur id="blur-a" stdDeviation="5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="glow-b" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur id="blur-b" stdDeviation="5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="glow-c" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur id="blur-c" stdDeviation="5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          <!-- Concentric Nonagon Tiers -->
+          <path id="boundary-outer" class="boundary boundary-tier tier-c" style="filter: url(#glow-c)" />
+          <path id="boundary-middle" class="boundary boundary-tier tier-b" style="filter: url(#glow-b)" />
+          <path id="boundary-inner" class="boundary boundary-tier tier-a" style="filter: url(#glow-a)" />
+
+          <!-- Reference Circles -->
+          <circle id="inner-ref" class="ref-circle" cx="500" cy="500" />
+          <circle id="middle-ref" class="ref-circle" cx="500" cy="500" />
+          <circle id="outer-ref" class="ref-circle" cx="500" cy="500" />
+
+          <!-- Character Groups -->
+          <g id="char-w" class="char-group"></g>
+          <g id="char-e" class="char-group"></g>
+          <g id="char-3" class="char-group"></g>
+
+          <!-- Debug Labels -->
+          <g id="labels-group"></g>
+          <g id="tier-labels-group"></g>
+        </svg>
+      </div>
+
+      <aside class="li-controls" id="controls">
+        <section>
+          <h3>GLOBAL</h3>
+          <div class="li-control-group">
+            <label>Zoom <span id="val-zoom">100%</span></label>
+            <input type="range" id="input-zoom" min="10" max="200" value="100" step="3">
+          </div>
+          <div class="li-control-group">
+            <label>Spacer Radius <span id="val-spacer">0</span></label>
+            <input type="range" id="input-spacer" min="0" max="45" value="0" step="1">
+          </div>
+          <div class="li-control-group li-toggle-group" style="margin-top: 12px;">
+            <label style="margin-bottom: 8px; display: block;">View Options</label>
+            <div class="li-checkbox-row" style="display: flex; gap: 12px;">
+              <label class="li-checkbox-label" style="font-size: 12px;"><input type="checkbox" id="check-guides"> Guides</label>
+              <label class="li-checkbox-label" style="font-size: 12px;"><input type="checkbox" id="check-labels" checked> Labels</label>
+              <label class="li-checkbox-label" style="font-size: 12px;"><input type="checkbox" id="check-indices" checked> Indices</label>
+            </div>
+          </div>
+        </section>
+
+        <section class="li-stem-geometry-section">
+          <div class="li-section-header">
+            <h3>SHAPES</h3>
+          </div>
+
+          <div class="li-control-group">
+            <select id="stem-selector" class="li-figma-select">
+              <option value="0">W-Left</option>
+              <option value="1">W-Cross</option>
+              <option value="2">W-Right</option>
+              <option value="3">E-Left</option>
+              <option value="4">E-Cross</option>
+              <option value="5">E-Right</option>
+              <option value="6">3-Left</option>
+              <option value="7">3-Cross</option>
+              <option value="8">3-Right</option>
+            </select>
+          </div>
+
+          <div class="li-batch-actions">
+            <button class="li-btn-figma" id="btn-group-outer">Outer</button>
+            <button class="li-btn-figma" id="btn-group-cross">Cross</button>
+            <button class="li-btn-figma" id="btn-group-all">All</button>
+          </div>
+
+          <!-- Shape Properties -->
+          <div class="li-control-group">
+            <label>Width <span id="val-width">40</span></label>
+            <input type="range" id="input-width" min="6" max="100" value="40" step="3">
+          </div>
+
+          <div class="li-control-group">
+            <div class="li-control-row" style="margin-bottom: 12px;">
+              <label style="font-size:10px; color:var(--sys-color-on-surface-muted);">Fill Color</label>
+              <div id="palette-fill" class="li-palette-container"></div>
+            </div>
+
+            <div class="li-control-group">
+              <label class="li-checkbox-label">
+                <input type="checkbox" id="check-stroke"> Keyline (Stroke) <span id="val-stroke"
+                  style="margin-left: auto; font-family:var(--ref-font-mono); color:var(--sys-color-accent-brand);">0</span>
+              </label>
+              <div class="li-control-row">
+                <div class="li-slider-inline">
+                  <input type="range" id="input-stroke-width" min="0" max="30" value="0" step="3">
+                </div>
+                <div id="palette-stroke" class="li-palette-container"></div>
+              </div>
+            </div>
+
+            <div class="li-control-group">
+              <label class="li-checkbox-label">
+                <input type="checkbox" id="check-glow"> Glow <span id="val-glow-blur"
+                  style="margin-left: auto; font-family:var(--ref-font-mono); color:var(--sys-color-accent-brand);">0</span>
+              </label>
+              <div class="li-control-row">
+                <div class="li-slider-inline">
+                  <input type="range" id="input-glow-blur" min="0" max="100" value="0" step="3">
+                </div>
+                <div id="palette-glow" class="li-palette-container"></div>
+              </div>
+            </div>
+
+            <div class="li-appearance-grid">
+              <div class="li-grid-label">Corner Radius</div>
+              <div class="li-corner-grid li-mini-grid">
+                <!-- Top Row: TL (P1), TR (P2) -->
+                <div class="li-grid-item">
+                  <svg class="li-corner-icon li-rotate-270" viewBox="0 0 16 16">
+                    <path d="M4 4h8a4 4 0 0 1 4 4v8" />
+                  </svg>
+                  <input type="number" id="input-p1" min="6" max="120" value="0" step="3" class="li-figma-input">
+                </div>
+                <div class="li-grid-item">
+                  <svg class="li-corner-icon" viewBox="0 0 16 16">
+                    <path d="M4 4h8a4 4 0 0 1 4 4v8" />
+                  </svg>
+                  <input type="number" id="input-p2" min="6" max="120" value="0" step="3" class="li-figma-input">
+                </div>
+                <!-- Bottom Row: BL (P3), BR (P4) -->
+                <div class="li-grid-item">
+                  <svg class="li-corner-icon li-rotate-180" viewBox="0 0 16 16">
+                    <path d="M4 4h8a4 4 0 0 1 4 4v8" />
+                  </svg>
+                  <input type="number" id="input-p3" min="6" max="120" value="0" step="3" class="li-figma-input">
+                </div>
+                <div class="li-grid-item">
+                  <svg class="li-corner-icon li-rotate-90" viewBox="0 0 16 16">
+                    <path d="M4 4h8a4 4 0 0 1 4 4v8" />
+                  </svg>
+                  <input type="number" id="input-p4" min="6" max="120" value="0" step="3" class="li-figma-input">
+                </div>
+              </div>
+              <button id="btn-link-corners" class="li-btn-tool" title="Link Corners">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <path fill="currentColor"
+                    d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z" />
+                </svg>
+              </button>
+            </div>
+        </section>
+
+        <section class="li-tier-controls-section">
+          <h3>CONTAINERS</h3>
+
+          <div class="li-tier-sub-section">
+            <h4>TIER A (INNER)</h4>
+            <div class="li-control-row">
+              <label class="li-checkbox-label"><input type="checkbox" id="check-a" checked> Visible</label>
+              <div class="li-slider-inline">
+                <span>Radius</span>
+                <input type="range" id="input-radius-a" min="10" max="300" value="100" step="3">
+              </div>
+            </div>
+            <div class="li-control-row">
+              <div class="li-slider-inline">
+                <span>Morph</span>
+                <input type="range" id="input-morph-a" min="0" max="100" value="0" step="3">
+              </div>
+              <div class="li-slider-inline">
+                <span>Shadow</span>
+                <input type="range" id="input-blur-a" min="0" max="100" value="20" step="3">
+              </div>
+              <div id="palette-a" class="li-palette-container"></div>
+            </div>
+          </div>
+
+          <div class="li-tier-sub-section">
+            <h4>TIER B (MIDDLE)</h4>
+            <div class="li-control-row">
+              <label class="li-checkbox-label"><input type="checkbox" id="check-b" checked> Visible</label>
+              <div class="li-slider-inline">
+                <span>Radius</span>
+                <input type="range" id="input-radius-b" min="50" max="450" value="250" step="3">
+              </div>
+            </div>
+            <div class="li-control-row">
+              <div class="li-slider-inline">
+                <span>Morph</span>
+                <input type="range" id="input-morph-b" min="0" max="100" value="0" step="3">
+              </div>
+              <div class="li-slider-inline">
+                <span>Shadow</span>
+                <input type="range" id="input-blur-b" min="0" max="100" value="20" step="3">
+              </div>
+              <div id="palette-b" class="li-palette-container"></div>
+            </div>
+          </div>
+
+          <div class="li-tier-sub-section">
+            <h4>TIER C (OUTER)</h4>
+            <div class="li-control-row">
+              <label class="li-checkbox-label"><input type="checkbox" id="check-c" checked> Visible</label>
+              <div class="li-slider-inline">
+                <span>Radius</span>
+                <input type="range" id="input-radius-c" min="100" max="480" value="400" step="3">
+              </div>
+            </div>
+            <div class="li-control-row">
+              <div class="li-slider-inline">
+                <span>Morph</span>
+                <input type="range" id="input-morph-c" min="0" max="100" value="0" step="3">
+              </div>
+              <div class="li-slider-inline">
+                <span>Shadow</span>
+                <input type="range" id="input-blur-c" min="0" max="100" value="20" step="3">
+              </div>
+              <div id="palette-c" class="li-palette-container"></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="li-actions">
+          <button id="btn-reset">RESET</button>
+          <button id="btn-export">EXPORT SVG</button>
+          <button id="btn-export-json">EXPORT STATE</button>
+          <button id="btn-import-json">IMPORT STATE</button>
+          <input type="file" id="input-import-file" accept=".json" style="display: none;">
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script is:inline>
+  /**
+   * WE3 Logo Iterator Engine — Brand Token Edition
+   */
+
+  const COLOR_PALETTE = [
+      { name: 'Linen',       hex: '#FBF7EC' },
+      { name: 'Bone',        hex: '#F7F0DE' },
+      { name: 'Vanilla',     hex: '#F4EAD0' },
+      { name: 'Studio Clay', hex: '#EBD7B4' },
+      { name: 'Cork',        hex: '#E2C397' },
+      { name: 'Ink',         hex: '#29004B' },
+      { name: 'Surf',        hex: '#5BA79C' },
+      { name: 'Harvest',     hex: '#FEBE27' },
+      { name: 'Sunset',      hex: '#FF6B33' },
+      { name: 'Rocket',      hex: '#EF2337' },
+      { name: 'Punch',       hex: '#D02365' },
+      { name: 'Velvet',      hex: '#720A63' },
+  ];
+
+  const state = {
+      zoom: 100,
+      outerRadius: 400,
+      middleRadius: 239,
+      innerRadius: 100,
+      cornerRound: 20,
+      showGuides: false,
+      showLabels: false,
+      showIndices: false,
+      spacerRadius: 9,
+      selectedStem: 8,
+      selectionHighlighted: false,
+      tiers: {
+          a: { visible: false, morph: 0, shadowBlur: 20, color: '#FBF7EC', radius: 100 },
+          b: { visible: false, morph: 0, shadowBlur: 20, color: '#5BA79C', radius: 239 },
+          c: { visible: false, morph: 0, shadowBlur: 20, color: '#FEBE27', radius: 400 }
+      },
+      stems: Array(9).fill(null).map(() => ({
+          p1: 6, p2: 120, p3: 120, p4: 6,
+          linked: false,
+          width: 51,
+          fill: "#FF6B33",
+          strokeVisible: true,
+          strokeWidth: 3,
+          strokeColor: "#29004B",
+          glowVisible: true,
+          glowBlur: 3,
+          glowColor: "#5BA79C"
+      }))
+  };
+
+  const elements = {
+      svg: document.getElementById('logo-svg'),
+      viewport: document.querySelector('.li-viewport'),
+      tierOuter: document.getElementById('boundary-outer'),
+      tierMiddle: document.getElementById('boundary-middle'),
+      tierInner: document.getElementById('boundary-inner'),
+      charW: document.getElementById('char-w'),
+      charE: document.getElementById('char-e'),
+      char3: document.getElementById('char-3'),
+      labels: document.getElementById('labels-group'),
+      tierLabels: document.getElementById('tier-labels-group'),
+      spacersGroup: document.getElementById('char-w').parentNode.insertBefore(
+          document.createElementNS('http://www.w3.org/2000/svg', 'g'),
+          document.getElementById('char-w')
+      ),
+      guides: document.querySelectorAll('.ref-circle'),
+      innerRef: document.getElementById('inner-ref'),
+      middleRef: document.getElementById('middle-ref'),
+      outerRef: document.getElementById('outer-ref'),
+      inputZoom: document.getElementById('input-zoom'),
+      valZoom: document.getElementById('val-zoom'),
+      inputSpacer: document.getElementById('input-spacer'),
+      valSpacer: document.getElementById('val-spacer'),
+      checkGuides: document.getElementById('check-guides'),
+      checkLabels: document.getElementById('check-labels'),
+      checkIndices: document.getElementById('check-indices'),
+      stemSelector: document.getElementById('stem-selector'),
+      shapesSection: document.querySelector('.li-stem-geometry-section'),
+      inputWidth: document.getElementById('input-width'),
+      checkStroke: document.getElementById('check-stroke'),
+      inputStrokeWidth: document.getElementById('input-stroke-width'),
+      checkGlow: document.getElementById('check-glow'),
+      inputGlowBlur: document.getElementById('input-glow-blur'),
+      paletteFill: document.getElementById('palette-fill'),
+      paletteStroke: document.getElementById('palette-stroke'),
+      paletteGlow: document.getElementById('palette-glow'),
+      paletteA: document.getElementById('palette-a'),
+      paletteB: document.getElementById('palette-b'),
+      paletteC: document.getElementById('palette-c'),
+      pSliders: [
+          document.getElementById('input-p1'),
+          document.getElementById('input-p2'),
+          document.getElementById('input-p3'),
+          document.getElementById('input-p4')
+      ],
+      btnLink: document.getElementById('btn-link-corners'),
+      btnGroupOuter: document.getElementById('btn-group-outer'),
+      btnGroupCross: document.getElementById('btn-group-cross'),
+      btnGroupAll: document.getElementById('btn-group-all'),
+      defs: document.querySelector('defs')
+  };
+
+  const CHAR_MAP = {
+      'W': [
+          { slot: 0, rStart: 0, rEnd: 2 },
+          { slot: 1, rStart: 0, rEnd: 1 },
+          { slot: 2, rStart: 0, rEnd: 2 }
+      ],
+      'E': [
+          { slot: 3, rStart: 0, rEnd: 2 },
+          { slot: 4, rStart: 0, rEnd: 1 },
+          { slot: 5, rStart: 0, rEnd: 2 }
+      ],
+      '3': [
+          { slot: 6, rStart: 0, rEnd: 2 },
+          { slot: 7, rStart: 0, rEnd: 1 },
+          { slot: 8, rStart: 0, rEnd: 2 }
+      ]
+  };
+
+  function init() {
+      setupInputs();
+      initPalettes();
+      setupDeselect();
+      updateStemUI();
+      update();
+      setupViewToggles();
+
+      document.getElementById('btn-reset').addEventListener('click', () => {
+          location.reload();
+      });
+
+      document.getElementById('btn-export-json').addEventListener('click', () => {
+          const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+          const downloadAnchorNode = document.createElement('a');
+          downloadAnchorNode.setAttribute("href", dataStr);
+          downloadAnchorNode.setAttribute("download", "we3-logo-state.json");
+          document.body.appendChild(downloadAnchorNode);
+          downloadAnchorNode.click();
+          downloadAnchorNode.remove();
+      });
+
+      document.getElementById('btn-export').addEventListener('click', async () => {
+          const svgClone = elements.svg.cloneNode(true);
+          svgClone.querySelectorAll('.boundary').forEach(el => el.remove());
+          svgClone.querySelectorAll('.ref-circle').forEach(el => el.remove());
+          const labelsGroup = svgClone.getElementById('labels-group');
+          if (labelsGroup) labelsGroup.remove();
+
+          svgClone.querySelectorAll('.char-group').forEach(group => {
+              const filterAttr = group.getAttribute('filter');
+              if (filterAttr) group.setAttribute('filter', filterAttr);
+          });
+
+          svgClone.querySelectorAll('path').forEach(path => {
+              const attrFill = path.getAttribute('fill');
+              if (attrFill && attrFill !== 'none' && attrFill !== 'black' && attrFill !== 'rgb(0, 0, 0)') {
+              } else {
+                  const style = window.getComputedStyle(path);
+                  const fill = style.fill;
+                  if (fill && fill !== 'none' && fill !== 'rgb(0, 0, 0)' && fill !== 'black') {
+                      path.setAttribute('fill', fill);
+                  } else if (path.classList.contains('segment')) {
+                      path.setAttribute('fill', path.style.fill || 'none');
+                  } else {
+                      path.setAttribute('fill', 'none');
+                  }
+              }
+              const attrStroke = path.getAttribute('stroke');
+              if (attrStroke && attrStroke !== 'none') {
+              } else {
+                  const style = window.getComputedStyle(path);
+                  const stroke = style.stroke;
+                  const strokeWidth = style.strokeWidth;
+                  if (stroke && stroke !== 'none') {
+                      path.setAttribute('stroke', stroke);
+                      path.setAttribute('stroke-width', strokeWidth);
+                  }
+              }
+          });
+
+          const serializer = new XMLSerializer();
+          let source = serializer.serializeToString(svgClone);
+
+          if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+              source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+          }
+          if (!source.match(/^<svg[^>]+xmlns\:xlink="http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+              source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+          }
+          source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+
+          const fileName = 'we3-logo.svg';
+          if ('showSaveFilePicker' in window) {
+              try {
+                  const handle = await window.showSaveFilePicker({
+                      suggestedName: fileName,
+                      types: [{ description: 'SVG Image', accept: { 'image/svg+xml': ['.svg'] } }],
+                  });
+                  const writable = await handle.createWritable();
+                  await writable.write(source);
+                  await writable.close();
+                  return;
+              } catch (err) {
+                  if (err.name === 'AbortError') return;
+                  console.error('File System Access API failed, falling back:', err);
+              }
+          }
+
+          const url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+          const downloadAnchorNode = document.createElement('a');
+          downloadAnchorNode.setAttribute("href", url);
+          downloadAnchorNode.setAttribute("download", fileName);
+          document.body.appendChild(downloadAnchorNode);
+          downloadAnchorNode.click();
+          downloadAnchorNode.remove();
+      });
+
+      const importBtn = document.getElementById('btn-import-json');
+      const importInput = document.getElementById('input-import-file');
+
+      importBtn.addEventListener('click', () => { importInput.click(); });
+
+      importInput.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+              try {
+                  const importedState = JSON.parse(ev.target.result);
+                  Object.keys(importedState).forEach(key => {
+                      if (state.hasOwnProperty(key)) state[key] = importedState[key];
+                  });
+                  updateUIFromState();
+                  updateStemUI();
+                  update();
+                  alert("State imported successfully!");
+              } catch (err) {
+                  console.error("Import Error:", err);
+                  alert("Failed to import state. Check console.");
+              }
+          };
+          reader.readAsText(file);
+          e.target.value = '';
+      });
+  }
+
+  function updateUIFromState() {
+      elements.inputZoom.value = state.zoom;
+      elements.valZoom.textContent = state.zoom + '%';
+      elements.inputSpacer.value = state.spacerRadius;
+      elements.valSpacer.textContent = state.spacerRadius;
+      elements.checkGuides.checked = state.showGuides;
+      elements.checkLabels.checked = state.showLabels;
+      elements.checkIndices.checked = state.showIndices;
+
+      ['a', 'b', 'c'].forEach(t => {
+          const tier = state.tiers[t];
+          document.getElementById(`check-${t}`).checked = tier.visible;
+          document.getElementById(`input-radius-${t}`).value = tier.radius;
+          document.getElementById(`input-morph-${t}`).value = tier.morph;
+          document.getElementById(`input-blur-${t}`).value = tier.shadowBlur;
+          updatePaletteSelection(`palette-${t}`, tier.color);
+      });
+
+      elements.stemSelector.value = state.selectedStem;
+  }
+
+  function setupDeselect() {
+      elements.viewport.addEventListener('click', (e) => {
+          if (e.target === elements.viewport || e.target === elements.svg) {
+              state.selectionHighlighted = false;
+              update();
+          }
+      });
+  }
+
+  function setupInputs() {
+      elements.inputZoom.addEventListener('input', (e) => {
+          state.zoom = parseInt(e.target.value);
+          elements.valZoom.textContent = state.zoom + '%';
+          updateZoom();
+      });
+
+      elements.inputSpacer.addEventListener('input', (e) => {
+          state.spacerRadius = parseInt(e.target.value);
+          elements.valSpacer.textContent = state.spacerRadius;
+          update();
+      });
+
+      elements.stemSelector.addEventListener('change', (e) => {
+          state.selectedStem = parseInt(e.target.value);
+          state.selectionHighlighted = true;
+          updateStemUI();
+          update();
+      });
+
+      elements.stemSelector.addEventListener('blur', () => {
+          state.selectionHighlighted = false;
+          update();
+      });
+
+      const shapeInputs = [
+          { el: elements.inputWidth, prop: 'width', num: true },
+          { el: elements.inputGlowBlur, prop: 'glowBlur', num: true },
+          { el: elements.inputStrokeWidth, prop: 'strokeWidth', num: true }
+      ];
+
+      shapeInputs.forEach(item => {
+          item.el.addEventListener('input', (e) => {
+              const val = item.num ? parseFloat(e.target.value) : e.target.value;
+              state.stems[state.selectedStem][item.prop] = val;
+              if (item.prop === 'width') document.getElementById('val-width').textContent = val;
+              if (item.prop === 'glowBlur') document.getElementById('val-glow-blur').textContent = val;
+              if (item.prop === 'strokeWidth') document.getElementById('val-stroke').textContent = val;
+              update();
+          });
+      });
+
+      elements.checkStroke.addEventListener('change', (e) => {
+          state.stems[state.selectedStem].strokeVisible = e.target.checked;
+          update();
+      });
+
+      elements.checkGlow.addEventListener('change', (e) => {
+          state.stems[state.selectedStem].glowVisible = e.target.checked;
+          update();
+      });
+
+      elements.pSliders.forEach((input, i) => {
+          input.addEventListener('input', (e) => {
+              updatePValues(i, parseFloat(e.target.value));
+          });
+      });
+
+      elements.btnLink.addEventListener('click', () => {
+          if (state.selectedStem === -1) return;
+          const s = state.stems[state.selectedStem];
+          s.linked = !s.linked;
+          elements.btnLink.classList.toggle('active', s.linked);
+      });
+
+      elements.btnGroupAll.addEventListener('click', () => {
+          if (state.selectedStem === -1) return;
+          syncGroup([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+      });
+      elements.btnGroupOuter.addEventListener('click', () => {
+          if (state.selectedStem === -1) return;
+          syncGroup([0, 2, 3, 5, 6, 8]);
+      });
+      elements.btnGroupCross.addEventListener('click', () => {
+          if (state.selectedStem === -1) return;
+          syncGroup([1, 4, 7]);
+      });
+
+      ['a', 'b', 'c'].forEach((t, index) => {
+          const tierSection = document.querySelectorAll('.li-tier-sub-section')[index];
+          if (tierSection) tierSection.setAttribute('data-tier', t);
+
+          document.getElementById(`check-${t}`).addEventListener('change', (e) => {
+              state.tiers[t].visible = e.target.checked;
+              update();
+          });
+
+          document.getElementById(`input-radius-${t}`).addEventListener('input', (e) => {
+              const val = parseFloat(e.target.value);
+              state.tiers[t].radius = val;
+              if (t === 'a') state.innerRadius = val;
+              if (t === 'b') state.middleRadius = val;
+              if (t === 'c') state.outerRadius = val;
+              update();
+          });
+
+          document.getElementById(`input-morph-${t}`).addEventListener('input', (e) => {
+              state.tiers[t].morph = parseFloat(e.target.value);
+              update();
+          });
+
+          document.getElementById(`input-blur-${t}`).addEventListener('input', (e) => {
+              state.tiers[t].shadowBlur = parseFloat(e.target.value);
+              update();
+          });
+      });
+  }
+
+  function initPalettes() {
+      createPalette(elements.paletteFill, (hex) => {
+          state.stems[state.selectedStem].fill = hex;
+          update();
+      });
+      createPalette(elements.paletteStroke, (hex) => {
+          state.stems[state.selectedStem].strokeColor = hex;
+          update();
+      });
+      createPalette(elements.paletteGlow, (hex) => {
+          state.stems[state.selectedStem].glowColor = hex;
+          update();
+      });
+      ['a', 'b', 'c'].forEach(t => {
+          createPalette(document.getElementById(`palette-${t}`), (hex) => {
+              state.tiers[t].color = hex;
+              update();
+          });
+      });
+  }
+
+  function createPalette(container, onSelect) {
+      if (!container) return;
+      COLOR_PALETTE.forEach(color => {
+          const swatch = document.createElement('div');
+          swatch.className = 'li-swatch';
+          swatch.style.backgroundColor = color.hex;
+          swatch.title = color.name;
+          swatch.dataset.hex = color.hex;
+          swatch.addEventListener('click', () => {
+              container.querySelectorAll('.li-swatch').forEach(s => s.classList.remove('active'));
+              swatch.classList.add('active');
+              onSelect(color.hex);
+          });
+          container.appendChild(swatch);
+      });
+  }
+
+  function updatePaletteSelection(containerId, activeHex) {
+      const container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
+      if (!container) return;
+      container.querySelectorAll('.li-swatch').forEach(s => {
+          if (s.dataset.hex.toLowerCase() === activeHex.toLowerCase()) {
+              s.classList.add('active');
+          } else {
+              s.classList.remove('active');
+          }
+      });
+  }
+
+  function setupViewToggles() {
+      elements.checkGuides.addEventListener('change', (e) => {
+          state.showGuides = e.target.checked;
+          update();
+      });
+      elements.checkLabels.addEventListener('change', (e) => {
+          state.showLabels = e.target.checked;
+          update();
+      });
+      elements.checkIndices.addEventListener('change', (e) => {
+          state.showIndices = e.target.checked;
+          update();
+      });
+  }
+
+  function updateStemUI() {
+      elements.shapesSection.classList.remove('li-disabled-section');
+      const s = state.stems[state.selectedStem];
+
+      elements.inputWidth.value = s.width;
+      document.getElementById('val-width').textContent = s.width;
+
+      updatePaletteSelection(elements.paletteFill, s.fill);
+
+      elements.checkStroke.checked = s.strokeVisible;
+      elements.inputStrokeWidth.value = s.strokeWidth;
+      document.getElementById('val-stroke').textContent = s.strokeWidth;
+      updatePaletteSelection(elements.paletteStroke, s.strokeColor);
+
+      elements.checkGlow.checked = s.glowVisible;
+      elements.inputGlowBlur.value = s.glowBlur;
+      document.getElementById('val-glow-blur').textContent = s.glowBlur;
+      updatePaletteSelection(elements.paletteGlow, s.glowColor);
+
+      elements.pSliders[0].value = s.p1;
+      elements.pSliders[1].value = s.p2;
+      elements.pSliders[2].value = s.p3;
+      elements.pSliders[3].value = s.p4;
+      elements.btnLink.classList.toggle('active', s.linked);
+  }
+
+  function updatePValues(idx, val) {
+      if (isNaN(val)) return;
+      if (val < 0) val = 0;
+      if (val > 120) val = 120;
+      const s = state.stems[state.selectedStem];
+      if (s.linked) {
+          s.p1 = s.p2 = s.p3 = s.p4 = val;
+          elements.pSliders.forEach(el => el.value = val);
+      } else {
+          s[`p${idx + 1}`] = val;
+      }
+      update();
+  }
+
+  function syncGroup(indices) {
+      const source = state.stems[state.selectedStem];
+      indices.forEach(idx => {
+          state.stems[idx] = JSON.parse(JSON.stringify(source));
+      });
+      update();
+  }
+
+  function updateZoom() {
+      const size = 1000;
+      const factor = state.zoom / 100;
+      const newSize = size / factor;
+      const offset = (size - newSize) / 2;
+      elements.svg.setAttribute('viewBox', `${offset} ${offset} ${newSize} ${newSize}`);
+  }
+
+  function update() {
+      elements.innerRef.setAttribute('r', state.innerRadius);
+      elements.middleRef.setAttribute('r', state.middleRadius);
+      elements.outerRef.setAttribute('r', state.outerRadius);
+      document.querySelectorAll('.dynamic-glow').forEach(f => f.remove());
+      updateBoundaries();
+      drawSpacers();
+      drawCharacters();
+      drawTierLabels();
+  }
+
+  function getGlowFilterId(color, blur) {
+      const id = `glow-${color.replace('#', '')}-${blur.toString().replace('.', '_')}`;
+      if (!document.getElementById(id)) {
+          const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+          filter.setAttribute('id', id);
+          filter.setAttribute('class', 'dynamic-glow');
+          filter.setAttribute('x', '-50%');
+          filter.setAttribute('y', '-50%');
+          filter.setAttribute('width', '200%');
+          filter.setAttribute('height', '200%');
+
+          const dropShadow = document.createElementNS('http://www.w3.org/2000/svg', 'feDropShadow');
+          dropShadow.setAttribute('dx', '0');
+          dropShadow.setAttribute('dy', '0');
+          dropShadow.setAttribute('stdDeviation', (blur / 2).toString());
+          dropShadow.setAttribute('flood-color', color);
+          dropShadow.setAttribute('flood-opacity', '1');
+
+          filter.appendChild(dropShadow);
+          elements.defs.appendChild(filter);
+      }
+      return id;
+  }
+
+  function updateBoundaries() {
+      const drawTier = (el, tierKey) => {
+          const tier = state.tiers[tierKey];
+          el.style.display = tier.visible ? 'block' : 'none';
+          if (tier.visible) {
+              el.setAttribute('d', getNonagonPath(tier.radius, tier.morph));
+              el.style.stroke = tier.color;
+              if (tier.shadowBlur > 0) {
+                  const filterId = getGlowFilterId(tier.color, tier.shadowBlur);
+                  el.setAttribute('filter', `url(#${filterId})`);
+              } else {
+                  el.removeAttribute('filter');
+              }
+              document.documentElement.style.setProperty(`--tier-${tierKey}-color`, tier.color);
+          }
+      };
+      drawTier(elements.tierOuter, 'c');
+      drawTier(elements.tierMiddle, 'b');
+      drawTier(elements.tierInner, 'a');
+  }
+
+  function drawCharacters() {
+      elements.charW.innerHTML = '';
+      elements.charE.innerHTML = '';
+      elements.char3.innerHTML = '';
+      elements.labels.innerHTML = '';
+      renderChar(elements.charW, 'W', 0);
+      renderChar(elements.charE, 'E', 3);
+      renderChar(elements.char3, '3', 6);
+  }
+
+  function renderChar(container, type, startIdx) {
+      const radii = [state.innerRadius, state.middleRadius, state.outerRadius];
+      const segments = CHAR_MAP[type];
+      segments.forEach((seg, i) => {
+          const stemIdx = startIdx + i;
+          const angle = calculateStemAngle(stemIdx);
+          const stemState = state.stems[stemIdx];
+          const tierStartKey = ['a', 'b', 'c'][seg.rStart];
+          const tierEndKey = ['a', 'b', 'c'][seg.rEnd];
+          const morph1 = state.tiers[tierStartKey].morph;
+          const morph2 = state.tiers[tierEndKey].morph;
+          const p1 = getPointOnTier(radii[seg.rStart], angle, morph1);
+          const p2 = getPointOnTier(radii[seg.rEnd], angle, morph2);
+          drawStem(container, p1.x, p1.y, p2.x, p2.y, stemState.width, stemIdx);
+          const mx = (p1.x + p2.x) / 2;
+          const my = (p1.y + p2.y) / 2;
+          drawLabel(stemIdx + 1, mx, my);
+      });
+  }
+
+  function drawStem(container, x1, y1, x2, y2, width, stemIdx) {
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist === 0) return;
+
+      const tx = dx / dist;
+      const ty = dy / dist;
+      const nx = -ty;
+      const ny = tx;
+      const w2 = width / 2;
+      const s = state.stems[stemIdx];
+
+      const c1 = { x: x1 + nx * w2, y: y1 + ny * w2 };
+      const c2 = { x: x1 - nx * w2, y: y1 - ny * w2 };
+      const c3 = { x: x2 - nx * w2, y: y2 - ny * w2 };
+      const c4 = { x: x2 + nx * w2, y: y2 + ny * w2 };
+
+      const maxR = Math.min(w2, dist / 2);
+      const rTL = Math.min(s.p1, maxR);
+      const rTR = Math.min(s.p2, maxR);
+      const rBL = Math.min(s.p3, maxR);
+      const rBR = Math.min(s.p4, maxR);
+
+      const vRight = { x: nx, y: ny };
+      const vDown = { x: -tx, y: -ty };
+      const vLeft = { x: -nx, y: -ny };
+      const vUp = { x: tx, y: ty };
+
+      const MIN_ARC = 0.5;
+
+      let path = `M ${c3.x + vRight.x * rTL},${c3.y + vRight.y * rTL}`;
+      path += ` L ${c4.x - vRight.x * rTR},${c4.y - vRight.y * rTR}`;
+      if (rTR > MIN_ARC) path += ` A ${rTR},${rTR} 0 0 1 ${c4.x + vDown.x * rTR},${c4.y + vDown.y * rTR}`;
+      else path += ` L ${c4.x},${c4.y}`;
+      path += ` L ${c1.x - vDown.x * rBR},${c1.y - vDown.y * rBR}`;
+      if (rBR > MIN_ARC) path += ` A ${rBR},${rBR} 0 0 1 ${c1.x + vLeft.x * rBR},${c1.y + vLeft.y * rBR}`;
+      else path += ` L ${c1.x},${c1.y}`;
+      path += ` L ${c2.x - vLeft.x * rBL},${c2.y - vLeft.y * rBL}`;
+      if (rBL > MIN_ARC) path += ` A ${rBL},${rBL} 0 0 1 ${c2.x + vUp.x * rBL},${c2.y + vUp.y * rBL}`;
+      else path += ` L ${c2.x},${c2.y}`;
+      path += ` L ${c3.x - vUp.x * rTL},${c3.y - vUp.y * rTL}`;
+      if (rTL > MIN_ARC) path += ` A ${rTL},${rTL} 0 0 1 ${c3.x + vRight.x * rTL},${c3.y + vRight.y * rTL}`;
+      else path += ` L ${c3.x},${c3.y}`;
+      path += ' Z';
+
+      const el = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      el.setAttribute('d', path);
+      el.classList.add('segment');
+      el.setAttribute('fill', s.fill);
+
+      if (s.strokeVisible) {
+          el.setAttribute('stroke', s.strokeColor);
+          el.setAttribute('stroke-width', s.strokeWidth);
+      } else {
+          el.setAttribute('stroke', 'none');
+      }
+
+      if (s.glowVisible && s.glowBlur > 0) {
+          const filterId = getGlowFilterId(s.glowColor, s.glowBlur);
+          el.setAttribute('filter', `url(#${filterId})`);
+      } else {
+          el.removeAttribute('filter');
+      }
+
+      if (state.selectedStem === stemIdx && state.selectedStem !== -1 && state.selectionHighlighted) {
+          el.classList.add('li-selected-stem');
+      }
+
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          state.selectedStem = stemIdx;
+          state.selectionHighlighted = true;
+          elements.stemSelector.value = stemIdx.toString();
+          updateStemUI();
+          update();
+      });
+
+      container.appendChild(el);
+  }
+
+  function calculateStemAngle(stemIdx) {
+      const spacerAngleDeg = state.spacerRadius * 2;
+      const internalGap = 40 - (spacerAngleDeg / 3);
+      let groupCenter = 0;
+      if (stemIdx >= 0 && stemIdx <= 2) groupCenter = -90;
+      if (stemIdx >= 3 && stemIdx <= 5) groupCenter = 30;
+      if (stemIdx >= 6 && stemIdx <= 8) groupCenter = 150;
+      const offsetInGroup = (stemIdx % 3) - 1;
+      const angleDeg = groupCenter + (offsetInGroup * internalGap);
+      return angleDeg * (Math.PI / 180);
+  }
+
+  function drawSpacers() {
+      if (!state.showGuides) {
+          elements.spacersGroup.innerHTML = '';
+          return;
+      }
+      elements.spacersGroup.innerHTML = '';
+      const midpoints = [-30, 90, 210];
+      midpoints.forEach(deg => {
+          const rad = deg * (Math.PI / 180);
+          const r = state.middleRadius;
+          const cx = 500 + Math.cos(rad) * r;
+          const cy = 500 + Math.sin(rad) * r;
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('cx', cx);
+          circle.setAttribute('cy', cy);
+          circle.setAttribute('r', Math.max(5, state.spacerRadius * 4));
+          circle.setAttribute('fill', 'rgba(239, 35, 55, 0.3)');
+          circle.setAttribute('stroke', '#EF2337');
+          circle.setAttribute('stroke-dasharray', '4 4');
+          elements.spacersGroup.appendChild(circle);
+      });
+  }
+
+  function getPointOnTier(radius, angle, morphValue) {
+      const center = 500;
+      const sides = 9;
+      const morph = morphValue / 100;
+      const sideAngle = (Math.PI * 2) / sides;
+      const inRadius = radius * Math.cos(sideAngle / 2);
+      const cx = center + Math.cos(angle) * radius;
+      const cy = center + Math.sin(angle) * radius;
+      const sideCenterAngle = Math.round((angle + Math.PI / 2) / sideAngle) * sideAngle - Math.PI / 2;
+      const distFromSideCenter = angle - sideCenterAngle;
+      const clampedDist = Math.max(-sideAngle / 2 + 0.001, Math.min(sideAngle / 2 - 0.001, distFromSideCenter));
+      const nRadius = inRadius / Math.cos(clampedDist);
+      const nx = center + Math.cos(angle) * nRadius;
+      const ny = center + Math.sin(angle) * nRadius;
+      return {
+          x: nx * (1 - morph) + cx * morph,
+          y: ny * (1 - morph) + cy * morph
+      };
+  }
+
+  function getNonagonPath(radius, morphValue) {
+      let path = '';
+      const totalPoints = 180;
+      for (let i = 0; i <= totalPoints; i++) {
+          const angle = (i / totalPoints) * Math.PI * 2 - Math.PI / 2;
+          const p = getPointOnTier(radius, angle, morphValue);
+          path += (i === 0 ? 'M' : 'L') + `${p.x.toFixed(2)},${p.y.toFixed(2)}`;
+      }
+      return path + 'Z';
+  }
+
+  function drawLabel(num, x, y) {
+      if (!state.showIndices) return;
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('x', x);
+      text.setAttribute('y', y);
+      text.setAttribute('class', 'segment-label');
+      text.textContent = num;
+      elements.labels.appendChild(text);
+  }
+
+  function drawTierLabels() {
+      elements.tierLabels.innerHTML = '';
+      const radii = [state.innerRadius, state.middleRadius, state.outerRadius];
+      const letters = ['a', 'b', 'c'];
+      const north = -Math.PI / 2;
+      radii.forEach((r, i) => {
+          const key = letters[i];
+          if (!state.showLabels) return;
+          const tier = state.tiers[key];
+          if (!tier.visible) return;
+          const p = getPointOnTier(r, north, tier.morph);
+          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          text.setAttribute('x', p.x);
+          text.setAttribute('y', p.y - 15);
+          text.setAttribute('class', 'tier-label');
+          text.textContent = key.toUpperCase();
+          elements.tierLabels.appendChild(text);
+      });
+  }
+
+  init();
+  </script>
+</body>
+</html>
+
+<style is:global>
+  /* ==========================================================================
+     Logo Iterator — Brand Token Theme
+     Remaps the original dark theme to WE3 brand tokens from global.css
+     ========================================================================== */
+
+  /* ── Restore system cursor (no #custom-cursor in iframe) ──────────── */
+  body.variant-claude,
+  body.variant-claude * {
+    cursor: auto !important;
+  }
+
+  body.variant-claude a,
+  body.variant-claude button,
+  body.variant-claude select,
+  body.variant-claude label.li-checkbox-label,
+  body.variant-claude .li-swatch,
+  body.variant-claude .li-btn-tool,
+  body.variant-claude .li-btn-figma,
+  body.variant-claude .segment {
+    cursor: pointer !important;
+  }
+
+  body.variant-claude input[type="range"] {
+    cursor: grab !important;
+  }
+
+  /* ── Override body for app layout ────────────────────────────────────── */
+  body {
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ── Header ──────────────────────────────────────────────────────────── */
+  .li-header {
+    height: 60px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--sys-surface-border);
+    font-family: var(--ref-font-mono);
+    letter-spacing: 2px;
+    background: var(--sys-surface-card);
+    flex-shrink: 0;
+  }
+
+  .li-logo-text {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--sys-color-on-surface);
+  }
+
+  .li-logo-text .li-accent {
+    color: var(--sys-color-accent-brand);
+    opacity: 0.8;
+  }
+
+  .li-status-bar {
+    font-size: 0.7rem;
+    color: var(--sys-color-on-surface-muted);
+  }
+
+  .li-status-item {
+    margin-left: 20px;
+  }
+
+  .li-status-item .li-online {
+    color: var(--sys-color-success);
+  }
+
+  .li-status-item .li-active {
+    color: var(--sys-color-accent-brand);
+  }
+
+  /* ── Main layout ─────────────────────────────────────────────────────── */
+  .li-main {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Viewport ────────────────────────────────────────────────────────── */
+  .li-viewport {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--sys-surface-page);
+    background-image: radial-gradient(
+      circle at center,
+      var(--sys-surface-alt) 0%,
+      var(--sys-surface-page) 70%
+    );
+  }
+
+  #logo-svg {
+    width: 80vh;
+    height: 80vh;
+    max-width: 90%;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.08));
+  }
+
+  /* ── SVG elements ────────────────────────────────────────────────────── */
+  .boundary {
+    fill: none;
+    stroke: var(--sys-color-accent-brand);
+    stroke-width: 1;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .boundary-tier {
+    transition: all 0.3s ease-out;
+  }
+
+  #boundary-outer {
+    stroke-width: 2;
+    opacity: 0.3;
+  }
+
+  .ref-circle {
+    fill: none;
+    stroke: var(--sys-color-on-surface);
+    stroke-width: 1;
+    stroke-dasharray: 4, 4;
+    opacity: 0.1;
+    display: none;
+  }
+
+  .ref-circle.visible {
+    display: block;
+  }
+
+  .char-group {
+    fill: none;
+    stroke: var(--sys-color-accent-brand);
+    filter: url(#glow);
+    transition: all 0.2s ease-out;
+  }
+
+  .segment-label {
+    fill: var(--ref-neutral-ink);
+    font-family: var(--ref-font-mono);
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  .tier-label {
+    fill: var(--sys-color-accent-brand);
+    font-family: var(--ref-font-mono);
+    font-size: 16px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: text-before-edge;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+
+  /* Selection highlight */
+  .li-selected-stem {
+    filter: drop-shadow(0 0 10px #29004B) !important;
+  }
+
+  /* ── Controls panel ──────────────────────────────────────────────────── */
+  .li-controls {
+    width: 260px;
+    height: calc(100vh - 60px);
+    background: var(--sys-surface-card);
+    border-left: 1px solid var(--sys-surface-border);
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--ref-font-body);
+  }
+
+  .li-controls section {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--sys-surface-border);
+  }
+
+  .li-controls h3 {
+    margin: 0 0 10px 0;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--sys-color-on-surface-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* ── Control groups ──────────────────────────────────────────────────── */
+  .li-control-group {
+    margin-bottom: 12px;
+  }
+
+  .li-control-group label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    margin-bottom: 6px;
+    color: var(--sys-color-on-surface-muted);
+  }
+
+  .li-control-group label span {
+    color: var(--sys-color-accent-brand);
+    font-family: var(--ref-font-mono);
+  }
+
+  /* ── Control rows & sliders ──────────────────────────────────────────── */
+  .li-control-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .li-control-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .li-slider-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    width: 100%;
+  }
+
+  .li-slider-inline span {
+    font-size: 10px;
+    min-width: 35px;
+    color: var(--sys-color-on-surface-muted);
+  }
+
+  /* ── Checkboxes ──────────────────────────────────────────────────────── */
+  .li-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    white-space: nowrap;
+    cursor: pointer;
+    color: var(--sys-color-on-surface);
+  }
+
+  .li-checkbox-label input {
+    margin: 0;
+  }
+
+  /* ── Section header ──────────────────────────────────────────────────── */
+  .li-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  /* ── Select / figma-style ────────────────────────────────────────────── */
+  .li-figma-select {
+    appearance: none;
+    width: 100%;
+    padding: 6px 28px 6px 10px;
+    background: var(--sys-surface-alt);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2329004B' d='M0 3l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    border: 1px solid var(--sys-surface-border);
+    border-radius: 4px;
+    color: var(--sys-color-on-surface);
+    font-family: var(--ref-font-body);
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .li-figma-select:focus {
+    outline: 2px solid var(--sys-color-highlight);
+    outline-offset: -2px;
+  }
+
+  /* ── Batch action buttons ────────────────────────────────────────────── */
+  .li-batch-actions {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .li-btn-figma {
+    flex: 1;
+    background: var(--sys-surface-alt);
+    border: 1px solid var(--sys-surface-border);
+    color: var(--sys-color-on-surface);
+    padding: 5px 0;
+    font-size: 11px;
+    font-family: var(--ref-font-body);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+  }
+
+  .li-btn-figma:hover {
+    background: var(--sys-surface-hover);
+  }
+
+  /* ── Range inputs ────────────────────────────────────────────────────── */
+  .li-controls input[type="range"] {
+    width: 100%;
+    appearance: none;
+    background: var(--sys-surface-border);
+    height: 2px;
+    border-radius: 1px;
+    outline: none;
+  }
+
+  .li-controls input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: var(--sys-color-on-surface);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--sys-surface-page);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+  }
+
+  .li-controls input[type="range"]::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    background: var(--sys-color-on-surface);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--sys-surface-page);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+  }
+
+  /* ── Appearance grid (corner radius) ─────────────────────────────────── */
+  .li-appearance-grid {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 15px;
+    padding: 10px;
+    background: var(--sys-surface-alt);
+    border-radius: 6px;
+  }
+
+  .li-grid-label {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    font-size: 9px;
+    color: var(--sys-color-on-surface-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .li-mini-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .li-grid-item {
+    display: flex;
+    align-items: center;
+    background: var(--sys-surface-page);
+    padding: 4px 6px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    min-width: 60px;
+  }
+
+  .li-grid-item:focus-within {
+    border-color: var(--sys-color-highlight);
+  }
+
+  .li-figma-input {
+    width: 32px;
+    background: transparent;
+    border: none;
+    color: var(--sys-color-on-surface);
+    font-size: 11px;
+    font-family: var(--ref-font-body);
+    outline: none;
+    text-align: right;
+    padding: 0;
+  }
+
+  .li-figma-input::-webkit-inner-spin-button,
+  .li-figma-input::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+
+  .li-corner-icon {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: var(--sys-color-on-surface-muted);
+    stroke-width: 2;
+    margin-right: 6px;
+  }
+
+  .li-rotate-90  { transform: rotate(90deg); }
+  .li-rotate-180 { transform: rotate(180deg); }
+  .li-rotate-270 { transform: rotate(270deg); }
+
+  /* ── Tool buttons ────────────────────────────────────────────────────── */
+  .li-btn-tool {
+    background: transparent;
+    border: none;
+    color: var(--sys-color-on-surface-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+  }
+
+  .li-btn-tool.active {
+    color: var(--sys-color-accent-brand);
+  }
+
+  /* ── Tier controls ───────────────────────────────────────────────────── */
+  .li-tier-controls-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .li-tier-sub-section {
+    background: var(--sys-surface-alt);
+    padding: 10px;
+    border-radius: 4px;
+    border-left: 2px solid var(--sys-color-accent-brand);
+  }
+
+  .li-tier-sub-section h4 {
+    margin: 0 0 8px 0;
+    font-size: 11px;
+    color: var(--sys-color-accent-brand);
+    letter-spacing: 1px;
+  }
+
+  /* Dynamic tier colors set by JS */
+  .li-tier-sub-section[data-tier="a"] {
+    border-color: var(--tier-a-color, var(--sys-color-accent-brand));
+  }
+  .li-tier-sub-section[data-tier="a"] h4 {
+    color: var(--tier-a-color, var(--sys-color-accent-brand));
+  }
+  .li-tier-sub-section[data-tier="b"] {
+    border-color: var(--tier-b-color, var(--sys-color-accent-brand));
+  }
+  .li-tier-sub-section[data-tier="b"] h4 {
+    color: var(--tier-b-color, var(--sys-color-accent-brand));
+  }
+  .li-tier-sub-section[data-tier="c"] {
+    border-color: var(--tier-c-color, var(--sys-color-accent-brand));
+  }
+  .li-tier-sub-section[data-tier="c"] h4 {
+    color: var(--tier-c-color, var(--sys-color-accent-brand));
+  }
+
+  /* ── Action buttons ──────────────────────────────────────────────────── */
+  .li-actions {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .li-actions button {
+    background: var(--sys-surface-alt);
+    border: 1px solid var(--sys-surface-border);
+    color: var(--sys-color-on-surface);
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--ref-font-body);
+    font-size: 11px;
+    transition: background 0.15s ease;
+  }
+
+  .li-actions button:hover {
+    background: var(--sys-surface-hover);
+  }
+
+  .li-actions #btn-export {
+    background: var(--sys-color-action-primary);
+    color: var(--sys-color-on-action);
+    border-color: var(--sys-color-action-primary);
+    font-weight: 600;
+  }
+
+  .li-actions #btn-export:hover {
+    background: var(--sys-color-action-hover);
+    border-color: var(--sys-color-action-hover);
+  }
+
+  /* ── Color palette swatches ──────────────────────────────────────────── */
+  .li-palette-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px;
+    background: var(--sys-surface-alt);
+    border-radius: 6px;
+    width: 100%;
+  }
+
+  .li-swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid var(--sys-surface-border);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  .li-swatch:hover {
+    transform: scale(1.2);
+    z-index: 2;
+    border-color: var(--sys-color-on-surface);
+  }
+
+  .li-swatch.active {
+    border: 2px solid var(--sys-color-on-surface);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--ref-neutral-ink), transparent 60%);
+    transform: scale(1.1);
+  }
+
+  .li-swatch.active::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    border: 1px solid var(--sys-color-on-surface);
+    opacity: 0.3;
+  }
+
+  /* ── Disabled section ────────────────────────────────────────────────── */
+  .li-disabled-section {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(1);
+  }
+</style>

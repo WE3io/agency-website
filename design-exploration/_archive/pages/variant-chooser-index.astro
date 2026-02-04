@@ -1,0 +1,103 @@
+---
+const variants = [
+  { id: 'antigravity', name: 'Gemini (Antigravity)', description: 'Strategic, clarity-focused, professional aesthetic.' },
+  { id: 'claude', name: 'Claude', description: 'Conceptual, narrative, and editorial interpretation.' },
+  { id: 'codex', name: 'Codex', description: 'Sleek, tool-like, system console evolution.' },
+  { id: 'original', name: 'original', description: 'The current production agency website.' }
+];
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>WE3 Agency Website - Variant Chooser</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            text-align: center;
+            padding: 2rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #3a7f65, #d4a85c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p.subtitle {
+            color: #888;
+            margin-bottom: 3rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+        .card:hover {
+            border-color: #3a7f65;
+            transform: translateY(-4px);
+            background: #222;
+        }
+        .card h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.25rem;
+        }
+        .card p {
+            margin: 0;
+            color: #888;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .antigravity { background: #3a7f65; color: #fff; }
+        .claude { background: #d96b5a; color: #fff; }
+        .codex { background: #4a6aa5; color: #fff; }
+        .original { background: #444; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WE3 Agency Website</h1>
+        <p class="subtitle">Select a version to explore the future of the agency.</p>
+        
+        <div class="grid">
+            {variants.map(v => (
+                <a href={`/${v.id}`} class="card">
+                    <div class={`badge ${v.id}`}>{v.id === 'antigravity' ? 'Lead Variant' : 'Variant'}</div>
+                    <h2>{v.name}</h2>
+                    <p>{v.description}</p>
+                </a>
+            ))}
+        </div>
+    </div>
+</body>
+</html>
