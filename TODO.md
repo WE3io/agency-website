@@ -100,6 +100,23 @@ Neither exists. Astro has a `@astrojs/sitemap` integration that generates both a
 - The `work/index.astro` page is the best candidate to start with — it already has a comment noting case studies "would typically come from content collections"
 - Posts collection could power a blog/insights section later
 
+### Populate Work page with real portfolio content
+The Work page currently shows placeholder case studies and a WIP overlay. Replace with real content. Remove the overlay once portfolio is populated.
+
+**Live projects to feature:**
+- **Signals** — Add as a featured case study (real engagement, real outcomes)
+- **Assisted work / AI-assisted builds** — Showcase the Claude-assisted development workflow itself as a case study or methodology highlight
+
+**Pipeline / upcoming projects to queue up:**
+- **EdTech project** — Early-stage, could be a "Coming Soon" or teaser card
+- Other venture studio projects as they land
+
+**Implementation notes:**
+- Currently hardcoded as a JS array in `work/index.astro` (lines 5–46)
+- Ideal path: wire up content collections first (see above), then each case study is a markdown file
+- Case study schema could include: title, client, category, description, tags, impact metrics, featured flag, status (live / in-progress / coming-soon)
+- Consider adding individual case study pages (`/work/[slug]`) once there's enough depth per project
+
 ---
 
 ## Performance & Polish
@@ -117,4 +134,3 @@ No `.env` or `.env.example`. Will need one before adding analytics, API keys, or
 - Logo variant could include a dark-mode alternative
 - Error pages (404/500) inline SVGs could optionally pull colours from tokens for consistency, though their bespoke art direction is part of the charm
 - Brief engine could surface results in a modal or dedicated results page rather than just export
-- Work page could pull from a content collection for easier updates
