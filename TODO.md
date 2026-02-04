@@ -4,6 +4,42 @@ Items to revisit after the initial site launch. Nothing here is blocking v0.
 
 ---
 
+## Session Summary (4 Feb 2026)
+
+### Where we landed
+v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is a single Astro build (no variant system) with 12 pages, a design token pipeline (Style Dictionary), and a config-driven logo variant system.
+
+### What was done this session
+- **Logo variant system** — SVG logos in `public/images/logos/` (`warm.svg`, `claude.svg`). Active variant controlled by `SITE.logo` in `src/lib/site.ts`. Layout.astro derives the path dynamically for nav and footer. One-line swap.
+- **Velvet hover effect** — CSS filter on both logo `<img>` tags transitions to velvet (`#720A63`) on hover, using `var(--sys-motion-fast)`.
+- **Archived dead files** — Old logo files (`we3-logo-claude.svg`, `we3-logo.svg`, `logo-placeholder.svg`) moved to `_archive/images/`. Old multi-variant `content/` directory moved to `_archive/content/`.
+- **READMEs rewritten** — Root `README.md` updated (Vercel, page inventory, key systems). `website/README.md` replaced old A/B variant docs with current single-site architecture.
+- **This TODO file** created to capture everything for the next phase.
+
+### Key context for next session
+- **Site config**: `website/src/lib/site.ts` — single source of truth, currently just `logo: 'warm'`
+- **Layout**: `website/src/layouts/Layout.astro` — shell for all pages (nav, footer, floating dock, scripts, cursor)
+- **Tokens**: Generated via `pnpm run tokens:build` → `src/styles/tokens.generated.css`. 15 derived tokens are hand-written in `global.css` (stripes, glows, shadows). 17 bonus tokens exist in JSON but aren't consumed yet.
+- **Content collections**: `src/content/config.ts` defines `pages` and `posts` schemas but nothing uses them yet. Goal is to wire up markdown-driven content so copy can be edited without touching components.
+- **Body class**: `variant-claude` is hardcoded on `<body>` — controls the magnetic cursor. Doesn't follow `SITE.logo`. Decision needed.
+- **Public dir**: `../public` relative to `website/`, set in `astro.config.mjs`
+- **Archive**: `_archive/` at project root holds old content and images. Safe to ignore or delete.
+
+---
+
+## Pre-Deploy (do before first production deploy)
+
+### Fix Vercel install command
+`vercel.json` uses `npm install` but the project uses pnpm. Update `installCommand` to `pnpm install` or remove it entirely so Vercel auto-detects from `pnpm-lock.yaml`. **This could break the production build.**
+
+### Set production site URL
+`astro.config.mjs` line 4 is `site: "http://localhost:4321"`. Change to the real production domain before deploy. Affects canonical URLs and any future sitemap/RSS generation.
+
+### Dependabot vulnerabilities
+GitHub flagged 16 vulnerabilities (3 high, 11 moderate, 2 low) on the default branch. Run `pnpm audit` and address the high-severity ones before launch.
+
+---
+
 ## Design Tokens
 
 ### Hand-written derived tokens (15 "missing" from JSON)
