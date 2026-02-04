@@ -1,37 +1,31 @@
-# Agency Website - gary's gold dust v1.
+# Agency Website
 
-## Purpose (front desk)
-This repo is the public front desk for our agency. It holds the copy, structure, and basic assets that explain who we are, what we do, and how to start a conversation.
-
-## What it is / isn’t
-**It is**
-- A clean, content-first source of truth for pages and posts.
-- A place to agree voice, tone, and brand promises.
-- The starting point for a future site build.
-
-**It isn’t**
-- A full site framework or design system.
-- A marketing automation stack.
-- A dumping ground for internal ops.
-
-## Content workflow
-1. Raise a content request issue (`.github/ISSUE_TEMPLATE/content-request.md`).
-2. Draft or update the relevant Markdown in `content/`.
-3. Open a PR and link the issue.
-4. Review for clarity, evidence, and tone (see `docs/voice-and-tone.md`).
-5. Merge, then publish according to `docs/governance.md`.
-
-## Definitions
-- **Front desk**: The public-facing surface that helps people decide if we are a fit.
-- **Content**: Copy, headlines, and page structure (not code or design).
-- **Evidence**: Specific, verifiable statements (names, numbers, dates) or clear limits on what we can claim.
-- **Governance**: How decisions are recorded and changes are approved.
+## Purpose
+Public-facing website for WE3. Holds copy, structure, and assets that explain who we are, what we do, and how to start a conversation.
 
 ## Website (Astro)
-The site lives in `website/` and renders Markdown from `content/`.
+The site lives in `website/` and uses static assets from `public/` (one level above `website/`, configured via `publicDir: "../public"` in `astro.config.mjs`).
 
-### Build locally
-From the repo root, install dependencies and build. Output goes to `website/dist/`. Use `pnpm run dev` to run the dev server (port 4321) or `pnpm run preview` to serve the built site.
+### Pages
+| Route | File | Description |
+|-------|------|-------------|
+| `/` | `index.astro` | Homepage |
+| `/story` | `story.astro` | Our Story |
+| `/model` | `model.astro` | The Model |
+| `/engagements` | `engagements.astro` | Engagements |
+| `/work` | `work/index.astro` | Work |
+| `/contact` | `contact.astro` | Contact |
+| `/brief` | `brief.astro` | Start Your Brief |
+| `/tools` | `tools.astro` | Tools |
+| `/style-guide` | `style-guide.astro` | Design system reference |
+| `/logo-iterator` | `logo-iterator.astro` | Logo iteration tool |
+| `/404` | `404.astro` | Custom 404 page |
+| `/500` | `500.astro` | Custom 500 page |
+
+### Key systems
+- **Design tokens** — Style Dictionary pipeline (`pnpm run tokens:build`) generates `src/styles/tokens.generated.css` from `sd.config.js`
+- **Logo variants** — SVG logos stored in `public/images/logos/`. Active variant controlled by `SITE.logo` in `src/lib/site.ts`. One-line change to swap logos site-wide.
+- **Floating nav dock** — Contextual frosted-glass pill nav that appears at scroll 200px and docks into the footer stripe on desktop
 
 ### Install
 ```sh
@@ -51,7 +45,7 @@ cd website
 pnpm run build
 ```
 
-## Netlify deploy
+## Vercel deploy
 - Base directory: `website`
 - Build command: `pnpm run build`
 - Publish directory: `dist`

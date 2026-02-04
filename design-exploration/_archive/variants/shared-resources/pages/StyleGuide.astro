@@ -1,0 +1,521 @@
+---
+import "../styles/style-guide.css";
+import * as tokens from "../../../tokens/tokens.generated";
+
+const palette = [
+  {
+    title: "Foundations",
+    swatches: [
+      { name: "Linen", var: "--color-base-linen", value: tokens.ColorBaseLinen },
+      { name: "Warm White", var: "--color-base-warm-white", value: tokens.ColorBaseWarmWhite },
+      { name: "Smoked Ink", var: "--color-base-smoked-ink", value: tokens.ColorBaseSmokedInk },
+    ]
+  },
+  {
+    title: "Collected Accents",
+    swatches: [
+      { name: "Coral", var: "--color-base-coral", value: tokens.ColorBaseCoral },
+      { name: "Teal", var: "--color-base-teal", value: tokens.ColorBaseTeal },
+      { name: "Marigold", var: "--color-base-marigold", value: tokens.ColorBaseMarigold },
+    ]
+  },
+  {
+    title: "Unexpected Notes",
+    swatches: [
+      { name: "Cobalt", var: "--color-base-cobalt", value: tokens.ColorBaseCobalt },
+      { name: "Olive", var: "--color-base-olive", value: tokens.ColorBaseOlive },
+      { name: "Clay", var: "--color-base-clay", value: tokens.ColorBaseClay },
+    ]
+  },
+  {
+    title: "Rich Exploration",
+    swatches: [
+      { name: "Deep Burgundy", var: "--color-base-deep-burgundy", value: tokens.ColorBaseDeepBurgundy },
+      { name: "Peacock Blue", var: "--color-base-peacock-blue", value: tokens.ColorBasePeacockBlue },
+      { name: "Burnt Orange", var: "--color-base-burnt-orange", value: tokens.ColorBaseBurntOrange },
+    ]
+  }
+];
+
+const typeHierarchy = [
+  { role: "Display / Hero", class: "hero-text", size: tokens.TypographyFontSizeHero, font: tokens.TypographyFontFamilyDisplay },
+  { role: "Display / Subhead", class: "display-text", size: tokens.TypographyFontSizeXlarge, font: tokens.TypographyFontFamilyDisplay },
+  { role: "Body / Default", class: "body-text", size: tokens.TypographyFontSizeBase, font: tokens.TypographyFontFamilyBody },
+  { role: "Mono / Label", class: "mono-text", size: tokens.TypographyFontSizeSmall, font: tokens.TypographyFontFamilyMono },
+];
+
+const competingOptions = [
+  {
+    title: "The 'Cream' Dilemma (Backgrounds)",
+    description: "Competing versions of the primary surface color found across files.",
+    options: [
+      { name: "Linen (Token)", value: "#f4ede4", source: "tokens.json" },
+      { name: "Cream (Claude CSS)", value: "#F7F3E9", source: "claude/styles/global.css" },
+      { name: "Warm White (Claude Surface)", value: "#fffaf3", source: "claude/styles/global.css" },
+      { name: "Antigravity BG", value: "#f6f1e8", source: "antigravity/styles/global.css" },
+      { name: "Codex BG (Token: Linen)", value: "#f4ede4", source: "tokens.json -> codex" },
+      { name: "Original BG", value: "#fafafa", source: "original/BaseLayout.astro" },
+      { name: "Frosted Glass", value: "rgba(255, 250, 243, 0.75)", source: "ClaudeLayout.astro" }
+    ]
+  },
+  {
+    title: "Accents & Actions",
+    description: "Multiple reds/corals and teals vying for attention.",
+    options: [
+      { name: "Coral (Token)", value: "#d96b5a", source: "tokens.json" },
+      { name: "Reddish-Orange (Claude CTA)", value: "#E04E39", source: "claude/styles/global.css" },
+      { name: "Retro Red (Claude)", value: "#E72735", source: "claude/styles/global.css" },
+      { name: "Antigravity Teal", value: "#3a7f65", source: "antigravity/styles/global.css" },
+      { name: "Codex Coral (Token)", value: "#d96b5a", source: "tokens.json -> codex" }
+    ]
+  },
+  {
+    title: "Spacing & Geometry",
+    description: "Competing spacing scales and border radii.",
+    options: [
+      { name: "Large Radius (Token)", value: "20px", source: "tokens.json" },
+      { name: "LG Radius (Claude)", value: "18px", source: "claude/styles/global.css" },
+      { name: "Large Space (Token)", value: "4rem", source: "tokens.json" },
+      { name: "2XL Space (Claude)", value: "4rem", source: "claude/styles/global.css" },
+      { name: "MD Radius (Claude)", value: "14px", source: "claude/styles/global.css" }
+    ]
+  }
+];
+
+const claudeStandard = {
+  fonts: [
+    { name: "League Gothic", role: "Headlines / Data", weight: "400", sample: "THE NEW STANDARD" },
+    { name: "Inter", role: "UI / Body / Labels", weight: "400, 700", sample: "Clean, functional typography for the modern studio." },
+    { name: "IBM Plex Mono", role: "Technical / Accent", weight: "300, 400", sample: "04: STANDARDIZATION / IN PROGRESS" }
+  ]
+};
+
+const dynamicElements = [
+  {
+    title: "The Retro Stripe",
+    description: "Used on Masthead and Footer in Claude variant.",
+    preview: "stripe-stacked",
+    css: "linear-gradient(to bottom, #F9B233 0% 20%, #F36F21 20% 40%, #E72735 40% 60%, #9E2A78 60% 80%, #662D91 80% 100%)",
+    token: "--stripe-stacked (hardcoded in global.css)"
+  },
+  {
+    title: "Custom Cursor",
+    description: "Replaces system cursor. Magnetic hover state shown on right.",
+    preview: "cursor",
+    css: "background: #662D91; width: 12px; height: 12px;",
+    token: "--retro-purple (hardcoded)"
+  }
+];
+
+const geometry = [
+  { name: "Small Radius", token: "--radius-sm", value: "8px", standard: "tokens.radius.small (?)" },
+  { name: "Medium Radius", token: "--radius-md", value: "14px", standard: "tokens.radius.medium (12px)" },
+  { name: "Large Radius (Card)", token: "--radius-lg", value: "18px", standard: "tokens.radius.large (20px)" },
+  { name: "Full Radius", token: "--radius-full", value: "999px", standard: "N/A" }
+];
+
+const motion = [
+  { name: "Fast", token: "--transition-fast", value: "150ms ease" },
+  { name: "Base", token: "--transition-base", value: "220ms ease" },
+  { name: "Slow", token: "--transition-slow", value: "350ms ease" }
+];
+
+const shadows = [
+  { name: "Shadow SM", token: "--shadow-sm", value: "none (Overridden)", original: "tokens.shadow.sm" },
+  { name: "Shadow MD", token: "--shadow-md", value: "none (Overridden)", original: "tokens.shadow.md" },
+  { name: "Shadow LG", token: "--shadow-lg", value: "none (Overridden)", original: "tokens.shadow.lg" }
+];
+
+const fontAudit = [
+  { name: "Newsreader", family: "'Newsreader', serif", source: "Tokens (Display)", usage: "Default Project Headers" },
+  { name: "Work Sans", family: "'Work Sans', sans-serif", source: "Tokens (Body)", usage: "Default Project Body" },
+  { name: "IBM Plex Mono", family: "'IBM Plex Mono', monospace", source: "Tokens (Mono)", usage: "Technical Data / Code" },
+  { name: "Inter", family: "'Inter', sans-serif", source: "Claude (UI)", usage: "Claude Body / UI Labels" },
+  { name: "Cormorant Garamond", family: "'Cormorant Garamond', serif", source: "Claude (Display)", usage: "Claude Headlines (competes with Newsreader)" },
+  { name: "League Gothic", family: "'League Gothic', sans-serif", source: "Antigravity/Codex", usage: "Impact Headers" },
+  { name: "Cutive", family: "'Cutive', serif", source: "Antigravity", usage: "Apprentice / Note text" },
+  { name: "Charter / Georgia", family: "'Charter', 'Georgia', serif", source: "Original (CSS)", usage: "Original Variant Body" }
+];
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>WE3 Shared Style Guide (Exhaustive Domestic)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:wght@300;400&family=Work+Sans:wght@300;400;500;600&family=Inter:wght@400;700&family=League+Gothic&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="style-guide-wrapper">
+        <div class="style-guide">
+            <header class="guide-header">
+                <p style="font-family: var(--typography-font-family-mono); font-size: 0.75rem; letter-spacing: 0.25em; color: var(--color-base-coral);">WE3 / ECOSYSTEM / DOMESTIC baseline</p>
+                <h1 style="font-family: var(--typography-font-family-display); font-size: 4rem; margin: 0.5rem 0;">Exhaustive Style Guide</h1>
+                <p style="max-width: 60ch; font-size: 1.1rem; opacity: 0.8;">The ground-truth reference for the WE3 style rationalization. We are consolidating the <strong>Claude Variant</strong> as the global standard.</p>
+            </header>
+
+            <!-- 0. Rationalization: Competing Options -->
+            <section class="guide-section" style="border-left: 4px solid var(--color-base-marigold);">
+                <div style="background: rgba(233, 177, 70, 0.1); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                  <h2 style="color: var(--color-base-smoked-ink); border-bottom: none; margin-bottom: 0.5rem;">Rationalization Queue</h2>
+                  <p style="opacity: 0.8; font-size: 0.9rem;">Catalog of competing styles identified for consolidation. We need to decide on one global winner for each slot.</p>
+                </div>
+
+                <div style="display: grid; gap: 3rem;">
+                  {competingOptions.map(section => (
+                    <div>
+                      <h3 style="font-family: var(--typography-font-family-display); font-size: 1.8rem; margin-bottom: 0.5rem;">{section.title}</h3>
+                      <p style="opacity: 0.6; margin-bottom: 1.5rem;">{section.description}</p>
+                      <div class="swatch-grid">
+                        {section.options.map(opt => (
+                          <div class="swatch-card" style="border: 1px dashed var(--guide-border);">
+                            {opt.value.includes("px") || opt.value.includes("rem") ? (
+                              <div style={{ height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--guide-surface-deep)', borderRadius: opt.value.includes("px") ? opt.value : '0' }}>
+                                <div style={{ width: opt.value.includes("rem") ? opt.value : '40px', height: opt.value.includes("rem") ? opt.value : '40px', background: 'var(--color-base-marigold)', borderRadius: opt.value.includes("px") ? opt.value : '4px' }}></div>
+                              </div>
+                            ) : (
+                              <div class="swatch-color" style={{ backgroundColor: opt.value }}></div>
+                            )}
+                            <div class="swatch-info">
+                              <strong>{opt.name}</strong><br/>
+                              <code>{opt.value}</code><br/>
+                              <span style="font-size: 0.6rem; text-transform: uppercase; opacity: 0.5;">Source: {opt.source}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+            </section>
+
+            <!-- 0.5 Claude Standard Baseline -->
+            <section class="guide-section">
+              <h2>Claude Standard Baseline</h2>
+              <div style="display: grid; gap: 2rem;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                  {claudeStandard.fonts.map(f => (
+                    <div style="padding: 1.5rem; background: var(--guide-bg); border-radius: 12px;">
+                      <p style="font-family: 'Inter'; font-weight: 700; font-size: 0.6rem; text-transform: uppercase; color: var(--color-base-coral); margin-bottom: 1rem;">{f.role}</p>
+                      <div style={`font-family: '${f.name}'; font-size: 2rem; line-height: 1; margin-bottom: 0.5rem;`}>{f.sample}</div>
+                      <p style="font-size: 0.8rem; opacity: 0.6;">{f.name} ({f.weight})</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <!-- 0.75 Dynamic & Brand Elements -->
+            <section class="guide-section">
+              <h2>Dynamic & Brand Elements</h2>
+              <div style="display: grid; gap: 2rem;">
+                {dynamicElements.map(el => (
+                  <div style="display: flex; gap: 2rem; align-items: flex-start; padding: 1.5rem; background: var(--guide-bg); border-radius: 8px;">
+                     <div style="flex: 0 0 150px;">
+                        {el.preview === 'stripe-stacked' && (
+                          <div style={{ width: '100%', height: '80px', background: 'linear-gradient(to bottom, #F9B233 0% 20%, #F36F21 20% 40%, #E72735 40% 60%, #9E2A78 60% 80%, #662D91 80% 100%)' }}></div>
+                        )}
+                        {el.preview === 'cursor' && (
+                          <div style="display: flex; gap: 1rem; align-items: center; justify-content: center; height: 80px; background: rgba(0,0,0,0.05);">
+                            <div style="width: 12px; height: 12px; background: #662D91;"></div>
+                            <div style="width: 40px; height: 40px; border: 1px solid #662D91; background: rgba(102, 45, 145, 0.03); display: flex; align-items: center; justify-content: center;">
+                              <div style="width: 6px; height: 6px; background: #662D91; opacity: 0.5;"></div>
+                            </div>
+                          </div>
+                        )}
+                     </div>
+                     <div>
+                       <h3 style="font-family: 'Inter'; font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem;">{el.title}</h3>
+                       <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">{el.description}</p>
+                       <code style="display: block; font-size: 0.75rem; background: rgba(0,0,0,0.05); padding: 0.5rem; border-radius: 4px; margin-bottom: 0.5rem;">{el.css}</code>
+                       <span style="font-size: 0.7rem; opacity: 0.5; text-transform: uppercase;">Source: {el.token}</span>
+                     </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <!-- 0.8 Deep Dive: Geometry, Motion, & Effects -->
+            <section class="guide-section">
+              <h2>Deep Dive: Hardcoded Systems</h2>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem;">
+                
+                <!-- Geometry -->
+                <div>
+                  <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin-bottom: 1rem;">Geometry (Radii)</h3>
+                  <ul style="list-style: none; padding: 0; display: grid; gap: 1rem;">
+                    {geometry.map(g => (
+                      <li style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">
+                        <div>
+                          <span style="font-weight: 600; font-size: 0.9rem;">{g.name}</span><br/>
+                          <code style="font-size: 0.75rem; opacity: 0.7;">{g.token}: {g.value}</code>
+                        </div>
+                        <div style={`width: 40px; height: 40px; background: var(--c-accent); border-radius: ${g.value}; border: 1px solid var(--c-text);`}></div>
+                      </li>
+                    ))}
+                  </ul>
+                  <p style="font-size: 0.75rem; margin-top: 1rem; opacity: 0.6;">* Note discrepancies with global tokens.</p>
+                </div>
+
+                <!-- Motion -->
+                <div>
+                  <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin-bottom: 1rem;">Motion (Transitions)</h3>
+                   <ul style="list-style: none; padding: 0; display: grid; gap: 1rem;">
+                    {motion.map(m => (
+                      <li style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">
+                         <div>
+                          <span style="font-weight: 600; font-size: 0.9rem;">{m.name}</span><br/>
+                          <code style="font-size: 0.75rem; opacity: 0.7;">{m.token}: {m.value}</code>
+                        </div>
+                        <div style="width: 40px; height: 10px; background: var(--guide-surface-deep); border-radius: 99px; overflow: hidden;">
+                           <div class="motion-demo-bar" style={`width: 100%; height: 100%; background: var(--c-accent); transform: translateX(-100%); animation: slide ${m.value.split(" ")[0]} infinite alternate; animation-timing-function: ${m.value.split(" ")[1]};`}></div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  <style>{`
+                    @keyframes slide { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+                  `}</style>
+                </div>
+
+                 <!-- Shadows -->
+                <div>
+                  <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin-bottom: 1rem;">Shadows (Disabled)</h3>
+                   <ul style="list-style: none; padding: 0; display: grid; gap: 1rem;">
+                    {shadows.map(s => (
+                      <li style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">
+                         <div>
+                          <span style="font-weight: 600; font-size: 0.9rem;">{s.name}</span><br/>
+                          <code style="font-size: 0.75rem; opacity: 0.7;">{s.value}</code>
+                        </div>
+                        <div style="width: 40px; height: 40px; background: var(--c-surface); border: 1px solid var(--guide-border); box-shadow: none;"></div>
+                      </li>
+                    ))}
+                  </ul>
+                  <p style="font-size: 0.75rem; margin-top: 1rem; opacity: 0.6;">* Claude variant explicitly disables shadows.</p>
+                </div>
+
+              </div>
+            </section>
+
+                </div>
+
+              </div>
+            </section>
+
+             <!-- 0.9 Typography Audit -->
+            <section class="guide-section">
+              <h2>Deep Dive: Typography Audit (8 Fonts Detected)</h2>
+              <div style="display: grid; gap: 1rem;">
+                {fontAudit.map(f => (
+                   <div style="padding: 1rem; border-bottom: 1px solid var(--guide-border); display: flex; align-items: baseline; justify-content: space-between;">
+                      <div style="width: 40%;">
+                         <span style="font-weight: 700; font-size: 1.1rem;">{f.name}</span>
+                         <code style="display: block; font-size: 0.75rem; opacity: 0.7; margin-top: 0.25rem;">{f.family}</code>
+                      </div>
+                      <div style="width: 30%; font-size: 0.85rem; opacity: 0.8;">
+                         <strong>Source:</strong> {f.source}
+                      </div>
+                      <div style="width: 30%; font-family: var(--typography-font-family-mono); font-size: 0.7rem; color: var(--color-base-coral); text-align: right;">
+                         {f.usage}
+                      </div>
+                   </div>
+                ))}
+              </div>
+            </section>
+
+            <!-- 1. Palette Exploration -->
+            <section class="guide-section">
+                <h2>The Domestic Palette</h2>
+                <div style="display: grid; gap: 2rem;">
+                    {palette.map(group => (
+                        <div>
+                            <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">{group.title}</h3>
+                            <div class="swatch-grid">
+                                {group.swatches.map(c => (
+                                    <div class="swatch-card">
+                                        <div class="swatch-color" style={{ backgroundColor: `var(${c.var})` }}></div>
+                                        <div class="swatch-info">
+                                            <strong>{c.name}</strong><br/>
+                                            <code>{c.var}</code><br/>
+                                            <span style="opacity: 0.5;">{c.value}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <!-- 2. Typography Hierarchy -->
+            <section class="guide-section">
+                <h2>Typography Pairings</h2>
+                <div style="display: grid; gap: 2.5rem;">
+                    {typeHierarchy.map(t => (
+                        <div class="type-sample">
+                            <p class="type-label" style="font-family: var(--typography-font-family-mono); font-size: 0.65rem; text-transform: uppercase; color: var(--color-base-coral);">{t.role}</p>
+                            <div style={`font-family: ${t.font}; font-size: ${t.size};`}>
+                                {t.role.includes("Display") ? "Collected with intent." : "Warm, measured, clear. Body typography balances readability with warmth. It should feel like a curator's note."}
+                            </div>
+                            {t.role.includes("Mono") && <div style="margin-top: 0.5rem; font-family: var(--typography-font-family-mono); letter-spacing: 0.2em;">COLLECTION / 04 / STATUS: ON DISPLAY</div>}
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <!-- 3. Vignettes & Signature Layouts -->
+            <section class="guide-section">
+                <h2>Surface & Vignettes</h2>
+                <div class="vignette-grid">
+                    <div>
+                        <p style="font-family: var(--typography-font-family-mono); font-size: 0.7rem; text-transform: uppercase; color: var(--color-base-coral); margin-bottom: 1rem;">Opening Vignette</p>
+                        <h3 style="font-family: var(--typography-font-family-display); font-size: 3rem; line-height: 1.1; margin-bottom: 1.5rem;">A place for ideas with character.</h3>
+                        <p style="max-width: 45ch; opacity: 0.8;">Thoughtful curation meets builder instinct. Each concept is treated like a rare artifact, not a commodity. We extend freely but express through tokens.</p>
+                        <div class="demo-grid" style="margin-top: 2rem;">
+                            <button class="btn primary">Primary Build</button>
+                            <button class="btn secondary">View Archive</button>
+                        </div>
+                    </div>
+                    <div class="vignette-frame">
+                        <div class="stripe"></div>
+                        <span style="position: absolute; top: 1rem; right: 1rem; font-family: var(--typography-font-family-mono); font-size: 0.6rem; opacity: 0.3;">Archive 07</span>
+                        <p style="font-family: var(--typography-font-family-mono); font-size: 0.65rem; text-transform: uppercase;">Found note</p>
+                        <p style="font-family: var(--typography-font-family-display); font-size: 1.8rem; font-style: italic; margin: 1rem 0;">"Builds feel best when they are curated, not rushed."</p>
+                        <p style="font-size: 0.8rem; opacity: 0.6;">From the studio archive</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Image Elements -->
+            <section class="guide-section">
+                <h2>Image Treatment</h2>
+                <div class="image-grid">
+                    <figure class="image-card">
+                        <div class="image-placeholder">OBJECT STUDY</div>
+                        <figcaption style="margin-top: 1rem;">
+                            <span style="font-family: var(--typography-font-family-body); font-weight: 600;">Matte Edge</span><br/>
+                            <span style="font-size: 0.85rem; opacity: 0.7;">Generous padding within deep surface frame.</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="image-card" style="transform: rotate(1deg);">
+                        <div class="image-placeholder" style="background: color-mix(in srgb, var(--color-base-marigold) 15%, transparent);">STUDIO SNAPSHOT</div>
+                        <figcaption style="margin-top: 1rem;">
+                            <span style="font-family: var(--typography-font-family-body); font-weight: 600;">Borderless Crop</span><br/>
+                            <span style="font-size: 0.85rem; opacity: 0.7;">Soft edges, organic rotation, shadow depth.</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- 5. Collection Board (Interactive Specimen) -->
+            <section class="guide-section">
+                <h2>The Collection Board</h2>
+                <div class="collection-board">
+                    <div class="collection-item" style="top: 30px; left: 40px; --tilt: -3deg; transform: rotate(-3deg);">
+                        <p style="font-family: var(--typography-font-family-mono); font-size: 0.65rem; color: var(--color-base-coral);">Archive 12</p>
+                        <p style="font-family: var(--typography-font-family-display); font-size: 1.2rem; margin: 0.5rem 0;">Speculative Product Card</p>
+                        <p style="font-size: 0.85rem; opacity: 0.7;">Loose annotations and staging notes from the field.</p>
+                    </div>
+                    <div class="collection-item" style="bottom: 40px; right: 50px; --tilt: 2deg; transform: rotate(2deg); width: 260px;">
+                        <p style="font-family: var(--typography-font-family-mono); font-size: 0.65rem; color: var(--color-base-teal);">Specimen A4</p>
+                        <p style="font-family: var(--typography-font-family-display); font-size: 1.2rem; margin: 0.5rem 0;">Measured Collection Index</p>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                            <span class="badge">ACTIVE</span>
+                            <span class="badge" style="background: var(--color-base-teal); color: #fff;">FILED</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Atmospheric Effects -->
+            <section class="guide-section">
+                <h2>Atmospheric Effects</h2>
+                <p style="max-width: 60ch; opacity: 0.8; margin-bottom: 2rem;">Backdrop glows, paper grain, and vignette bloom create the curated-gallery atmosphere. These sit behind content as fixed or absolute layers — subtle enough to feel ambient, present enough to establish mood.</p>
+
+                <!-- Backdrop Glow Specimens -->
+                <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">Backdrop Glows</h3>
+                <div class="atmos-grid">
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="burgundy-gold">
+                            <span class="atmos-label">Burgundy + Gold</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(92, 42, 43, 0.18)</code> / <code>rgba(228, 185, 108, 0.12)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Warm, rich — current Tools page direction</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="coral-teal">
+                            <span class="atmos-label">Coral + Teal</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(217, 107, 90, 0.18)</code> / <code>rgba(63, 176, 162, 0.16)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Default domestic glow pair</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="sage-gold">
+                            <span class="atmos-label">Sage + Gold</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(58, 127, 101, 0.15)</code> / <code>rgba(228, 185, 108, 0.12)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Gallery theme — original concept</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview" data-atmos="burgundy-cobalt">
+                            <span class="atmos-label">Burgundy + Cobalt</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>rgba(92, 42, 43, 0.18)</code> / <code>rgba(74, 106, 165, 0.14)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Deep, evening tone — rich exploration</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paper Texture -->
+                <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin: 2rem 0 1rem; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">Paper Texture</h3>
+                <div class="atmos-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview atmos-preview--texture" data-texture="120deg">
+                            <span class="atmos-label">120° Grain</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>repeating-linear-gradient(120deg, …)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Gallery direction — diagonal grain</p>
+                        </div>
+                    </div>
+                    <div class="atmos-specimen">
+                        <div class="atmos-preview atmos-preview--texture" data-texture="90deg">
+                            <span class="atmos-label">90° Grain</span>
+                        </div>
+                        <div class="atmos-meta">
+                            <code>repeating-linear-gradient(90deg, …)</code>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.25rem;">Domestic baseline — vertical grain</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combined Preview -->
+                <h3 style="font-family: var(--typography-font-family-display); font-size: 1.5rem; margin: 2rem 0 1rem; border-bottom: 1px solid var(--guide-border); padding-bottom: 0.5rem;">Combined — Glow + Grain + Content</h3>
+                <div class="atmos-combined">
+                    <div class="atmos-combined__glow"></div>
+                    <div class="atmos-combined__grain"></div>
+                    <div class="atmos-combined__content">
+                        <p style="font-family: var(--typography-font-family-mono); font-size: 0.65rem; text-transform: uppercase; color: var(--color-base-coral); margin-bottom: 0.5rem;">Atmosphere specimen</p>
+                        <h3 style="font-family: var(--typography-font-family-display); font-size: 2.2rem; line-height: 1.15; margin-bottom: 1rem;">Collected with intent.</h3>
+                        <p style="max-width: 45ch; opacity: 0.8; font-size: 0.95rem;">The backdrop creates a warm, ambient field behind content. Paper grain adds tactile depth. Together they evoke a gallery space rather than a digital interface.</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--guide-border); font-family: var(--typography-font-family-mono); font-size: 0.6rem; opacity: 0.4;">
+                WE3 / STUDIO / COPROCESSOR / V0.2 / EXHAUSTIVE_DOMESTIC_BASELINE
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

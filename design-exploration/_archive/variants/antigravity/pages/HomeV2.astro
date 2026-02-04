@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TeamModel from "../components/TeamModel.astro";
+import StoryVignette from "../components/StoryVignette.astro";
+import BriefBuilder from "../components/BriefBuilder.astro";
+import CommunityApprentice from "../components/CommunityApprentice.astro";
+import EngagementModes from "../components/EngagementModes.astro";
+
+// Inject the V2 Theme
+import "../styles/v2-theme.css";
+---
+
+<BaseLayout title="Home V2 (Clean Slate)">
+    <div class="variant-antigravity-v2">
+        <div class="studio-backdrop"></div>
+        
+        <main class="container">
+            <StoryVignette />
+            
+            <section class="intro-text">
+                <p class="eyebrow" style="color: var(--ag-accent); font-family: 'IBM Plex Mono'; letter-spacing: 0.2em; font-size: 12px; margin-bottom: 24px;">WE3 / MISSION</p>
+                <h1 style="font-size: 110px; line-height: 0.9; margin-bottom: 48px;">Small Teams for Big Challenges.</h1>
+                <p class="lead" style="font-size: 24px; opacity: 0.8; max-width: 65ch; line-height: 1.4;">
+                    We are a venture studio that treats every idea like a rare artifact. 
+                    Warm, curious, and confidently crafted builds.
+                </p>
+            </section>
+
+            <TeamModel />
+
+            <EngagementModes />
+
+            <CommunityApprentice />
+            
+            <section class="builder-section" style="margin-top: 120px; border-top: 1px solid var(--ag-border); padding-top: 120px;">
+                <h2 style="text-align: center; margin-bottom: 3rem;">Ready to build? Let's check the fit.</h2>
+                <BriefBuilder />
+            </section>
+        </main>
+    </div>
+</BaseLayout>
+
+<style>
+    /* Local overrides to ensure V2 projection works */
+    .intro-text {
+        margin-bottom: 90px;
+    }
+</style>

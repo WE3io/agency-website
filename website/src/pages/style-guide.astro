@@ -1,4 +1,891 @@
 ---
-import Page from "../variants/shared-resources/pages/StyleGuide.astro";
+import "../styles/global.css";
+import fs from "node:fs";
+import path from "node:path";
+
+/* ── Read tokens.json at build time for the download card ──────────────── */
+const tokensPath = path.resolve("../tokens/tokens.json");
+const tokensRaw = fs.readFileSync(tokensPath, "utf-8");
+const tokensParsed = JSON.parse(tokensRaw);
+const tokensVersion = tokensParsed.$version || "—";
+const tokensDesc = tokensParsed.$description || "WE3 Design Tokens";
+const tokensSize = (Buffer.byteLength(tokensRaw, "utf-8") / 1024).toFixed(1);
+
+/* Count leaf tokens (nodes with $value) */
+function countTokens(obj: Record<string, any>): number {
+  let n = 0;
+  for (const v of Object.values(obj)) {
+    if (v && typeof v === "object") {
+      if ("$value" in v) n++;
+      else n += countTokens(v);
+    }
+  }
+  return n;
+}
+const tokenCount = countTokens(tokensParsed);
+
+/* Build a version-stamped filename for download */
+const tokensFilename = `we3-design-tokens-v${tokensVersion.replace(/\s+/g, "")}.json`;
+
+/* ── Token data for rendering swatches ─────────────────────────────────── */
+
+const neutrals = [
+  { name: "Linen",       var: "--ref-neutral-linen",       desc: "Lightest / page bg" },
+  { name: "Bone",        var: "--ref-neutral-bone",        desc: "Cards, panels" },
+  { name: "Vanilla",     var: "--ref-neutral-vanilla",     desc: "Base neutral" },
+  { name: "Studio Clay", var: "--ref-neutral-studio-clay", desc: "Mid / transitional" },
+  { name: "Cork",        var: "--ref-neutral-cork",        desc: "Borders, dividers" },
+  { name: "Ink",         var: "--ref-neutral-ink",         desc: "Darkest / text", light: true },
+];
+
+const primitives = [
+  { name: "Surf",    var: "--ref-primitive-surf",    hex: "#5BA79C" },
+  { name: "Harvest", var: "--ref-primitive-harvest", hex: "#FEBE27" },
+  { name: "Sunset",  var: "--ref-primitive-sunset",  hex: "#FF6B33" },
+  { name: "Rocket",  var: "--ref-primitive-rocket",  hex: "#EF2337" },
+  { name: "Punch",   var: "--ref-primitive-punch",   hex: "#D02365", light: true },
+  { name: "Velvet",  var: "--ref-primitive-velvet",  hex: "#720A63", light: true },
+];
+
+const systemColors = [
+  { name: "Primary",          var: "--sys-color-primary",          role: "Structural / ink" },
+  { name: "Secondary",        var: "--sys-color-secondary",        role: "Cork accents" },
+  { name: "On Surface",       var: "--sys-color-on-surface",       role: "Body text" },
+  { name: "On Surface Muted", var: "--sys-color-on-surface-muted", role: "Secondary text" },
+  { name: "On Action",        var: "--sys-color-on-action",        role: "Text on buttons" },
+  { name: "Action Primary",   var: "--sys-color-action-primary",   role: "Primary CTA" },
+  { name: "Action Secondary", var: "--sys-color-action-secondary", role: "Secondary CTA" },
+  { name: "Action Tertiary",  var: "--sys-color-action-tertiary",  role: "Tertiary CTA" },
+  { name: "Action Hover",     var: "--sys-color-action-hover",     role: "Hover accent" },
+  { name: "Accent Subtle",    var: "--sys-color-accent-subtle",    role: "Data, icons" },
+  { name: "Accent Brand",     var: "--sys-color-accent-brand",     role: "Decorative" },
+  { name: "Highlight",        var: "--sys-color-highlight",        role: "Focus, cursor", light: true },
+  { name: "Error",            var: "--sys-color-error",            role: "Error states" },
+  { name: "Success",          var: "--sys-color-success",          role: "Success states" },
+];
+
+const surfaces = [
+  { name: "Page",   var: "--sys-surface-page",   role: "Page background" },
+  { name: "Card",   var: "--sys-surface-card",   role: "Cards, panels" },
+  { name: "Alt",    var: "--sys-surface-alt",     role: "Alt sections" },
+  { name: "Hover",  var: "--sys-surface-hover",   role: "Hover states" },
+  { name: "Border", var: "--sys-surface-border",  role: "Borders, dividers" },
+];
+
+const typeScale = [
+  { name: "xxl",  var: "--ref-text-xxl",  size: "110px", usage: "Display" },
+  { name: "xl",   var: "--ref-text-xl",   size: "72px",  usage: "H1 / Hero" },
+  { name: "lg",   var: "--ref-text-lg",   size: "48px",  usage: "H2" },
+  { name: "md",   var: "--ref-text-md",   size: "24px",  usage: "H4 / Subhead" },
+  { name: "base", var: "--ref-text-base", size: "18px",  usage: "Body" },
+  { name: "sm",   var: "--ref-text-sm",   size: "15px",  usage: "Button / Nav" },
+  { name: "xs",   var: "--ref-text-xs",   size: "12px",  usage: "Label / Badge" },
+];
+
+const spacingScale = [
+  { name: "xs",  var: "--ref-space-xs",  size: "9px" },
+  { name: "sm",  var: "--ref-space-sm",  size: "15px" },
+  { name: "md",  var: "--ref-space-md",  size: "24px" },
+  { name: "lg",  var: "--ref-space-lg",  size: "30px" },
+  { name: "xl",  var: "--ref-space-xl",  size: "48px" },
+  { name: "xxl", var: "--ref-space-xxl", size: "66px" },
+];
+
+const radiusScale = [
+  { name: "sm",   var: "--ref-radius-sm",   size: "15px" },
+  { name: "md",   var: "--ref-radius-md",   size: "30px" },
+  { name: "lg",   var: "--ref-radius-lg",   size: "60px" },
+  { name: "full", var: "--ref-radius-full", size: "999px" },
+];
 ---
-<Page />
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Style Guide | WE3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=League+Gothic:ital@0;1&display=swap" rel="stylesheet" />
+</head>
+<body class="variant-claude">
+  <section class="sg">
+    <div class="container sg__content">
+
+      <!-- Header -->
+      <header class="sg__header">
+        <p class="eyebrow mono">Design System</p>
+        <h1>Style Guide</h1>
+        <p class="sg__lead">
+          Living reference for the WE3 token-backed design system.
+          Every swatch, scale, and specimen below is rendered from
+          <code class="mono">tokens.json</code> via Style Dictionary.
+        </p>
+      </header>
+
+      <!-- ─── Token Source Download ─── -->
+      <div class="sg__download-card">
+        <div class="sg__download-icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <polyline points="9 15 12 18 15 15"/>
+          </svg>
+        </div>
+        <div class="sg__download-info">
+          <strong class="sg__download-title">tokens.json</strong>
+          <p class="sg__download-meta">
+            <span class="badge">DTCG v{tokensVersion}</span>
+            <span class="mono text-muted">{tokenCount} tokens</span>
+            <span class="mono text-muted">{tokensSize} KB</span>
+          </p>
+          <p class="sg__download-desc text-muted">
+            {tokensDesc} — the single source of truth that powers every
+            colour, type scale, spacing unit, and component token on this site.
+            Three-tier architecture: reference → system → component.
+          </p>
+        </div>
+        <button
+          id="download-tokens"
+          type="button"
+          class="btn btn--secondary sg__download-btn"
+        >
+          Download JSON
+        </button>
+      </div>
+
+      <!-- Token payload for client-side download -->
+      <script
+        id="tokens-payload"
+        type="application/json"
+        set:html={tokensRaw}
+      />
+      <script define:vars={{ tokensFilename }}>
+        document.getElementById("download-tokens").addEventListener("click", () => {
+          const payload = document.getElementById("tokens-payload").textContent;
+          const blob = new Blob([payload], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = tokensFilename;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+        });
+      </script>
+
+      <!-- ─── Colour: Reference Palette ─── -->
+      <section class="sg__section">
+        <div class="section-header">
+          <span class="section-header__label">Reference / Palette</span>
+          <div class="section-header__rule"></div>
+        </div>
+
+        <h2>Neutrals</h2>
+        <div class="sg__swatches sg__swatches--wide">
+          {neutrals.map((c) => (
+            <div class="sg__swatch">
+              <div
+                class="sg__swatch-block"
+                style={`background: var(${c.var}); ${c.light ? 'border: 1px solid var(--sys-surface-border);' : ''}`}
+              >
+                <span class={`sg__swatch-label ${c.light ? 'sg__swatch-label--light' : ''}`}>
+                  {c.name}
+                </span>
+              </div>
+              <div class="sg__swatch-meta">
+                <code class="mono">{c.var}</code>
+                <span class="text-muted">{c.desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <h2 class="mt-lg">Primitives</h2>
+        <div class="sg__swatches sg__swatches--wide">
+          {primitives.map((c) => (
+            <div class="sg__swatch">
+              <div
+                class="sg__swatch-block"
+                style={`background: var(${c.var});`}
+              >
+                <span class={`sg__swatch-label ${c.light ? 'sg__swatch-label--light' : ''}`}>
+                  {c.name}
+                </span>
+              </div>
+              <div class="sg__swatch-meta">
+                <code class="mono">{c.hex}</code>
+                <code class="mono text-muted">{c.var}</code>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ─── Colour: System ─── -->
+      <section class="sg__section">
+        <div class="section-header">
+          <span class="section-header__label">System / Color</span>
+          <div class="section-header__rule"></div>
+        </div>
+
+        <div class="sg__color-grid">
+          {systemColors.map((c) => (
+            <div class="sg__color-chip">
+              <div
+                class="sg__color-dot"
+                style={`background: var(${c.var}); ${c.light ? 'border: 1px solid var(--sys-surface-border);' : ''}`}
+              ></div>
+              <div class="sg__color-info">
+                <strong>{c.name}</strong>
+                <code class="mono">{c.var}</code>
+                <span class="text-muted">{c.role}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ─── Surfaces ─── -->
+      <section class="sg__section">
+        <div class="section-header">
+          <span class="section-header__label">System / Surfaces</span>
+          <div class="section-header__rule"></div>
+        </div>
+
+        <div class="sg__surfaces">
+          {surfaces.map((s) => (
+            <div class="sg__surface-card" style={`background: var(${s.var});`}>
+              <strong>{s.name}</strong>
+              <code class="mono">{s.var}</code>
+              <span class="text-muted">{s.role}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ─── Typography ─── -->
+      <section class="sg__section">
+        <div class="section-header">
+          <span class="section-header__label">Typography</span>
+          <div class="section-header__rule"></div>
+        </div>
+
+        <div class="sg__type-families">
+          <div class="sg__type-family">
+            <span class="sg__type-specimen" style="font-family: var(--ref-font-display); font-size: var(--ref-text-lg); text-transform: uppercase; line-height: var(--ref-leading-tight);">
+              League Gothic
+            </span>
+            <code class="mono text-muted">--ref-font-display</code>
+            <span class="text-muted">Headlines, numbers, data</span>
+          </div>
+          <div class="sg__type-family">
+            <span class="sg__type-specimen" style="font-family: var(--ref-font-body); font-size: var(--ref-text-md);">
+              Inter — The quick brown fox
+            </span>
+            <code class="mono text-muted">--ref-font-body</code>
+            <span class="text-muted">Body, UI, labels</span>
+          </div>
+          <div class="sg__type-family">
+            <span class="sg__type-specimen" style="font-family: var(--ref-font-mono); font-size: var(--ref-text-base);">
+              IBM Plex Mono — 0123456789
+            </span>
+            <code class="mono text-muted">--ref-font-mono</code>
+            <span class="text-muted">Code, eyebrows, badges</span>
+          </div>
+        </div>
+
+        <h3 class="mt-lg">Type Scale</h3>
+        <div class="sg__type-scale">
+          {typeScale.map((t) => (
+            <div class="sg__type-row">
+              <div class="sg__type-sample" style={`font-family: var(--ref-font-display); font-size: var(${t.var}); line-height: 1; text-transform: uppercase;`}>
+                Ag
+              </div>
+              <div class="sg__type-info">
+                <strong>{t.name}</strong>
+                <code class="mono">{t.size}</code>
+                <span class="text-muted">{t.usage}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <h3 class="mt-lg">Weights</h3>
+        <div class="sg__weights">
+          {[
+            { name: "Regular", var: "--ref-weight-regular", val: "400" },
+            { name: "Medium", var: "--ref-weight-medium", val: "500" },
+            { name: "Semibold", var: "--ref-weight-semibold", val: "600" },
+            { name: "Bold", var: "--ref-weight-bold", val: "700" },
+          ].map((w) => (
+            <div class="sg__weight-sample">
+              <span style={`font-weight: var(${w.var}); font-size: var(--ref-text-md);`}>
+                {w.name}
+              </span>
+              <code class="mono text-muted">{w.val}</code>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ─── Spacing ─── -->
+      <section class="sg__section">
+        <div class="section-header">
+          <span class="section-header__label">Spacing</span>
+          <div class="section-header__rule"></div>
+        </div>
+
+        <div class="sg__spacing-scale">
+          {spacingScale.map((s) => (
+            <div class="sg__spacing-row">
+              <code class="mono sg__spacing-name">{s.name}</code>
+              <div class="sg__spacing-bar-track">
+                <div
+                  class="sg__spacing-bar"
+                  style={`width: var(${s.var});`}
+                ></div>
+              </div>
+              <code class="mono sg__spacing-val">{s.size}</code>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ─── Radius ─── -->
+      <section class="sg__section">
+        <div class="section-header">
+          <span class="section-header__label">Border Radius</span>
+          <div class="section-header__rule"></div>
+        </div>
+
+        <div class="sg__radius-row">
+          {radiusScale.map((r) => (
+            <div class="sg__radius-item">
+              <div
+                class="sg__radius-box"
+                style={`border-radius: var(${r.var});`}
+              ></div>
+              <strong>{r.name}</strong>
+              <code class="mono text-muted">{r.size}</code>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ─── Motion ─── -->
+      <section class="sg__section">
+        <div class="section-header">
+          <span class="section-header__label">Motion</span>
+          <div class="section-header__rule"></div>
+        </div>
+
+        <div class="sg__motion-demos">
+          {[
+            { name: "Fast",  var: "--ref-motion-fast",  val: "150ms ease" },
+            { name: "Base",  var: "--ref-motion-base",  val: "220ms ease" },
+            { name: "Slow",  var: "--ref-motion-slow",  val: "350ms ease" },
+          ].map((m) => (
+            <div class="sg__motion-track">
+              <code class="mono sg__motion-name">{m.name}</code>
+              <div class="sg__motion-rail">
+                <div
+                  class="sg__motion-dot"
+                  style={`transition: transform var(${m.var});`}
+                ></div>
+              </div>
+              <code class="mono text-muted">{m.val}</code>
+            </div>
+          ))}
+          <p class="text-muted" style="font-size: var(--ref-text-sm); margin-top: var(--ref-space-sm);">
+            Hover the tracks to see each timing.
+          </p>
+        </div>
+      </section>
+
+      <!-- ─── Components ─── -->
+      <section class="sg__section">
+        <div class="section-header">
+          <span class="section-header__label">Components</span>
+          <div class="section-header__rule"></div>
+        </div>
+
+        <!-- Buttons -->
+        <h3>Buttons</h3>
+        <div class="sg__component-row">
+          <button class="btn btn--primary">Primary</button>
+          <button class="btn btn--secondary">Secondary</button>
+          <button class="btn btn--ghost">Ghost</button>
+        </div>
+
+        <!-- Cards -->
+        <h3 class="mt-lg">Card &amp; Panel</h3>
+        <div class="sg__component-row sg__component-row--stretch">
+          <div class="card">
+            <p class="eyebrow mono" style="margin-bottom: var(--ref-space-xs);">Card</p>
+            <p class="text-muted" style="font-size: var(--ref-text-sm);">
+              Uses <code class="mono">--comp-card-*</code> tokens. Hover for border highlight.
+            </p>
+          </div>
+          <div class="panel">
+            <p class="eyebrow mono" style="margin-bottom: var(--ref-space-xs);">Panel</p>
+            <p class="text-muted" style="font-size: var(--ref-text-sm);">
+              Uses <code class="mono">--comp-panel-*</code> tokens. Larger radius and padding.
+            </p>
+          </div>
+        </div>
+
+        <!-- Badges -->
+        <h3 class="mt-lg">Badges</h3>
+        <div class="sg__component-row">
+          <span class="badge">Default</span>
+          <span class="badge badge--accent">Accent</span>
+          <span class="badge badge--highlight">Highlight</span>
+        </div>
+
+        <!-- Inputs -->
+        <h3 class="mt-lg">Form Input</h3>
+        <div class="sg__component-row" style="max-width: 400px;">
+          <div class="field" style="flex: 1;">
+            <label>Label</label>
+            <input type="text" placeholder="Placeholder text" />
+          </div>
+        </div>
+
+        <!-- Stripes -->
+        <h3 class="mt-lg">Stripe</h3>
+        <div class="stripe" style="margin-bottom: var(--ref-space-sm);"></div>
+        <div class="stripe stripe--thin"></div>
+      </section>
+
+    </div>
+  </section>
+</body>
+</html>
+
+<style>
+  /* ==========================================================================
+     Style Guide Page
+     ========================================================================== */
+
+  .sg {
+    padding: var(--ref-space-xxl) 0;
+  }
+
+  .sg__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ref-space-xxl);
+  }
+
+  .sg__header {
+    max-width: 700px;
+  }
+
+  .sg__header h1 {
+    margin: var(--ref-space-sm) 0 var(--ref-space-md);
+  }
+
+  .sg__lead {
+    font-size: var(--ref-text-md);
+    color: var(--sys-color-on-surface-muted);
+    line-height: 1.5;
+  }
+
+  .sg__lead code {
+    font-size: 0.85em;
+    padding: 2px 6px;
+    background: var(--sys-surface-alt);
+    border-radius: 4px;
+  }
+
+  /* ── Download Card ──────────────────────────────────────────────────── */
+
+  .sg__download-card {
+    display: flex;
+    align-items: center;
+    gap: var(--ref-space-md);
+    padding: var(--ref-space-lg);
+    background: var(--sys-surface-card);
+    border: 1px solid var(--sys-surface-border);
+    border-radius: var(--ref-radius-md);
+  }
+
+  .sg__download-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: var(--sys-surface-alt);
+    border-radius: var(--ref-radius-sm);
+    color: var(--sys-color-accent-subtle);
+  }
+
+  .sg__download-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .sg__download-title {
+    font-family: var(--sys-font-mono);
+    font-size: var(--ref-text-base);
+  }
+
+  .sg__download-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ref-space-xs) var(--ref-space-sm);
+    margin-top: 4px;
+    font-size: var(--ref-text-xs);
+  }
+
+  .sg__download-desc {
+    font-size: var(--ref-text-sm);
+    line-height: 1.5;
+    margin-top: var(--ref-space-xs);
+    max-width: 60ch;
+  }
+
+  .sg__download-btn {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .sg__download-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .sg__download-btn {
+      width: 100%;
+    }
+  }
+
+  .sg__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ref-space-md);
+  }
+
+  .sg__section h2 {
+    font-size: var(--ref-text-lg);
+  }
+
+  .sg__section h3 {
+    font-size: var(--ref-text-md);
+  }
+
+  /* ── Color Swatches ─────────────────────────────────────────────────── */
+
+  .sg__swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: var(--ref-space-md);
+  }
+
+  .sg__swatches--wide {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .sg__swatch-block {
+    aspect-ratio: 1.2;
+    border-radius: var(--ref-radius-sm);
+    display: flex;
+    align-items: flex-end;
+    padding: var(--ref-space-sm);
+    position: relative;
+  }
+
+  .sg__swatch-label {
+    font-size: var(--ref-text-sm);
+    font-weight: var(--ref-weight-medium);
+    color: var(--ref-neutral-ink);
+  }
+
+  .sg__swatch-label--light {
+    color: var(--ref-neutral-linen);
+  }
+
+  .sg__swatch-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: var(--ref-space-xs);
+    font-size: var(--ref-text-xs);
+  }
+
+  /* ── System Color Grid ──────────────────────────────────────────────── */
+
+  .sg__color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--ref-space-sm);
+  }
+
+  .sg__color-chip {
+    display: flex;
+    align-items: center;
+    gap: var(--ref-space-sm);
+    padding: var(--ref-space-sm);
+    background: var(--sys-surface-card);
+    border-radius: var(--ref-radius-sm);
+  }
+
+  .sg__color-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--ref-radius-sm);
+    flex-shrink: 0;
+  }
+
+  .sg__color-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    font-size: var(--ref-text-xs);
+    min-width: 0;
+  }
+
+  .sg__color-info code {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ── Surfaces ───────────────────────────────────────────────────────── */
+
+  .sg__surfaces {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--ref-space-md);
+  }
+
+  .sg__surface-card {
+    padding: var(--ref-space-lg);
+    border-radius: var(--ref-radius-sm);
+    border: 1px solid var(--sys-surface-border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: var(--ref-text-xs);
+  }
+
+  .sg__surface-card strong {
+    font-size: var(--ref-text-sm);
+  }
+
+  /* ── Typography ─────────────────────────────────────────────────────── */
+
+  .sg__type-families {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ref-space-lg);
+  }
+
+  .sg__type-family {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sg__type-specimen {
+    line-height: 1.1;
+  }
+
+  .sg__type-scale {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ref-space-md);
+  }
+
+  .sg__type-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ref-space-lg);
+  }
+
+  .sg__type-sample {
+    flex-shrink: 0;
+    width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .sg__type-info {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ref-space-sm);
+    font-size: var(--ref-text-sm);
+    flex-wrap: wrap;
+  }
+
+  .sg__weights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ref-space-lg);
+  }
+
+  .sg__weight-sample {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* ── Spacing ────────────────────────────────────────────────────────── */
+
+  .sg__spacing-scale {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ref-space-sm);
+  }
+
+  .sg__spacing-row {
+    display: grid;
+    grid-template-columns: 50px 1fr 60px;
+    align-items: center;
+    gap: var(--ref-space-sm);
+  }
+
+  .sg__spacing-name {
+    font-size: var(--ref-text-sm);
+    text-align: right;
+  }
+
+  .sg__spacing-bar-track {
+    height: 24px;
+    background: var(--sys-surface-card);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .sg__spacing-bar {
+    height: 100%;
+    background: var(--sys-color-accent-subtle);
+    border-radius: 4px;
+    min-width: 4px;
+  }
+
+  .sg__spacing-val {
+    font-size: var(--ref-text-xs);
+    color: var(--sys-color-on-surface-muted);
+  }
+
+  /* ── Radius ─────────────────────────────────────────────────────────── */
+
+  .sg__radius-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ref-space-lg);
+  }
+
+  .sg__radius-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ref-space-xs);
+    font-size: var(--ref-text-sm);
+  }
+
+  .sg__radius-box {
+    width: 80px;
+    height: 80px;
+    background: var(--sys-surface-card);
+    border: 2px solid var(--sys-color-accent-subtle);
+  }
+
+  /* ── Motion ─────────────────────────────────────────────────────────── */
+
+  .sg__motion-demos {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ref-space-sm);
+  }
+
+  .sg__motion-track {
+    display: grid;
+    grid-template-columns: 60px 1fr 120px;
+    align-items: center;
+    gap: var(--ref-space-sm);
+  }
+
+  .sg__motion-name {
+    font-size: var(--ref-text-sm);
+    text-align: right;
+  }
+
+  .sg__motion-rail {
+    height: 32px;
+    background: var(--sys-surface-card);
+    border-radius: var(--ref-radius-full);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sg__motion-dot {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--sys-color-action-primary);
+  }
+
+  .sg__motion-rail:hover .sg__motion-dot {
+    transform: translateX(calc(100% + 200px));
+  }
+
+  /* ── Component specimens ────────────────────────────────────────────── */
+
+  .sg__component-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--ref-space-md);
+  }
+
+  .sg__component-row--stretch > * {
+    flex: 1;
+    min-width: 260px;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────────────────── */
+
+  @media (max-width: 768px) {
+    .sg__swatches,
+    .sg__swatches--wide {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .sg__color-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sg__type-row {
+      flex-direction: column;
+      gap: var(--ref-space-xs);
+    }
+
+    .sg__type-sample {
+      width: auto;
+    }
+
+    .sg__spacing-row {
+      grid-template-columns: 40px 1fr 50px;
+    }
+
+    .sg__motion-track {
+      grid-template-columns: 50px 1fr;
+    }
+
+    .sg__motion-track code:last-child {
+      display: none;
+    }
+  }
+</style>

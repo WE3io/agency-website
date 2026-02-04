@@ -1,0 +1,582 @@
+---
+// StyleGuideV2.astro - The Clean Slate
+// "Rule of Three" Foundation - W3C Token Consumer
+
+import tokens from '../../../../../tokens/tokens.draft.json';
+
+// Simple W3C Token Resolver
+// Extracts $value from the nested structure
+function resolveValue(tokenNode) {
+  if (typeof tokenNode !== 'object' || tokenNode === null) return tokenNode;
+  if ('$value' in tokenNode) return tokenNode.$value;
+  return tokenNode; // Fallback or midway node
+}
+
+const Grid = {
+  container: resolveValue(tokens.reference.grid.container),
+  columns: resolveValue(tokens.reference.grid.columns),
+  gutter: resolveValue(tokens.reference.grid.gutter),
+  padding: resolveValue(tokens.reference.grid.padding),
+};
+
+const Spacing = {
+  xs: resolveValue(tokens.reference.spacing.xs),
+  sm: resolveValue(tokens.reference.spacing.sm),
+  md: resolveValue(tokens.reference.spacing.md),
+  lg: resolveValue(tokens.reference.spacing.lg),
+  xl: resolveValue(tokens.reference.spacing.xl),
+  xxl: resolveValue(tokens.reference.spacing.xxl),
+};
+
+const Radius = {
+  sm: resolveValue(tokens.reference.radius.sm),
+  md: resolveValue(tokens.reference.radius.md),
+  lg: resolveValue(tokens.reference.radius.lg),
+  full: resolveValue(tokens.reference.radius.full),
+};
+
+const Motion = {
+  fast: resolveValue(tokens.reference.motion.fast),
+  base: resolveValue(tokens.reference.motion.base),
+  slow: resolveValue(tokens.reference.motion.slow),
+};
+
+// Map new Totem tokens to CSS variables for the page
+const Theme = {
+  // Neutrals (6-Tier Ramp)
+  linen: resolveValue(tokens.reference.palette.neutral.linen),
+  bone: resolveValue(tokens.reference.palette.neutral.bone),
+  vanilla: resolveValue(tokens.reference.palette.neutral.vanilla),
+  studioClay: resolveValue(tokens.reference.palette.neutral['studio-clay']),
+  cork: resolveValue(tokens.reference.palette.neutral.cork),
+  vinyl: resolveValue(tokens.reference.palette.neutral.ink),
+  
+  // Primitives
+  surf: resolveValue(tokens.reference.palette.primitive.surf),
+  harvest: resolveValue(tokens.reference.palette.primitive.harvest),
+  sunset: resolveValue(tokens.reference.palette.primitive.sunset),
+  rocket: resolveValue(tokens.reference.palette.primitive.rocket),
+  punch: resolveValue(tokens.reference.palette.primitive.punch),
+  velvet: resolveValue(tokens.reference.palette.primitive.velvet),
+};
+
+const Typo = {
+  hero: {
+    family: resolveValue(tokens.reference.typography.family.display),
+    size: resolveValue(tokens.reference.typography.scale.xl),
+    leading: resolveValue(tokens.reference.typography.leading.tight),
+  },
+  heading: {
+    family: resolveValue(tokens.reference.typography.family.display),
+    size: resolveValue(tokens.reference.typography.scale.lg),
+    leading: resolveValue(tokens.reference.typography.leading.tight),
+  },
+  body: {
+    family: resolveValue(tokens.reference.typography.family.body),
+    size: resolveValue(tokens.reference.typography.scale.base),
+    leading: resolveValue(tokens.reference.typography.leading.loose),
+  },
+  mono: {
+    family: resolveValue(tokens.reference.typography.family.mono),
+    size: resolveValue(tokens.reference.typography.scale.sm),
+    leading: resolveValue(tokens.reference.typography.leading.normal),
+  }
+};
+
+// Temporary local styles to visualize the grid
+const gridStyle = `
+  display: grid;
+  grid-template-columns: repeat(${Grid.columns}, 1fr);
+  gap: ${Grid.gutter};
+  max-width: ${Grid.container};
+  padding: 0 ${Grid.padding};
+  margin: 0 auto;
+`;
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>WE3 Style Guide V2 (Clean Slate)</title>
+    <style define:vars={{ 
+      'linen': Theme.linen,
+      'bone': Theme.bone,
+      'vanilla': Theme.vanilla, 
+      'studio-clay': Theme.studioClay,
+      'vinyl': Theme.vinyl,
+      'cork': Theme.cork,
+      
+      'surf': Theme.surf,
+      'harvest': Theme.harvest,
+      'sunset': Theme.sunset,
+      'rocket': Theme.rocket,
+      'punch': Theme.punch,
+      'velvet': Theme.velvet,
+      
+      'container-width': '1440px',
+      'col-count': 12,
+      // Typography
+      'hero-size': Typo.hero.size,
+      'hero-font': Typo.hero.family,
+      'hero-leading': Typo.hero.leading,
+      'heading-size': Typo.heading.size,
+      'heading-font': Typo.heading.family,
+      'heading-leading': Typo.heading.leading,
+      'body-size': Typo.body.size,
+      'body-font': Typo.body.family,
+      'body-leading': Typo.body.leading,
+      'mono-size': Typo.mono.size,
+      'mono-font': Typo.mono.family,
+      'mono-leading': Typo.mono.leading,
+    }}>
+      :root {
+        --grid-guide: rgba(239, 35, 55, 0.1); /* Rocket Tint */
+      }
+      body {
+        background-color: color-mix(in srgb, var(--vanilla), var(--cork) 60%);
+        color: var(--vinyl);
+        font-family: 'Inter', system-ui, sans-serif;
+        margin: 0;
+        transition: background-color 0.3s ease;
+        padding-bottom: 100px;
+      }
+      
+      /* Dynamic Grid System */
+      .grid-overlay {
+        position: fixed;
+        top: 0; left: 50%; transform: translateX(-50%);
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+        display: none;
+        width: 100%;
+        max-width: var(--container-width);
+        padding: 0 48px;
+        box-sizing: border-box;
+        grid-template-columns: repeat(var(--col-count), 1fr);
+        gap: 24px;
+      }
+      .grid-overlay.visible { display: grid; }
+      .col-guide {
+        background: var(--grid-guide);
+        height: 100%;
+        border-inline: 1px solid rgba(255,0,0,0.05);
+      }
+
+      /* Simulator Controls */
+      .simulator-bar {
+        position: fixed;
+        bottom: 24px; left: 50%; transform: translateX(-50%);
+        background: var(--vinyl);
+        color: var(--vanilla);
+        padding: 9px;
+        border-radius: 999px;
+        display: flex;
+        gap: 9px;
+        box-shadow: 0 10px 30px rgba(41, 0, 75, 0.3);
+        z-index: 10000;
+        align-items: center;
+      }
+      .sim-btn {
+        background: transparent;
+        color: var(--cork);
+        border: none;
+        padding: 9px 18px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+      .sim-btn:hover { color: var(--vanilla); background: rgba(255,255,255,0.05); }
+      .sim-btn.active { background: var(--vanilla); color: var(--vinyl); }
+      .divider { width: 1px; height: 18px; background: var(--cork); opacity: 0.3; margin: 0 9px; }
+      body[data-bp="mobile"] { --container-width: 390px; --col-count: 6; }
+      body[data-bp="tablet"] { --container-width: 720px; --col-count: 12; }
+      body[data-bp="desktop"] { --container-width: 1440px; --col-count: 12; }
+
+      .section-standard {
+        width: 100%;
+        max-width: var(--container-width);
+        margin: 0 auto;
+        padding: 90px 48px;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 10;
+      }
+
+      .section-alt {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        background: var(--vanilla);
+        padding: 120px 0;
+        z-index: 20;
+      }
+
+      .section-alt .inner {
+        max-width: var(--container-width);
+        margin: 0 auto;
+        padding: 0 48px;
+        box-sizing: border-box;
+      }
+      
+      h1 { font-size: 66px; line-height: 1.1; margin-bottom: 48px; color: var(--vinyl); }
+      h2 { font-size: 48px; margin-bottom: 24px; color: var(--vinyl); }
+      
+      .card {
+        background: var(--vanilla);
+        padding: 24px;
+        border-radius: 15px;
+        border: 1px solid var(--cork);
+        box-shadow: 0 4px 6px rgba(41, 0, 75, 0.05);
+      }
+
+      .retro-stripe {
+        height: 80px;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+        background: linear-gradient(to bottom, 
+          var(--harvest) 0% 20%, 
+          var(--sunset) 20% 40%, 
+          var(--rocket) 40% 60%, 
+          var(--punch) 60% 80%, 
+          var(--velvet) 80% 100%
+        );
+      }
+
+      .studio-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: var(--vanilla);
+        background-image: 
+          radial-gradient(1200px at 15% 10%, color-mix(in srgb, var(--harvest), transparent 85%), transparent 70%),
+          radial-gradient(1000px at 85% 5%, color-mix(in srgb, var(--sunset), transparent 90%), transparent 60%);
+      }
+
+      .studio-backdrop::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 2px);
+        background-size: 100% 2px;
+        pointer-events: none;
+      }
+
+      .velvet-highlight {
+        background: var(--velvet);
+        color: var(--vanilla);
+        padding: 0 4px;
+        border-radius: 3px;
+      }
+
+      .technical-swatch {
+        border: 1px dashed var(--cork);
+        padding: 18px;
+        border-radius: 12px;
+        background: var(--linen);
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+      .technical-swatch:hover {
+        transform: translateY(-4px);
+        border-style: solid;
+        border-color: var(--sage);
+        box-shadow: 0 10px 30px rgba(41, 0, 75, 0.05);
+      }
+      .technical-swatch .swatch {
+        height: 100px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+        border: 1px solid rgba(0,0,0,0.05);
+      }
+      .technical-swatch .meta-name {
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 4px;
+        color: var(--vinyl);
+      }
+      .technical-swatch .meta-hex {
+        font-family: 'IBM Plex Mono';
+        font-size: 11px;
+        opacity: 0.8;
+      }
+      .technical-swatch .meta-source {
+        font-family: var(--mono-font);
+        font-size: 9px;
+        text-transform: uppercase;
+        opacity: 0.4;
+        margin-top: 15px;
+        letter-spacing: 0.1em;
+      }
+
+      /* Semantic Typography Sets */
+      .type-hero {
+        font-family: var(--hero-font);
+        font-size: var(--hero-size);
+        line-height: var(--hero-leading);
+        text-transform: uppercase;
+        margin: 0;
+      }
+      .type-hero.massive {
+        font-size: 110px;
+        line-height: 0.9;
+        letter-spacing: -0.01em;
+      }
+      .type-heading {
+        font-family: var(--heading-font);
+        font-size: var(--heading-size);
+        line-height: var(--heading-leading);
+        text-transform: uppercase;
+        margin: 0;
+      }
+      .type-body {
+        font-family: var(--body-font);
+        font-size: var(--body-size);
+        line-height: var(--body-leading);
+        margin: 0;
+      }
+      .type-mono {
+        font-family: var(--mono-font);
+        font-size: var(--mono-size);
+        line-height: var(--mono-leading);
+        text-transform: uppercase;
+        margin: 0;
+        opacity: 0.6;
+        color: var(--vinyl);
+      }
+    </style>
+	</head>
+	<body data-bp="desktop">
+    <!-- Atmospheric Backdrop -->
+    <div class="studio-backdrop"></div>
+
+    <!-- The Global Retro Stripe (Full Bleed) -->
+    <div class="retro-stripe"></div>
+
+    <!-- Grid Overlay -->
+    <div id="gridOverlay" class="grid-overlay">
+      {Array.from({ length: 12 }).map(() => <div class="col-guide"></div>)}
+    </div>
+
+    <!-- Simulator Bar -->
+    <div class="simulator-bar">
+      <span style="padding-left: 9px; font-size: 12px; opacity: 0.5; font-weight: bold; letter-spacing: 1px;">BREAKPOINT</span>
+      <button class="sim-btn" onclick="setBp('mobile')">Mobile (6)</button>
+      <button class="sim-btn" onclick="setBp('tablet')">Tablet (12)</button>
+      <button class="sim-btn active" onclick="setBp('desktop')">Desktop (12)</button>
+      
+      <div class="divider"></div>
+      
+      <span style="font-size: 12px; opacity: 0.5; font-weight: bold; letter-spacing: 1px;">GRID</span>
+      <button class="sim-btn" id="btnToggleGrid" onclick="toggleGrid()">Off</button>
+    </div>
+
+    <main style="min-height: 100vh;">
+      
+      <!-- Hero Header -->
+      <section class="section-standard" style="padding-top: 120px; padding-bottom: 60px;">
+        <h1 class="type-hero massive">Style Guide V2</h1>
+        <p class="type-heading" style="color: var(--rocket); margin-top: -15px;">The Clean Slate</p>
+      </section>
+
+      <section class="section-alt">
+        <div class="inner">
+          <h2 style="margin-bottom: 48px;">1. The 3px Grid System</h2>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+            <div class="card" style="background: var(--linen);">
+              <p class="type-mono" style="margin-bottom: 12px;">Desktop Container</p>
+              <div class="type-hero" style="font-size: 48px;">1440px</div>
+              <p class="type-body" style="opacity: 0.6;">12 Cols / 24px Gutter</p>
+            </div>
+            <div class="card" style="background: var(--linen);">
+              <p class="type-mono" style="color: var(--vinyl); opacity: 0.8; margin-bottom: 12px;">Tablet Container</p>
+              <div class="type-hero" style="font-size: 48px; color: var(--vinyl);">720px*</div>
+              <p class="type-body" style="opacity: 0.6;">12 Cols (Maximized Rule)</p>
+            </div>
+            <div class="card" style="background: var(--linen);">
+              <p class="type-mono" style="margin-bottom: 12px;">Mobile Columns</p>
+              <div class="type-hero" style="font-size: 48px; color: var(--vinyl);">6 Cols*</div>
+              <p class="type-body" style="opacity: 0.6;">Allows 1/2 and 1/3 splits</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <section class="section-standard">
+      <h2>2. Spacing Scale</h2>
+      <div style="display: flex; gap: 48px; align-items: flex-end; justify-content: center; margin-top: 48px;">
+        {Object.entries(Spacing).map(([name, val]) => (
+          <div style="text-align: center;">
+            <div style={`width: 48px; height: ${val}; background: var(--vinyl); margin: 0 auto; border-radius: 9px;`}></div>
+            <p style="margin-top: 18px; font-family: monospace; color: var(--vinyl); opacity: 0.6; font-size: 12px;"> {name}<br/>{val}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="inner">
+        <h2>3. Radius Scale</h2>
+        <div style="display: flex; gap: 36px; flex-wrap: wrap; justify-content: center; margin-top: 48px;">
+          {Object.entries(Radius).map(([name, val]) => (
+            <div style={`width: 140px; height: 140px; background: var(--linen); border: 1px solid var(--cork); border-radius: ${val}; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.03);`}>
+              <code style={`font-weight: bold; color: var(--vinyl); opacity: 0.6; font-size: 11px;`}>{name}: {val}</code>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="inner">
+        <h2>4. Color Palette</h2>
+        <p class="type-body" style="margin-bottom: 48px; opacity: 0.8;">The finalized 9-tier color stack and its **Neutral Ramp** variants.</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 60px;">
+           <!-- Retro Spectrum Swatches -->
+           <div>
+              <h3 style="margin-top: 0; margin-bottom: 24px;">Primitives</h3>
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 18px;">
+                 {[
+                   { name: 'Surf', token: 'palette.primitive.surf', color: 'var(--surf)', hex: Theme.surf },
+                   { name: 'Harvest', token: 'palette.primitive.harvest', color: 'var(--harvest)', hex: Theme.harvest },
+                   { name: 'Sunset', token: 'palette.primitive.sunset', color: 'var(--sunset)', hex: Theme.sunset },
+                   { name: 'Rocket', token: 'palette.primitive.rocket', color: 'var(--rocket)', hex: Theme.rocket },
+                   { name: 'Punch', token: 'palette.primitive.punch', color: 'var(--punch)', hex: Theme.punch },
+                   { name: 'Velvet', token: 'palette.primitive.velvet', color: 'var(--velvet)', hex: Theme.velvet }
+                 ].map(n => (
+                   <div class="technical-swatch">
+                      <div class="swatch" style={`background: ${n.color};`}></div>
+                      <div class="meta-name">{n.name}</div>
+                      <div class="meta-hex">{n.hex}</div>
+                      <div class="meta-source">SOURCE: {n.token}</div>
+                   </div>
+                 ))}
+              </div>
+           </div>
+
+            <!-- Neutral Ramp Exploration -->
+           <div>
+              <h3 style="margin-top: 0; margin-bottom: 24px;">The Neutral Path (6-Tier)</h3>
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 18px;">
+                 {[
+                   { name: 'Linen', token: 'palette.neutral.linen', color: 'var(--linen)', hex: Theme.linen },
+                   { name: 'Bone', token: 'palette.neutral.bone', color: 'var(--bone)', hex: Theme.bone },
+                    { name: 'Vanilla', token: 'palette.neutral.vanilla', color: 'var(--vanilla)', hex: Theme.vanilla },
+                    { name: 'Studio Clay', token: 'palette.neutral.studio-clay', color: 'var(--studio-clay)', hex: Theme.studioClay },
+                    { name: 'Cork', token: 'palette.neutral.cork', color: 'var(--cork)', hex: Theme.cork },
+                   { name: 'Vinyl', token: 'palette.neutral.ink', color: 'var(--vinyl)', hex: Theme.vinyl }
+                 ].map(n => (
+                   <div class="technical-swatch">
+                      <div class="swatch" style={`background: ${n.color};`}></div>
+                      <div class="meta-name">{n.name}</div>
+                      <div class="meta-hex">{n.hex}</div>
+                      <div class="meta-source">SOURCE: {n.token}</div>
+                   </div>
+                 ))}
+              </div>
+           </div>
+        </div>
+      </div>
+    </section>
+    </section>
+
+    <section class="section-standard">
+       <div class="inner">
+        <h2>5. Typography</h2>
+        <p class="type-body" style="margin-bottom: 48px; opacity: 0.8;">The core type stack: Display, Body, and Mono.</p>
+
+        <div style="display: grid; gap: 48px;">
+          <!-- Hero / Display -->
+          <div style="padding: 48px; border: 1px solid var(--cork); border-radius: 24px;">
+             <span class="type-mono" style="opacity: 0.5; display: block; margin-bottom: 24px;">ROLE: HERO / DISPLAY</span>
+             <h1 style={`margin: 0; font-family: ${Typo.hero.family}; font-size: ${Typo.hero.size}; line-height: ${Typo.hero.leading}; color: var(--vinyl);`}>
+               The Quick Brown Fox Jumps Over The Lazy Dog.
+             </h1>
+             <div class="type-mono" style="margin-top: 24px; font-size: 12px; opacity: 0.6;">
+               Token: reference.typography.family.display ({Typo.hero.family})
+             </div>
+          </div>
+
+          <!-- Body -->
+          <div style="padding: 48px; border: 1px solid var(--cork); border-radius: 24px;">
+             <span class="type-mono" style="opacity: 0.5; display: block; margin-bottom: 24px;">ROLE: BODY / UI</span>
+             <p style={`margin: 0; font-family: ${Typo.body.family}; font-size: ${Typo.body.size}; line-height: ${Typo.body.leading}; color: var(--vinyl); max-width: 60ch;`}>
+               Whether you’re building a simple marketing site or a complex web application, the principles of rhythm and proportion remain the same. Good typography is invisible; it allows the content to breathe and the user to focus without distraction.
+             </p>
+             <div class="type-mono" style="margin-top: 24px; font-size: 12px; opacity: 0.6;">
+               Token: reference.typography.family.body ({Typo.body.family})
+             </div>
+          </div>
+
+          <!-- Mono -->
+          <div style="padding: 48px; border: 1px solid var(--cork); border-radius: 24px;">
+             <span class="type-mono" style="opacity: 0.5; display: block; margin-bottom: 24px;">ROLE: MONO / TECHNICAL</span>
+             <p style={`margin: 0; font-family: ${Typo.mono.family}; font-size: ${Typo.mono.size}; line-height: ${Typo.mono.leading}; color: var(--vinyl);`}>
+               const theme = {"{"} mode: 'studio', version: '2.0.0' {"}"};
+             </p>
+             <div class="type-mono" style="margin-top: 24px; font-size: 12px; opacity: 0.6;">
+               Token: reference.typography.family.mono ({Typo.mono.family})
+             </div>
+          </div>
+        </div>
+       </div>
+    </section>
+    </main>
+      
+
+    <!-- Simulator -->
+    <div class="simulator-bar">
+      <button class="sim-btn active" onclick="setBp('desktop')">Desktop</button>
+      <button class="sim-btn" onclick="setBp('tablet')">Tablet</button>
+      <button class="sim-btn" onclick="setBp('mobile')">Mobile</button>
+      <div class="divider"></div>
+      <button id="btnToggleGrid" class="sim-btn" onclick="toggleGrid()">Grid: Off</button>
+    </div>
+
+    <style>
+          @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;600&family=League+Gothic&display=swap');
+          
+          .font-display { font-family: 'League Gothic', sans-serif; }
+          .font-body { font-family: 'Inter', sans-serif; }
+          .font-mono { font-family: 'IBM Plex Mono', monospace; }
+
+        </style>
+
+    <script is:inline>
+      function setBp(bp) {
+        document.body.setAttribute('data-bp', bp);
+        // Update active class
+        document.querySelectorAll('.sim-btn').forEach(btn => {
+           if(btn.onclick.toString().includes(bp)) btn.classList.add('active');
+           else if(btn.onclick.toString().includes('setBp')) btn.classList.remove('active');
+        });
+      }
+
+      function toggleGrid() {
+        const overlay = document.getElementById('gridOverlay');
+        const btn = document.getElementById('btnToggleGrid');
+        overlay.classList.toggle('visible');
+        const isVisible = overlay.classList.contains('visible');
+        btn.innerHTML = isVisible ? 'On' : 'Off';
+        btn.style.opacity = isVisible ? '1' : '0.5';
+      }
+    </script>
+    <style is:global>
+        .btn-demo:hover {
+          transform: translateY(-2px);
+          background: color-mix(in srgb, var(--vanilla), var(--cork) 10%) !important;
+          box-shadow: 0 4px 12px rgba(41, 0, 75, 0.05);
+        }
+      </style>
+	</body>
+</html>
