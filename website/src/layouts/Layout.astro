@@ -1,25 +1,27 @@
 ---
 import "../styles/global.css";
 import { SITE } from "../lib/site";
+import { Icon } from "astro-icon/components";
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const { title = "WE3", description = "Small teams for big challenges" } = Astro.props;
+const { title = "WE3", description = "Small teams for big challenges" } =
+  Astro.props;
 const currentPath = Astro.url.pathname;
 const logoSrc = `/images/logos/${SITE.logo}.svg`;
 
 const navLeft = [
-  { href: "/story", label: "Our Story" },
-  { href: "/model", label: "The Model" },
-  { href: "/engagements", label: "Engagements" },
+  { href: "/story", label: "Our Story", icon: "heroicons:book-open" },
+  { href: "/model", label: "The Model", icon: "heroicons:squares-plus" },
+  { href: "/engagements", label: "Engagements", icon: "heroicons:user-group" },
 ];
 const navRight = [
-  { href: "/work", label: "Work" },
-  { href: "/tools", label: "Tools" },
-  { href: "/contact", label: "Contact" },
+  { href: "/work", label: "Work", icon: "heroicons:briefcase" },
+  { href: "/tools", label: "Tools", icon: "heroicons:wrench" },
+  { href: "/contact", label: "Contact", icon: "heroicons:envelope" },
 ];
 const navAll = [...navLeft, ...navRight];
 
@@ -31,495 +33,608 @@ function isActive(href: string): boolean {
 }
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content={description} />
-  <title>{title} | WE3</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} | WE3</title>
 
-  <!-- Fonts: League Gothic (headlines), Inter (body + technical labels), IBM Plex Mono (accent) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=League+Gothic:ital@0;1&display=swap" rel="stylesheet" />
+    <!-- Fonts: League Gothic (headlines), Inter (body + technical labels), IBM Plex Mono (accent) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=League+Gothic:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-</head>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
 
-<body class="variant-claude">
-  <!-- Skip link for accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <body class="variant-claude">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Header / Navigation -->
-  <header class="site-header">
-    <nav class="nav container" aria-label="Main navigation">
-      <!-- Left nav (desktop): Our Story, The Model, Engagements -->
-      <ul class="nav__left" role="list">
-        {navLeft.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class:list={["nav__link", { "nav__link--active": isActive(item.href) }]}
-              aria-current={isActive(item.href) ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <!-- Header / Navigation -->
+    <header class="site-header">
+      <nav class="nav container" aria-label="Main navigation">
+        <!-- Left nav (desktop): Our Story, The Model, Engagements -->
+        <ul class="nav__left" role="list">
+          {
+            navLeft.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    "nav__link",
+                    { "nav__link--active": isActive(item.href) },
+                  ]}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  aria-label={item.label}
+                >
+                  <Icon
+                    name={item.icon}
+                    class="nav__symbol"
+                    aria-hidden="true"
+                  />
+                  <span class="nav__text">{item.label}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
 
-      <!-- Centred logo (Claude: retro purple) -->
-      <a href="/" class="nav__logo" aria-label="WE3 Home">
-        <img src={logoSrc} alt="WE3" class="nav__logo-img" width="48" height="48" />
-      </a>
+        <!-- Centred logo (Claude: retro purple) -->
+        <a href="/" class="nav__logo" aria-label="WE3 Home">
+          <img
+            src={logoSrc}
+            alt="WE3"
+            class="nav__logo-img"
+            width="48"
+            height="48"
+          />
+        </a>
 
-      <!-- Right nav (desktop): Work, Tools, Contact -->
-      <ul class="nav__right" role="list">
-        {navRight.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class:list={["nav__link", { "nav__link--active": isActive(item.href) }]}
-              aria-current={isActive(item.href) ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+        <!-- Right nav (desktop): Work, Tools, Contact -->
+        <ul class="nav__right" role="list">
+          {
+            navRight.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    "nav__link",
+                    { "nav__link--active": isActive(item.href) },
+                  ]}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  aria-label={item.label}
+                >
+                  <Icon
+                    name={item.icon}
+                    class="nav__symbol"
+                    aria-hidden="true"
+                  />
+                  <span class="nav__text">{item.label}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
 
-      <!-- Hamburger (mobile only), right side -->
-      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-      </button>
+        <!-- Hamburger (mobile only), right side -->
+        <button
+          class="nav__toggle"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+        </button>
 
-      <!-- Mobile dropdown: all links (shown when hamburger open) -->
-      <ul class="nav__menu" role="list">
-        {navAll.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class:list={["nav__link", { "nav__link--active": isActive(item.href) }]}
-              aria-current={isActive(item.href) ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-
-    <!-- Decorative stripe: momentum entry (4px draw-in → 80px) -->
-    <div class="stripe stripe--masthead momentum-entry" id="masthead-stripe" aria-hidden="true"></div>
-  </header>
-
-  <!-- Floating Nav (appears at scroll 200px – contextual, frosted glass) -->
-  <nav class="floating-nav" id="floating-nav" aria-label="Contextual navigation">
-    <a href="/" class:list={["floating-nav__link", { "floating-nav__link--active": currentPath === "/" || currentPath === "/" }]}>Home</a>
-    {navAll.map((item) => (
-      <a
-        href={item.href}
-        class:list={["floating-nav__link", { "floating-nav__link--active": currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href)) }]}
-      >
-        {item.label}
-      </a>
-    ))}
-  </nav>
-
-  <!-- Main Content -->
-  <main id="main-content">
-    <slot />
-  </main>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="stripe stripe--footer" id="footer-stripe" aria-hidden="true">
-      <div class="stripe__bar stripe__bar--1"></div>
-      <div class="stripe__bar stripe__bar--2"></div>
-      <div class="stripe__bar stripe__bar--3"></div>
-      <div class="stripe__bar stripe__bar--4"></div>
-      <div class="stripe__bar stripe__bar--5"></div>
-    </div>
-
-    <div class="footer__content container">
-      <div class="footer__brand">
-        <img src={logoSrc} alt="WE3" class="footer__logo-img" width="56" height="56" />
-        <p class="footer__tagline">Small teams for big challenges.</p>
-      </div>
-
-      <nav class="footer__nav" aria-label="Footer navigation">
-        <ul role="list">
-          <li><a href="/story">Our Story</a></li>
-          <li><a href="/model">The Model</a></li>
-          <li><a href="/engagements">Engagements</a></li>
-          <li><a href="/work">Work</a></li>
-          <li><a href="/tools">Tools</a></li>
-          <li><a href="/contact">Contact</a></li>
+        <!-- Mobile dropdown: all links (shown when hamburger open) -->
+        <ul class="nav__menu" role="list">
+          {
+            navAll.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    "nav__link",
+                    { "nav__link--active": isActive(item.href) },
+                  ]}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
 
-      <div class="footer__cta">
-        <p class="eyebrow">Ready to build?</p>
-        <a href="/brief" class="btn btn--primary">Start Your Brief</a>
+      <!-- Decorative stripe: wave morph animation (expands from top) -->
+      <div
+        class="stripe stripe--masthead wave-morph-entry"
+        id="masthead-stripe"
+        aria-hidden="true"
+      >
       </div>
-    </div>
+    </header>
 
-    <div class="footer__bottom container">
-      <p class="footer__copyright">
-        <span class="mono">&copy; {new Date().getFullYear()}</span> WE3 Ventures Ltd.
-      </p>
-    </div>
-  </footer>
+    <!-- Floating Nav (appears at scroll 200px – contextual, frosted glass) -->
+    <nav
+      class="floating-nav"
+      id="floating-nav"
+      aria-label="Contextual navigation"
+    >
+      <a
+        href="/"
+        class:list={[
+          "floating-nav__link",
+          {
+            "floating-nav__link--active":
+              currentPath === "/" || currentPath === "/",
+          },
+        ]}>Home</a
+      >
+      {
+        navAll.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "floating-nav__link",
+              {
+                "floating-nav__link--active":
+                  currentPath === item.href ||
+                  (item.href !== "/" && currentPath.startsWith(item.href)),
+              },
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
 
-  <!-- Mobile nav script -->
-  <script>
-    const toggle = document.querySelector('.nav__toggle');
-    const menu = document.querySelector('.nav__menu');
+    <!-- Main Content -->
+    <main id="main-content">
+      <slot />
+    </main>
 
-    toggle?.addEventListener('click', () => {
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', (!expanded).toString());
-      menu?.classList.toggle('nav__menu--open');
-    });
-  </script>
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="stripe stripe--footer" id="footer-stripe" aria-hidden="true">
+        <div class="stripe__bar stripe__bar--1"></div>
+        <div class="stripe__bar stripe__bar--2"></div>
+        <div class="stripe__bar stripe__bar--3"></div>
+        <div class="stripe__bar stripe__bar--4"></div>
+        <div class="stripe__bar stripe__bar--5"></div>
+      </div>
 
-  <!-- Organic Momentum: floating nav at 200px, reveal-on-scroll, momentum strip, footer dock -->
-  <script>
-    (function () {
-      var floatingNav = document.getElementById('floating-nav');
-      var mastheadStripe = document.getElementById('masthead-stripe');
-      var footerStripe = document.getElementById('footer-stripe');
-      var bars = footerStripe ? Array.from(footerStripe.querySelectorAll('.stripe__bar')) : [];
-      var isMobile = window.matchMedia('(max-width: 900px)');
-      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      <div class="footer__content container">
+        <div class="footer__brand">
+          <img
+            src={logoSrc}
+            alt="WE3"
+            class="footer__logo-img"
+            width="56"
+            height="56"
+          />
+          <p class="footer__tagline">Small teams for big challenges.</p>
+        </div>
 
-      /* ---- Contact-Based Bar Pop ----
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <ul role="list">
+            <li><a href="/story">Our Story</a></li>
+            <li><a href="/model">The Model</a></li>
+            <li><a href="/engagements">Engagements</a></li>
+            <li><a href="/work">Work</a></li>
+            <li><a href="/tools">Tools</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__cta">
+          <p class="eyebrow">Ready to build?</p>
+          <a href="/brief" class="btn btn--primary">Start Your Brief</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom container">
+        <p class="footer__copyright">
+          <span class="mono">&copy; {new Date().getFullYear()}</span> WE3 Ventures
+          Ltd.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Mobile nav script -->
+    <script>
+      const toggle = document.querySelector(".nav__toggle");
+      const menu = document.querySelector(".nav__menu");
+
+      toggle?.addEventListener("click", () => {
+        const expanded = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", (!expanded).toString());
+        menu?.classList.toggle("nav__menu--open");
+      });
+    </script>
+
+    <!-- Organic Momentum: floating nav at 200px, reveal-on-scroll, momentum strip, footer dock -->
+    <script>
+      (function () {
+        var floatingNav = document.getElementById("floating-nav");
+        var mastheadStripe = document.getElementById("masthead-stripe");
+        var footerStripe = document.getElementById("footer-stripe");
+        var bars = footerStripe
+          ? Array.from(footerStripe.querySelectorAll(".stripe__bar"))
+          : [];
+        var isMobile = window.matchMedia("(max-width: 900px)");
+        var prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        );
+
+        /* ---- Contact-Based Bar Pop ----
          The stripe scrolls up to meet the fixed nav. As each bar's top edge
          reaches the nav's bottom edge, that bar pops: harvest first (dink!),
          then sunset, rocket, punch. When velvet is reached, the nav docks
          and velvet does a small absorbing wiggle.
       */
-      var BAR_HEIGHT = 16;
-      var dockState = 'hidden'; /* hidden | floating | approaching | docked */
-      var barPopped = [false, false, false, false, false];
+        var BAR_HEIGHT = 16;
+        var dockState = "hidden"; /* hidden | floating | approaching | docked */
+        var barPopped = [false, false, false, false, false];
 
-      function popBar(i) {
-        if (barPopped[i]) return;
-        bars[i].classList.remove('is-popping');
-        void bars[i].offsetWidth; /* force reflow to restart animation */
-        bars[i].classList.add('is-popping');
-        barPopped[i] = true;
-      }
+        function popBar(i) {
+          if (barPopped[i]) return;
+          bars[i].classList.remove("is-popping");
+          void bars[i].offsetWidth; /* force reflow to restart animation */
+          bars[i].classList.add("is-popping");
+          barPopped[i] = true;
+        }
 
-      function unpopBar(i) {
-        if (!barPopped[i]) return;
-        bars[i].classList.remove('is-popping');
-        barPopped[i] = false;
-      }
-
-      function clearAllBars() {
-        bars.forEach(function (bar, i) {
-          bar.classList.remove('is-popping', 'is-wiggling');
-          barPopped[i] = false;
-        });
-      }
-
-      function dockNav() {
-        if (!floatingNav || !footerStripe) return;
-        var navH = floatingNav.offsetHeight;
-        /* Nav rests on top of velvet: bottom edge at velvet's top (64px) */
-        var topPos = Math.max(0, 64 - navH + 2); /* +2px to embed slightly */
-
-        floatingNav.classList.add('is-docked');
-        floatingNav.style.top = topPos + 'px';
-        footerStripe.appendChild(floatingNav);
-
-        /* Clear bar pops — they've settled */
-        for (var i = 0; i < 4; i++) {
-          bars[i].classList.remove('is-popping');
+        function unpopBar(i) {
+          if (!barPopped[i]) return;
+          bars[i].classList.remove("is-popping");
           barPopped[i] = false;
         }
-        /* Velvet absorbs the landing */
-        if (!prefersReducedMotion.matches && bars[4]) {
-          bars[4].classList.remove('is-wiggling');
-          void bars[4].offsetWidth;
-          bars[4].classList.add('is-wiggling');
+
+        function clearAllBars() {
+          bars.forEach(function (bar, i) {
+            bar.classList.remove("is-popping", "is-wiggling");
+            barPopped[i] = false;
+          });
         }
-      }
 
-      function undockNav() {
-        if (!floatingNav) return;
-        floatingNav.classList.remove('is-docked');
-        floatingNav.style.top = '';
-        document.body.appendChild(floatingNav);
-        if (bars[4]) bars[4].classList.remove('is-wiggling');
-      }
+        function dockNav() {
+          if (!floatingNav || !footerStripe) return;
+          var navH = floatingNav.offsetHeight;
+          /* Nav rests on top of velvet: bottom edge at velvet's top (64px) */
+          var topPos = Math.max(0, 64 - navH + 2); /* +2px to embed slightly */
 
-      if (floatingNav) {
-        var ticking = false;
+          floatingNav.classList.add("is-docked");
+          floatingNav.style.top = topPos + "px";
+          footerStripe.appendChild(floatingNav);
 
-        function updateFloatingNav() {
-          var scrollY = window.scrollY;
-          var viewportH = window.innerHeight;
-          var shouldShow = scrollY >= 200;
-
-          if (!footerStripe) {
-            floatingNav.classList.toggle('is-visible', shouldShow);
-            floatingNav.setAttribute('aria-hidden', String(!shouldShow));
-            ticking = false;
-            return;
+          /* Clear bar pops — they've settled */
+          for (var i = 0; i < 4; i++) {
+            bars[i].classList.remove("is-popping");
+            barPopped[i] = false;
           }
-
-          var stripeRect = footerStripe.getBoundingClientRect();
-          var stripeTopVP = stripeRect.top; /* stripe top in viewport coords */
-
-          /* The nav's bottom edge when floating (contact point for bar hits) */
-          var contactLine;
-          if (dockState !== 'docked') {
-            contactLine = floatingNav.getBoundingClientRect().bottom;
-          } else {
-            /* When docked, approximate where the nav would be if still floating */
-            contactLine = viewportH - 24;
+          /* Velvet absorbs the landing */
+          if (!prefersReducedMotion.matches && bars[4]) {
+            bars[4].classList.remove("is-wiggling");
+            void bars[4].offsetWidth;
+            bars[4].classList.add("is-wiggling");
           }
+        }
 
-          if (isMobile.matches) {
-            /* Mobile: hide near footer, never dock */
-            var stripeVisible = stripeTopVP < viewportH;
-            if (dockState === 'docked') undockNav();
-            clearAllBars();
-            floatingNav.classList.toggle('is-visible', shouldShow && !stripeVisible);
-            floatingNav.setAttribute('aria-hidden', String(!shouldShow || stripeVisible));
-            dockState = shouldShow && !stripeVisible ? 'floating' : 'hidden';
-            ticking = false;
-            return;
-          }
+        function undockNav() {
+          if (!floatingNav) return;
+          floatingNav.classList.remove("is-docked");
+          floatingNav.style.top = "";
+          document.body.appendChild(floatingNav);
+          if (bars[4]) bars[4].classList.remove("is-wiggling");
+        }
 
-          /* --- Desktop State Machine --- */
+        if (floatingNav) {
+          var ticking = false;
 
-          if (!shouldShow) {
-            /* Hidden: above 200px scroll */
-            if (dockState === 'docked') undockNav();
-            clearAllBars();
-            floatingNav.classList.remove('is-visible');
-            floatingNav.setAttribute('aria-hidden', 'true');
-            dockState = 'hidden';
+          function updateFloatingNav() {
+            var scrollY = window.scrollY;
+            var viewportH = window.innerHeight;
+            var shouldShow = scrollY >= 200;
 
-          } else if (stripeTopVP > contactLine) {
-            /* Floating: stripe top hasn't reached the nav yet */
-            if (dockState === 'docked') undockNav();
-            clearAllBars();
-            floatingNav.classList.add('is-visible');
-            floatingNav.setAttribute('aria-hidden', 'false');
-            dockState = 'floating';
-
-          } else if (dockState === 'docked') {
-            /* Stay docked — nothing to do unless we need to undock
-               (handled above: stripeTopVP > contactLine triggers undock) */
-
-          } else {
-            /* Approaching: stripe overlaps nav — pop bars on contact */
-            floatingNav.classList.add('is-visible');
-            floatingNav.setAttribute('aria-hidden', 'false');
-
-            if (!prefersReducedMotion.matches) {
-              /* Check bars 0-3 (harvest → punch) for contact */
-              for (var i = 0; i < 4; i++) {
-                var barTopVP = stripeTopVP + i * BAR_HEIGHT;
-                if (barTopVP <= contactLine) {
-                  popBar(i);
-                } else {
-                  unpopBar(i);
-                }
-              }
-
-              /* Check bar 4 (velvet) — when reached, dock */
-              var velvetTopVP = stripeTopVP + 4 * BAR_HEIGHT;
-              if (velvetTopVP <= contactLine) {
-                dockNav();
-                dockState = 'docked';
-              } else {
-                dockState = 'approaching';
-              }
-            } else {
-              /* Reduced motion: dock immediately when stripe overlaps */
-              dockNav();
-              dockState = 'docked';
+            if (!footerStripe) {
+              floatingNav.classList.toggle("is-visible", shouldShow);
+              floatingNav.setAttribute("aria-hidden", String(!shouldShow));
+              ticking = false;
+              return;
             }
+
+            var stripeRect = footerStripe.getBoundingClientRect();
+            var stripeTopVP =
+              stripeRect.top; /* stripe top in viewport coords */
+
+            /* The nav's bottom edge when floating (contact point for bar hits) */
+            var contactLine;
+            if (dockState !== "docked") {
+              contactLine = floatingNav.getBoundingClientRect().bottom;
+            } else {
+              /* When docked, approximate where the nav would be if still floating */
+              contactLine = viewportH - 24;
+            }
+
+            if (isMobile.matches) {
+              /* Mobile: hide near footer, never dock */
+              var stripeVisible = stripeTopVP < viewportH;
+              if (dockState === "docked") undockNav();
+              clearAllBars();
+              floatingNav.classList.toggle(
+                "is-visible",
+                shouldShow && !stripeVisible,
+              );
+              floatingNav.setAttribute(
+                "aria-hidden",
+                String(!shouldShow || stripeVisible),
+              );
+              dockState = shouldShow && !stripeVisible ? "floating" : "hidden";
+              ticking = false;
+              return;
+            }
+
+            /* --- Desktop State Machine --- */
+
+            if (!shouldShow) {
+              /* Hidden: above 200px scroll */
+              if (dockState === "docked") undockNav();
+              clearAllBars();
+              floatingNav.classList.remove("is-visible");
+              floatingNav.setAttribute("aria-hidden", "true");
+              dockState = "hidden";
+            } else if (stripeTopVP > contactLine) {
+              /* Floating: stripe top hasn't reached the nav yet */
+              if (dockState === "docked") undockNav();
+              clearAllBars();
+              floatingNav.classList.add("is-visible");
+              floatingNav.setAttribute("aria-hidden", "false");
+              dockState = "floating";
+            } else if (dockState === "docked") {
+              /* Stay docked — nothing to do unless we need to undock
+               (handled above: stripeTopVP > contactLine triggers undock) */
+            } else {
+              /* Approaching: stripe overlaps nav — pop bars on contact */
+              floatingNav.classList.add("is-visible");
+              floatingNav.setAttribute("aria-hidden", "false");
+
+              if (!prefersReducedMotion.matches) {
+                /* Check bars 0-3 (harvest → punch) for contact */
+                for (var i = 0; i < 4; i++) {
+                  var barTopVP = stripeTopVP + i * BAR_HEIGHT;
+                  if (barTopVP <= contactLine) {
+                    popBar(i);
+                  } else {
+                    unpopBar(i);
+                  }
+                }
+
+                /* Check bar 4 (velvet) — when reached, dock */
+                var velvetTopVP = stripeTopVP + 4 * BAR_HEIGHT;
+                if (velvetTopVP <= contactLine) {
+                  dockNav();
+                  dockState = "docked";
+                } else {
+                  dockState = "approaching";
+                }
+              } else {
+                /* Reduced motion: dock immediately when stripe overlaps */
+                dockNav();
+                dockState = "docked";
+              }
+            }
+            ticking = false;
           }
-          ticking = false;
+
+          window.addEventListener(
+            "scroll",
+            function () {
+              if (!ticking) {
+                requestAnimationFrame(updateFloatingNav);
+                ticking = true;
+              }
+            },
+            { passive: true },
+          );
+          updateFloatingNav();
         }
 
-        window.addEventListener('scroll', function () {
-          if (!ticking) {
-            requestAnimationFrame(updateFloatingNav);
-            ticking = true;
+        if (mastheadStripe) {
+          setTimeout(function () {
+            mastheadStripe.classList.remove("wave-morph-entry");
+          }, 2600); /* 0.2s delay + 2.4s animation */
+        }
+
+        var revealEls = document.querySelectorAll(".reveal-up");
+        var momentumHero = document.querySelector(".momentum-hero");
+
+        if (
+          momentumHero &&
+          momentumHero.querySelectorAll(".reveal-up").length
+        ) {
+          var heroRevealEls = momentumHero.querySelectorAll(".reveal-up");
+          setTimeout(function () {
+            heroRevealEls.forEach(function (el) {
+              el.classList.add("active");
+            });
+          }, 2600); /* Match wave-morph animation timing */
+        }
+
+        if (revealEls.length && "IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (
+                  entry.isIntersecting &&
+                  !entry.target.classList.contains("active") &&
+                  !entry.target.closest(".momentum-hero")
+                ) {
+                  var randomDelay = Math.floor(Math.random() * 250);
+                  setTimeout(function () {
+                    entry.target.classList.add("active");
+                  }, randomDelay);
+                }
+              });
+            },
+            { rootMargin: "0px 0px -50px 0px", threshold: 0.1 },
+          );
+          revealEls.forEach(function (el) {
+            observer.observe(el);
+          });
+        }
+      })();
+    </script>
+
+    <!-- Magnetic Rectangle Snap Cursor (Claude variant) – morphs to target size -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!document.body.classList.contains("variant-claude")) return;
+
+        const cursor = document.createElement("div");
+        cursor.id = "custom-cursor";
+        document.body.appendChild(cursor);
+
+        let mouse = { x: -100, y: -100 };
+        let pos = { x: 0, y: 0, w: 12, h: 12 };
+        let targetPos = null;
+        const PAD = 10;
+        const LERP = 0.15;
+
+        document.addEventListener("mousemove", (e) => {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+          cursor.classList.remove("is-outside");
+        });
+
+        document.addEventListener("mouseleave", () => {
+          cursor.classList.add("is-outside");
+        });
+
+        const updateCursor = () => {
+          let destX, destY, destW, destH, destR;
+          if (targetPos) {
+            destX = targetPos.x;
+            destY = targetPos.y;
+            destW = targetPos.w;
+            destH = targetPos.h;
+            destR = targetPos.r;
+          } else {
+            destX = mouse.x;
+            destY = mouse.y;
+            destW = 12;
+            destH = 12;
+            destR = 0;
           }
-        }, { passive: true });
-        updateFloatingNav();
-      }
+          pos.x += (destX - pos.x) * LERP;
+          pos.y += (destY - pos.y) * LERP;
+          pos.w += (destW - pos.w) * LERP;
+          pos.h += (destH - pos.h) * LERP;
+          cursor.style.width = `${Math.round(pos.w)}px`;
+          cursor.style.height = `${Math.round(pos.h)}px`;
+          cursor.style.borderRadius = `${destR}px`;
+          const scale = cursor.classList.contains("is-clicking")
+            ? " scale(0.7)"
+            : "";
+          cursor.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)${scale}`;
+          requestAnimationFrame(updateCursor);
+        };
+        updateCursor();
 
-      if (mastheadStripe) {
-        setTimeout(function () {
-          mastheadStripe.classList.remove('momentum-entry');
-        }, 1500);
-      }
+        const selector =
+          'a, button, [role="button"], .card, .hero__frame, .model-card, .engagement-card, .value-card, .cost-card, .result-card, .fit-card, .tool-card, .ref-card, .contact-option, .testimonial, .benefit, .triad-node, .case-card, .work-card';
+        document.addEventListener("mouseover", (e) => {
+          const el = e.target.closest(selector);
+          if (el) {
+            cursor.classList.add("is-hovering");
+            const rect = el.getBoundingClientRect();
+            const style = window.getComputedStyle(el);
+            const r = parseInt(style.borderRadius, 10) || 0;
+            targetPos = {
+              x: rect.left + rect.width / 2,
+              y: rect.top + rect.height / 2,
+              w: rect.width + PAD,
+              h: rect.height + PAD,
+              r: isNaN(r) ? 0 : r,
+            };
+          }
+        });
+        document.addEventListener("mouseout", (e) => {
+          const next = e.relatedTarget && e.relatedTarget.closest(selector);
+          if (!next) {
+            cursor.classList.remove("is-hovering");
+            targetPos = null;
+          }
+        });
 
-      var revealEls = document.querySelectorAll('.reveal-up');
-      var momentumHero = document.querySelector('.momentum-hero');
+        document.addEventListener("mousedown", () =>
+          cursor.classList.add("is-clicking"),
+        );
+        document.addEventListener("mouseup", () =>
+          cursor.classList.remove("is-clicking"),
+        );
+      });
+    </script>
 
-      if (momentumHero && momentumHero.querySelectorAll('.reveal-up').length) {
-        var heroRevealEls = momentumHero.querySelectorAll('.reveal-up');
-        setTimeout(function () {
-          heroRevealEls.forEach(function (el) { el.classList.add('active'); });
-        }, 1500);
-      }
-
-      if (revealEls.length && 'IntersectionObserver' in window) {
-        var observer = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting && !entry.target.classList.contains('active') && !entry.target.closest('.momentum-hero')) {
-                var randomDelay = Math.floor(Math.random() * 250);
-                setTimeout(function () {
-                  entry.target.classList.add('active');
-                }, randomDelay);
+    <!-- Work-card expand toggle + Satellite parallax -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .querySelectorAll(".work-card[data-work-card]")
+          .forEach((card) => {
+            card.addEventListener("click", (e) => {
+              if (e.target.closest("a")) return;
+              card.classList.toggle("is-expanded");
+            });
+            card.addEventListener("keydown", (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                card.classList.toggle("is-expanded");
               }
             });
-          },
-          { rootMargin: '0px 0px -50px 0px', threshold: 0.1 }
-        );
-        revealEls.forEach(function (el) { observer.observe(el); });
-      }
-    })();
-  </script>
-
-  <!-- Magnetic Rectangle Snap Cursor (Claude variant) – morphs to target size -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      if (!document.body.classList.contains('variant-claude')) return;
-
-      const cursor = document.createElement('div');
-      cursor.id = 'custom-cursor';
-      document.body.appendChild(cursor);
-
-      let mouse = { x: -100, y: -100 };
-      let pos = { x: 0, y: 0, w: 12, h: 12 };
-      let targetPos = null;
-      const PAD = 10;
-      const LERP = 0.15;
-
-      document.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-        cursor.classList.remove('is-outside');
-      });
-
-      document.addEventListener('mouseleave', () => {
-        cursor.classList.add('is-outside');
-      });
-
-      const updateCursor = () => {
-        let destX, destY, destW, destH, destR;
-        if (targetPos) {
-          destX = targetPos.x;
-          destY = targetPos.y;
-          destW = targetPos.w;
-          destH = targetPos.h;
-          destR = targetPos.r;
-        } else {
-          destX = mouse.x;
-          destY = mouse.y;
-          destW = 12;
-          destH = 12;
-          destR = 0;
-        }
-        pos.x += (destX - pos.x) * LERP;
-        pos.y += (destY - pos.y) * LERP;
-        pos.w += (destW - pos.w) * LERP;
-        pos.h += (destH - pos.h) * LERP;
-        cursor.style.width = `${Math.round(pos.w)}px`;
-        cursor.style.height = `${Math.round(pos.h)}px`;
-        cursor.style.borderRadius = `${destR}px`;
-        const scale = cursor.classList.contains('is-clicking') ? ' scale(0.7)' : '';
-        cursor.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)${scale}`;
-        requestAnimationFrame(updateCursor);
-      };
-      updateCursor();
-
-      const selector = 'a, button, [role="button"], .card, .hero__frame, .model-card, .engagement-card, .value-card, .cost-card, .result-card, .fit-card, .tool-card, .ref-card, .contact-option, .testimonial, .benefit, .triad-node, .case-card, .work-card';
-      document.addEventListener('mouseover', (e) => {
-        const el = e.target.closest(selector);
-        if (el) {
-          cursor.classList.add('is-hovering');
-          const rect = el.getBoundingClientRect();
-          const style = window.getComputedStyle(el);
-          const r = parseInt(style.borderRadius, 10) || 0;
-          targetPos = {
-            x: rect.left + rect.width / 2,
-            y: rect.top + rect.height / 2,
-            w: rect.width + PAD,
-            h: rect.height + PAD,
-            r: isNaN(r) ? 0 : r
-          };
-        }
-      });
-      document.addEventListener('mouseout', (e) => {
-        const next = e.relatedTarget && e.relatedTarget.closest(selector);
-        if (!next) {
-          cursor.classList.remove('is-hovering');
-          targetPos = null;
-        }
-      });
-
-      document.addEventListener('mousedown', () => cursor.classList.add('is-clicking'));
-      document.addEventListener('mouseup', () => cursor.classList.remove('is-clicking'));
-    });
-  </script>
-
-  <!-- Work-card expand toggle + Satellite parallax -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.work-card[data-work-card]').forEach((card) => {
-        card.addEventListener('click', (e) => {
-          if (e.target.closest('a')) return;
-          card.classList.toggle('is-expanded');
-        });
-        card.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            card.classList.toggle('is-expanded');
-          }
-        });
-      });
-
-      const satellites = document.querySelectorAll('.satellite');
-      if (satellites.length && 'requestAnimationFrame' in window) {
-        let ticking = false;
-        const updateParallax = () => {
-          const y = window.scrollY;
-          const offset = y * 0.05;
-          satellites.forEach((el) => {
-            if (el.classList.contains('reveal-up') && el.classList.contains('active')) {
-              el.style.transform = `translateY(${offset}px) rotate(0deg) scale(1)`;
-            }
           });
-          ticking = false;
-        };
-        window.addEventListener('scroll', () => {
-          if (!ticking) {
-            requestAnimationFrame(updateParallax);
-            ticking = true;
-          }
-        }, { passive: true });
-        updateParallax();
-      }
-    });
-  </script>
-</body>
+
+        const satellites = document.querySelectorAll(".satellite");
+        if (satellites.length && "requestAnimationFrame" in window) {
+          let ticking = false;
+          const updateParallax = () => {
+            const y = window.scrollY;
+            const offset = y * 0.05;
+            satellites.forEach((el) => {
+              if (
+                el.classList.contains("reveal-up") &&
+                el.classList.contains("active")
+              ) {
+                el.style.transform = `translateY(${offset}px) rotate(0deg) scale(1)`;
+              }
+            });
+            ticking = false;
+          };
+          window.addEventListener(
+            "scroll",
+            () => {
+              if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+              }
+            },
+            { passive: true },
+          );
+          updateParallax();
+        }
+      });
+    </script>
+  </body>
 </html>
 
 <style>
@@ -606,7 +721,8 @@ function isActive(href: string): boolean {
   }
 
   .nav__logo:hover .nav__logo-img {
-    filter: brightness(0) saturate(100%) invert(12%) sepia(60%) saturate(5000%) hue-rotate(295deg) brightness(70%);
+    filter: brightness(0) saturate(100%) invert(12%) sepia(60%) saturate(5000%)
+      hue-rotate(295deg) brightness(70%);
   }
 
   .nav__toggle {
@@ -641,13 +757,29 @@ function isActive(href: string): boolean {
   }
 
   .nav__link {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 8px 14px;
     font-size: var(--ref-text-sm);
     color: var(--sys-color-on-surface-muted);
     text-decoration: none;
     border-radius: var(--ref-radius-full);
-    transition: color var(--sys-motion-fast), background var(--sys-motion-fast);
+    transition:
+      color var(--sys-motion-fast),
+      background var(--sys-motion-fast);
+  }
+
+  .nav__symbol {
+    width: 1.25em;
+    height: 1.25em;
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .nav__text {
+    display: inline-block;
   }
 
   .nav__link:hover {
@@ -695,7 +827,8 @@ function isActive(href: string): boolean {
   }
 
   .footer__brand:hover .footer__logo-img {
-    filter: brightness(0) saturate(100%) invert(12%) sepia(60%) saturate(5000%) hue-rotate(295deg) brightness(70%);
+    filter: brightness(0) saturate(100%) invert(12%) sepia(60%) saturate(5000%)
+      hue-rotate(295deg) brightness(70%);
   }
 
   .footer__tagline {
@@ -788,7 +921,9 @@ function isActive(href: string): boolean {
     color: var(--sys-color-on-surface-muted);
     text-decoration: none;
     border-radius: 9999px;
-    transition: color 0.2s, background 0.2s;
+    transition:
+      color 0.2s,
+      background 0.2s;
   }
 
   .floating-nav__link:hover,
@@ -880,11 +1015,26 @@ function isActive(href: string): boolean {
     transform-origin: bottom center;
   }
 
-  .stripe__bar--1 { top: 0;    background: var(--s1); }
-  .stripe__bar--2 { top: 16px; background: var(--s2); }
-  .stripe__bar--3 { top: 32px; background: var(--s3); }
-  .stripe__bar--4 { top: 48px; background: var(--s4); }
-  .stripe__bar--5 { top: 64px; background: var(--s5); }
+  .stripe__bar--1 {
+    top: 0;
+    background: var(--s1);
+  }
+  .stripe__bar--2 {
+    top: 16px;
+    background: var(--s2);
+  }
+  .stripe__bar--3 {
+    top: 32px;
+    background: var(--s3);
+  }
+  .stripe__bar--4 {
+    top: 48px;
+    background: var(--s4);
+  }
+  .stripe__bar--5 {
+    top: 64px;
+    background: var(--s5);
+  }
 
   /* ==========================================================================
      Bar Pop — each bar stretches upward (scaleY from bottom), flies above
@@ -898,11 +1048,21 @@ function isActive(href: string): boolean {
      ========================================================================== */
 
   @keyframes bar-pop {
-    0%   { transform: scaleY(1); }
-    28%  { transform: scaleY(2.875); }
-    52%  { transform: scaleY(0.625); }
-    72%  { transform: scaleY(1.1875); }
-    100% { transform: scaleY(1); }
+    0% {
+      transform: scaleY(1);
+    }
+    28% {
+      transform: scaleY(2.875);
+    }
+    52% {
+      transform: scaleY(0.625);
+    }
+    72% {
+      transform: scaleY(1.1875);
+    }
+    100% {
+      transform: scaleY(1);
+    }
   }
 
   .stripe__bar.is-popping {
@@ -912,10 +1072,18 @@ function isActive(href: string): boolean {
 
   /* Cascade delays: if multiple bars trigger on the same frame (fast scroll),
      they still ripple visually instead of all popping at once. */
-  .stripe__bar--1.is-popping { animation-delay: 0ms; }
-  .stripe__bar--2.is-popping { animation-delay: 70ms; }
-  .stripe__bar--3.is-popping { animation-delay: 140ms; }
-  .stripe__bar--4.is-popping { animation-delay: 210ms; }
+  .stripe__bar--1.is-popping {
+    animation-delay: 0ms;
+  }
+  .stripe__bar--2.is-popping {
+    animation-delay: 70ms;
+  }
+  .stripe__bar--3.is-popping {
+    animation-delay: 140ms;
+  }
+  .stripe__bar--4.is-popping {
+    animation-delay: 210ms;
+  }
 
   /* ==========================================================================
      Velvet wiggle — smaller stretch when the nav settles onto it.
@@ -928,12 +1096,24 @@ function isActive(href: string): boolean {
      ========================================================================== */
 
   @keyframes velvet-wiggle {
-    0%   { transform: scaleY(1); }
-    22%  { transform: scaleY(1.5); }
-    44%  { transform: scaleY(0.8125); }
-    64%  { transform: scaleY(1.125); }
-    82%  { transform: scaleY(0.9375); }
-    100% { transform: scaleY(1); }
+    0% {
+      transform: scaleY(1);
+    }
+    22% {
+      transform: scaleY(1.5);
+    }
+    44% {
+      transform: scaleY(0.8125);
+    }
+    64% {
+      transform: scaleY(1.125);
+    }
+    82% {
+      transform: scaleY(0.9375);
+    }
+    100% {
+      transform: scaleY(1);
+    }
   }
 
   .stripe__bar--5.is-wiggling {
