@@ -4,112 +4,16 @@
    Generated layer: @import tokens.generated.css  (via Style Dictionary)
    ========================================================================== */
 
-@import './tokens.generated.css';
+@import "./tokens.generated.css";
 
 /* ---------- Derived tokens (not in the JSON — composed from generated) ----- */
 :root {
-<<<<<<< HEAD:website/src/styles/global.css
   /* Stripe shorthand aliases */
   --s1: var(--ref-primitive-harvest);
   --s2: var(--ref-primitive-sunset);
   --s3: var(--ref-primitive-rocket);
   --s4: var(--ref-primitive-punch);
   --s5: var(--ref-primitive-velvet);
-  --stripe-stacked: linear-gradient(to bottom,
-      var(--s1) 0%, var(--s1) 20%,
-      var(--s2) 20%, var(--s2) 40%,
-      var(--s3) 40%, var(--s3) 60%,
-      var(--s4) 60%, var(--s4) 80%,
-      var(--s5) 80%, var(--s5) 100%);
-  --stripe: repeating-linear-gradient(90deg,
-      var(--s1) 0 12px, var(--s2) 12px 20px,
-      var(--s3) 20px 28px, var(--s4) 28px 36px, var(--s5) 36px 44px);
-
-  /* Atmospheric / Glows */
-  --glow-warm: rgba(114, 10, 99, 0.18); /* Velvet-derived */
-  --glow-gold: rgba(254, 190, 39, 0.12); /* Harvest-derived */
-=======
-  /* Color match from SONY reference */
-  --color-bg-cream: #f7f3e9;
-  --color-text-dark: #1a1a1b;
-  /* Retro Strip Colors */
-  --retro-yellow: #f9b233;
-  --retro-orange: #f36f21;
-  --retro-red: #e72735;
-  --retro-magenta: #9e2a78;
-  --retro-purple: #662d91;
-  --s1: var(--retro-yellow);
-  --s2: var(--retro-orange);
-  --s3: var(--retro-red);
-  --s4: var(--retro-magenta);
-  --s5: var(--retro-purple);
-
-  /* Color Foundations - mapped to retro palette */
-  --c-bg: var(--color-bg-cream);
-  --c-surface: #fffaf3; /* Warm white - surfaces */
-  --c-surface-2: #f0ebe0; /* Light cream */
-  --c-text: var(--color-text-dark);
-  --c-muted: #6e6961; /* Warm gray */
-  --c-border: #d7cfc2; /* Border Neutral */
-
-  /* Accent Colors - Domestic Palette (content: labels, headings unchanged) */
-  --c-accent: #d96b5a; /* Coral - content/links */
-  --c-accent-gold: #e9b146;
-  --c-accent-terracotta: #c0715a;
-  --c-accent-navy: #4a6aa5;
-  --c-button-text: #fdfbf7;
-
-  /* Action Colors - strips and call-to-actions only (replaces orange, green, blue, yellow) */
-  --c-action-1: #f8d572; /* Light Yellowish-Orange */
-  --c-action-2: #ec8844; /* Orange */
-  --c-action-3: #e04e39; /* Reddish-Orange (primary CTA) */
-  --c-action-4: #bc3d78; /* Magenta / Deep Pink */
-  --c-action-5: #7f2f6c; /* Deep Purple */
-  --c-cta: var(--c-action-3); /* Primary CTA uses reddish-orange */
-
-  /* Typography */
-  --font-display: "Cormorant Garamond", serif; /* Editorial, narrative */
-  --font-body: "Work Sans", sans-serif; /* Clean, readable */
-  --font-accent: "IBM Plex Mono", monospace; /* Technical details */
-
-  /* Type Scale */
-  --text-xs: 0.72rem;
-  --text-sm: 0.85rem;
-  --text-base: 1rem;
-  --text-lg: 1.15rem;
-  --text-xl: 1.35rem;
-  --text-2xl: 1.75rem;
-  --text-3xl: clamp(2rem, 3vw, 2.5rem);
-  --text-hero: clamp(2.6rem, 4vw, 4rem);
-
-  /* Spacing */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2rem;
-  --space-xl: 3rem;
-  --space-2xl: 4rem;
-  --space-section: clamp(3rem, 6vw, 5rem);
-
-  /* Effects - Gallery/Object feel */
-  --radius-sm: 8px;
-  --radius-md: 14px; /* Cards feel like objects */
-  --radius-lg: 18px; /* Larger containers */
-  --radius-full: 999px;
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
-
-  /* Shadows (flat for now) */
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
-  --shadow-card: none;
-  --effect-shadow-panel: none;
-  --effect-shadow-image: none;
-<<<<<<< HEAD:website/src/styles/global.css
-=======
-
-  /* Decorative Elements */
-  /* Stacked strip: 5 retro colors (masthead/footer) – flat, no radius */
   --stripe-stacked: linear-gradient(
     to bottom,
     var(--s1) 0%,
@@ -123,7 +27,6 @@
     var(--s5) 80%,
     var(--s5) 100%
   );
-  /* Legacy stripe for any other use – same retro palette */
   --stripe: repeating-linear-gradient(
     90deg,
     var(--s1) 0 12px,
@@ -132,14 +35,18 @@
     var(--s4) 28px 36px,
     var(--s5) 36px 44px
   );
-  --glow-sage: rgba(92, 42, 43, 0.18);
-  --glow-gold: rgba(228, 185, 108, 0.12);
 
-  /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-base: 220ms ease;
-  --transition-slow: 350ms ease;
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
+  /* Atmospheric / Glows */
+  --glow-warm: rgba(114, 10, 99, 0.18); /* Velvet-derived */
+  --glow-gold: rgba(254, 190, 39, 0.12); /* Harvest-derived */
+
+  /* Shadows (flat for now) */
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-card: none;
+  --effect-shadow-panel: none;
+  --effect-shadow-image: none;
 }
 
 /* ==========================================================================
@@ -182,7 +89,7 @@ body.variant-claude main#main-content {
   z-index: 1;
 }
 
-body.variant-claude main#main-content>* {
+body.variant-claude main#main-content > * {
   position: relative;
 }
 
@@ -241,15 +148,9 @@ h1,
 h2,
 h3,
 h4 {
-<<<<<<< HEAD:website/src/styles/global.css
   font-family: var(--sys-font-display);
   font-weight: var(--ref-weight-medium);
   line-height: var(--ref-leading-normal);
-=======
-  font-family: var(--font-display);
-  font-weight: 500;
-  line-height: 1.2;
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
   margin: 0;
 }
 
@@ -348,7 +249,10 @@ a:hover {
   border-radius: var(--comp-card-radius);
   padding: var(--comp-card-padding);
   box-shadow: var(--shadow-card);
-  transition: transform var(--sys-motion-base), border-color var(--sys-motion-base), box-shadow var(--sys-motion-base);
+  transition:
+    transform var(--sys-motion-base),
+    border-color var(--sys-motion-base),
+    box-shadow var(--sys-motion-base);
 }
 
 .card:hover {
@@ -441,7 +345,6 @@ a:hover {
 .field textarea,
 .field select {
   width: 100%;
-<<<<<<< HEAD:website/src/styles/global.css
   padding: var(--comp-input-padding) var(--ref-space-sm);
   border: 1px solid var(--comp-input-border);
   border-radius: var(--comp-input-radius);
@@ -449,19 +352,9 @@ a:hover {
   color: var(--sys-color-on-surface);
   font-family: var(--sys-font-family);
   font-size: var(--ref-text-base);
-  transition: border-color var(--sys-motion-fast), box-shadow var(--sys-motion-fast);
-=======
-  padding: 12px 16px;
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius-sm);
-  background: var(--c-surface);
-  color: var(--c-text);
-  font-family: var(--font-body);
-  font-size: var(--text-base);
   transition:
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast);
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
+    border-color var(--sys-motion-fast),
+    box-shadow var(--sys-motion-fast);
 }
 
 .field input:focus,
@@ -568,10 +461,7 @@ body.variant-claude .reveal-up.card-label {
   from {
     width: 0;
   }
-<<<<<<< HEAD:website/src/styles/global.css
 
-=======
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
   to {
     width: 100%;
   }
@@ -596,7 +486,6 @@ body.variant-claude .reveal-up.card-label {
 .reveal-up.stagger-1 {
   transition-delay: 0.1s;
 }
-<<<<<<< HEAD:website/src/styles/global.css
 
 .reveal-up.stagger-2 {
   transition-delay: 0.25s;
@@ -614,52 +503,26 @@ body.variant-claude .reveal-up.card-label {
   transition-delay: 0.7s;
 }
 
-=======
-.reveal-up.stagger-2 {
-  transition-delay: 0.25s;
-}
-.reveal-up.stagger-3 {
-  transition-delay: 0.4s;
-}
-.reveal-up.stagger-4 {
-  transition-delay: 0.55s;
-}
-.reveal-up.stagger-5 {
-  transition-delay: 0.7s;
-}
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
 .reveal-up.stagger-1.active .section-header__label,
 .reveal-up.stagger-1.active .eyebrow {
   animation-delay: 0.5s;
 }
-<<<<<<< HEAD:website/src/styles/global.css
 
-=======
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
 .reveal-up.stagger-2.active .section-header__label,
 .reveal-up.stagger-2.active .eyebrow {
   animation-delay: 0.65s;
 }
-<<<<<<< HEAD:website/src/styles/global.css
 
-=======
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
 .reveal-up.stagger-3.active .section-header__label,
 .reveal-up.stagger-3.active .eyebrow {
   animation-delay: 0.8s;
 }
-<<<<<<< HEAD:website/src/styles/global.css
 
-=======
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
 .reveal-up.stagger-4.active .section-header__label,
 .reveal-up.stagger-4.active .eyebrow {
   animation-delay: 0.95s;
 }
-<<<<<<< HEAD:website/src/styles/global.css
 
-=======
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
 .reveal-up.stagger-5.active .section-header__label,
 .reveal-up.stagger-5.active .eyebrow {
   animation-delay: 1.1s;
@@ -693,29 +556,17 @@ body.variant-claude .reveal-up.card-label {
 }
 
 /* Non-case-card items in fluid-grid (e.g. .card) – fallback to simple span */
-<<<<<<< HEAD:website/src/styles/global.css
-.fluid-grid .card:nth-child(3n+1) {
-  grid-column: 1 / span 8;
-  margin-top: 0;
-}
-
-.fluid-grid .card:nth-child(3n+2) {
-  grid-column: 8 / span 5;
-  margin-top: 15vh;
-}
-
-.fluid-grid .card:nth-child(3n+3) {
-=======
 .fluid-grid .card:nth-child(3n + 1) {
   grid-column: 1 / span 8;
   margin-top: 0;
 }
+
 .fluid-grid .card:nth-child(3n + 2) {
   grid-column: 8 / span 5;
   margin-top: 15vh;
 }
+
 .fluid-grid .card:nth-child(3n + 3) {
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
   grid-column: 3 / span 8;
   margin-top: -5vh;
   margin-bottom: 12vh;
@@ -938,7 +789,6 @@ body.variant-claude .case-card .card-label {
 .text-center {
   text-align: center;
 }
-<<<<<<< HEAD:website/src/styles/global.css
 
 .text-muted {
   color: var(--sys-color-on-surface-muted);
@@ -978,39 +828,6 @@ body.variant-claude .case-card .card-label {
 
 .mb-xl {
   margin-bottom: var(--ref-space-xl);
-=======
-.text-muted {
-  color: var(--c-muted);
-}
-.text-accent {
-  color: var(--c-accent);
-}
-
-.mt-sm {
-  margin-top: var(--space-sm);
-}
-.mt-md {
-  margin-top: var(--space-md);
-}
-.mt-lg {
-  margin-top: var(--space-lg);
-}
-.mt-xl {
-  margin-top: var(--space-xl);
-}
-
-.mb-sm {
-  margin-bottom: var(--space-sm);
-}
-.mb-md {
-  margin-bottom: var(--space-md);
-}
-.mb-lg {
-  margin-bottom: var(--space-lg);
-}
-.mb-xl {
-  margin-bottom: var(--space-xl);
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
 }
 
 /* ==========================================================================
@@ -1045,51 +862,31 @@ body.variant-claude .work-card {
   position: fixed;
   top: 0;
   left: 0;
-<<<<<<< HEAD:website/src/styles/global.css
   width: var(--comp-cursor-size);
   height: var(--comp-cursor-size);
   background-color: var(--comp-cursor-color);
   pointer-events: none;
   z-index: 9999;
   transform: translate3d(0, 0, 0) translate(-50%, -50%);
-  transition: background-color var(--sys-motion-slow), border-color var(--sys-motion-slow), opacity var(--sys-motion-base);
-=======
-  width: 12px;
-  height: 12px;
-  background-color: var(--retro-purple, #662d91);
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate3d(0, 0, 0) translate(-50%, -50%);
   transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    opacity 0.2s ease;
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
+    background-color var(--sys-motion-slow),
+    border-color var(--sys-motion-slow),
+    opacity var(--sys-motion-base);
   border: 0px solid transparent;
   box-sizing: border-box;
 }
 
 /* Magnetic Lock-in Frame State – size set by script to match target element */
 #custom-cursor.is-hovering {
-<<<<<<< HEAD:website/src/styles/global.css
   background-color: rgba(114, 10, 99, 0.03); /* Velvet at 3% */
   border: 1px solid var(--comp-cursor-color);
-=======
-  background-color: rgba(102, 45, 145, 0.03);
-  border: 1px solid var(--retro-purple, #662d91);
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
 }
 
 /* Click Feedback */
 #custom-cursor.is-clicking {
   transform: translate3d(0, 0, 0) translate(-50%, -50%) scale(0.7);
-<<<<<<< HEAD:website/src/styles/global.css
   background-color: var(--sys-color-action-primary);
   border-color: var(--sys-color-action-primary);
-=======
-  background-color: var(--retro-red, #e72735);
-  border-color: var(--retro-red, #e72735);
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
 }
 
 /* Hide cursor when it leaves the window */
@@ -1112,10 +909,6 @@ body.variant-claude .work-card {
 }
 
 @media (prefers-reduced-motion: reduce) {
-<<<<<<< HEAD:website/src/styles/global.css
-
-=======
->>>>>>> f81acdc (Refactor Claude layout animations and update color variables for consistency):website/src/variants/claude/styles/global.css
   *,
   *::before,
   *::after {
