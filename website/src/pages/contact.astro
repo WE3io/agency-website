@@ -26,7 +26,21 @@ import Layout from "../layouts/Layout.astro";
             <div class="section-header__rule"></div>
           </div>
 
-          <form class="contact-form" id="contactForm">
+          <form
+            class="contact-form"
+            id="contactForm"
+            name="contact"
+            method="POST"
+            action="/contact?success=1"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <p class="visually-hidden">
+              <label>
+                Don’t fill this out if you're human: <input name="bot-field" />
+              </label>
+            </p>
             <div class="form-row">
               <div class="field">
                 <label for="name">Your Name</label>
@@ -73,6 +87,17 @@ import Layout from "../layouts/Layout.astro";
               <p class="form-note">We typically respond within 24 hours.</p>
             </div>
           </form>
+          <div class="form-success panel text-center" id="contactSuccess" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--sys-color-accent-subtle); margin-bottom: var(--ref-space-md);">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <h3>Message Sent!</h3>
+            <p style="color: var(--sys-color-on-surface-muted);">
+              Thanks for reaching out. We'll get back to you within 24 hours.
+            </p>
+            <a href="/" class="btn btn--secondary" style="margin-top: var(--ref-space-md);">Back to Home</a>
+          </div>
         </div>
 
         <!-- Contact Options -->
@@ -209,6 +234,18 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   /* Page Header */
   .page-header {
     padding: var(--ref-space-xxl) 0 var(--ref-space-xl);
@@ -424,31 +461,12 @@ import Layout from "../layouts/Layout.astro";
 </style>
 
 <script>
-  // Simple form handling - in production, this would submit to an API
-  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('contactSuccess');
+  const params = new URLSearchParams(window.location.search);
 
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-
-    // For now, just log and show confirmation
-    console.log('Form submitted:', data);
-
-    // Show success message
-    form.innerHTML = `
-      <div class="form-success panel text-center">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--sys-color-accent-subtle); margin-bottom: var(--ref-space-md);">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-          <polyline points="22 4 12 14.01 9 11.01"/>
-        </svg>
-        <h3>Message Sent!</h3>
-        <p style="color: var(--sys-color-on-surface-muted);">
-          Thanks for reaching out. We'll get back to you within 24 hours.
-        </p>
-        <a href="/" class="btn btn--secondary" style="margin-top: var(--ref-space-md);">Back to Home</a>
-      </div>
-    `;
-  });
+  if (params.get('success') === '1') {
+    form?.setAttribute('hidden', 'true');
+    success?.removeAttribute('hidden');
+  }
 </script>

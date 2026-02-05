@@ -48,13 +48,6 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
   - **Fix**: Run `pnpm audit` and address high-severity ones before launch
   - **Est**: 30-60 min
 
-- [ ] **🔴 Human Input Required**: Contact form backend API #task[id:task_01HQABCD1234EFGH5678IJKO status:to-do priority:critical created:2026-02-04]
-  - **Location**: `website/src/pages/contact.astro` line 72
-  - **Issue**: Form has no `action` attribute or submission handler. Comment says "in production, this would submit to an API"
-  - **Fix**: Implement backend API endpoint + form submission handler
-  - **Est**: 4-8 hours (after service selected)
-  - **Human Input**: Decision - Choose service (Vercel serverless, Formspree, Netlify Forms, custom API)
-
 ---
 
 ## High Priority
@@ -293,6 +286,11 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
   - **Location**: `website/package.json`, `website/pnpm-lock.yaml`
   - **Fix**: Upgraded `astro` to `^5.17.1` and refreshed transitive deps (brace-expansion patched).
   - **Verification**: `pnpm audit` reports no known vulnerabilities
+
+- [x] **🔴 Human Input Required**: Contact form backend API #task[id:task_01HQABCD1234EFGH5678IJKO status:done priority:critical created:2026-02-04]
+  - **Location**: `website/src/pages/contact.astro`
+  - **Fix**: Implemented Netlify Forms (form attributes, honeypot, success redirect).
+  - **Human Input**: Decision - Selected Netlify Forms, notify `hello@we3.io`
 
 ---
 
