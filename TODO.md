@@ -62,11 +62,7 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 
 ### Content
 
-- [ ] British English spelling fixes #task[id:task_01HQABCD1234EFGH5678IJKT status:to-do priority:high created:2026-02-04]
-  - **Location**: `website/src/pages/story.astro` lines 31, 262; `website/src/pages/model.astro` lines 278, 279
-  - **Issue**: "organizations" → "organisations" (2 instances), "recognize/recognized" → "recognise/recognised" (2 instances)
-  - **Fix**: Simple find/replace to British English spelling
-  - **Est**: 5 min
+### Content
 
 ---
 
@@ -287,6 +283,10 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 - [x] Safari cursor performance #task[id:task_01HQABCD1234EFGH5678IJKR status:done priority:high created:2026-02-04]
   - **Location**: `website/src/layouts/Layout.astro`, `website/src/styles/global.css`
   - **Fix**: Increased LERP, added Safari translate fallback, and added `will-change: transform`.
+
+- [x] British English spelling fixes #task[id:task_01HQABCD1234EFGH5678IJKT status:done priority:high created:2026-02-04]
+  - **Location**: `website/src/pages/story.astro`, `website/src/pages/model.astro`
+  - **Fix**: Updated spelling to British English (organisations, recognise/recognised).
 
 ---
 
