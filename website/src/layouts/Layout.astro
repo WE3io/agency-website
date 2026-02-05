@@ -433,7 +433,7 @@ function isActive(href: string): boolean {
             heroRevealEls.forEach(function (el) {
               el.classList.add("active");
             });
-          }, 2600); /* Match wave-morph animation timing */
+          }, 1200); /* Start mid-stripe so reveal finishes with wave */
         }
 
         if (revealEls.length && "IntersectionObserver" in window) {
