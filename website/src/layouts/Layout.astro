@@ -474,7 +474,10 @@ function isActive(href: string): boolean {
         let pos = { x: 0, y: 0, w: 12, h: 12 };
         let targetPos = null;
         const PAD = 10;
-        const LERP = 0.15;
+        const LERP = 0.25;
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent,
+        );
 
         document.addEventListener("mousemove", (e) => {
           mouse.x = e.clientX;
@@ -511,7 +514,11 @@ function isActive(href: string): boolean {
           const scale = cursor.classList.contains("is-clicking")
             ? " scale(0.7)"
             : "";
-          cursor.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)${scale}`;
+          const translateFn = isSafari ? "translate" : "translate3d";
+          const translateArgs = isSafari
+            ? `${pos.x}px, ${pos.y}px`
+            : `${pos.x}px, ${pos.y}px, 0`;
+          cursor.style.transform = `${translateFn}(${translateArgs}) translate(-50%, -50%)${scale}`;
           requestAnimationFrame(updateCursor);
         };
         updateCursor();

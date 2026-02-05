@@ -54,12 +54,6 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 
 ### UX Fixes
 
-- [ ] Safari cursor performance #task[id:task_01HQABCD1234EFGH5678IJKR status:to-do priority:high created:2026-02-04]
-  - **Location**: `website/src/layouts/Layout.astro` lines 512, 539-550; `website/src/styles/global.css` lines 861-877
-  - **Issue**: Cursor feels laggy/dragging on Safari. RAF + `translate3d` causes performance issues. Low LERP (0.15) makes cursor feel laggy.
-  - **Fix**: Increase LERP to 0.25-0.3, add Safari detection and use `translate()` instead of `translate3d()`, add `will-change: transform` to cursor CSS, consider throttling RAF updates
-  - **Est**: 2-4 hours
-
 - [ ] Engagement fit cards links #task[id:task_01HQABCD1234EFGH5678IJKS status:to-do priority:high created:2026-02-04]
   - **Location**: `website/src/pages/engagements.astro` lines 275-297
   - **Issue**: Fit cards in "NOT SURE WHICH IS RIGHT FOR YOU?" section have no links - just badges
@@ -289,6 +283,10 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 - [x] Contact form client-side handler #task[id:task_01HQABCD1234EFGH5678IJKQ status:done priority:high created:2026-02-04]
   - **Location**: `website/src/pages/contact.astro`
   - **Fix**: Added client-side validation with inline errors and focus on first invalid field.
+
+- [x] Safari cursor performance #task[id:task_01HQABCD1234EFGH5678IJKR status:done priority:high created:2026-02-04]
+  - **Location**: `website/src/layouts/Layout.astro`, `website/src/styles/global.css`
+  - **Fix**: Increased LERP, added Safari translate fallback, and added `will-change: transform`.
 
 ---
 
