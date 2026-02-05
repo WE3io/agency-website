@@ -289,6 +289,11 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
   - **Human Input**: Decision - Requires actual production domain name
   - **Completed**: Set to `https://we3.io`
 
+- [x] Fix Dependabot vulnerabilities #task[id:task_01HQABCD1234EFGH5678IJKN status:done priority:critical created:2026-02-04]
+  - **Location**: `website/package.json`, `website/pnpm-lock.yaml`
+  - **Fix**: Upgraded `astro` to `^5.17.1` and refreshed transitive deps (brace-expansion patched).
+  - **Verification**: `pnpm audit` reports no known vulnerabilities
+
 ---
 
 ## Reference
