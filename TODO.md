@@ -70,11 +70,7 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
   - **Fix**: Adjust `:active` state colors or add text color override
   - **Est**: 1-2 hours
 
-- [ ] Content reveal timing sync #task[id:task_01HQABCD1234EFGH5678IJKV status:to-do priority:medium created:2026-02-04]
-  - **Location**: `website/src/layouts/Layout.astro` line 467; `website/src/styles/global.css` line 476
-  - **Issue**: Content reveal starts when stripe finishes (2.6s), but reveal takes 2.1s (longest stagger), so content finishes ~2.1s after stripe. They should finish together.
-  - **Fix**: Start reveal earlier (~1.2s when stripe is ~50% done) or reduce transform duration to 1.0s and start at 1.6s
-  - **Est**: 1-2 hours
+ 
 
 - [ ] Floating nav icons #task[id:task_01HQABCD1234EFGH5678IJKW status:to-do priority:medium created:2026-02-04]
   - **Location**: `website/src/layouts/Layout.astro` lines 168-200
@@ -285,6 +281,10 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 - [x] Engagement fit cards links #task[id:task_01HQABCD1234EFGH5678IJKS status:done priority:high created:2026-02-04]
   - **Location**: `website/src/pages/engagements.astro`
   - **Fix**: Linked fit cards to the matching engagement sections.
+
+- [x] Content reveal timing sync #task[id:task_01HQABCD1234EFGH5678IJKV status:done priority:medium created:2026-02-04]
+  - **Location**: `website/src/layouts/Layout.astro`
+  - **Fix**: Started hero reveal earlier so it finishes with the stripe animation.
 
 ---
 
