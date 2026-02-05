@@ -61,12 +61,6 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 
 ### UX Fixes
 
-- [ ] Mobile floating nav rendering #task[id:task_01HQABCD1234EFGH5678IJKP status:to-do priority:high created:2026-02-04]
-  - **Location**: `website/src/layouts/Layout.astro` lines 935-942
-  - **Issue**: Floating nav may overflow or break layout on mobile
-  - **Fix**: Improve mobile responsive styles for floating nav
-  - **Est**: 2-4 hours
-
 - [ ] Contact form client-side handler #task[id:task_01HQABCD1234EFGH5678IJKQ status:to-do priority:high created:2026-02-04]
   - **Location**: `website/src/pages/contact.astro` line 72
   - **Issue**: Form has no client-side validation or submission handler
@@ -184,6 +178,12 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 ## Low Priority
 
 ### Polish
+
+- [ ] Reintroduce floating nav (mobile-safe) #task[id:task_01HQABCD1234EFGH5678IJM0 status:to-do priority:low created:2026-02-05]
+  - **Location**: `website/src/layouts/Layout.astro`
+  - **Issue**: Floating nav removed due to mobile rendering issues.
+  - **Fix**: Rebuild floating nav with a mobile-safe layout and interaction model.
+  - **Est**: 2-4 hours
 
 - [ ] Nav items equal width #task[id:task_01HQABCD1234EFGH5678IJL6 status:to-do priority:low created:2026-02-04]
   - **Location**: `website/src/layouts/Layout.astro` lines 64-123

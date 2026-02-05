@@ -164,41 +164,6 @@ function isActive(href: string): boolean {
       </div>
     </header>
 
-    <!-- Floating Nav (appears at scroll 200px – contextual, frosted glass) -->
-    <nav
-      class="floating-nav"
-      id="floating-nav"
-      aria-label="Contextual navigation"
-    >
-      <a
-        href="/"
-        class:list={[
-          "floating-nav__link",
-          {
-            "floating-nav__link--active":
-              currentPath === "/" || currentPath === "/",
-          },
-        ]}>Home</a
-      >
-      {
-        navAll.map((item) => (
-          <a
-            href={item.href}
-            class:list={[
-              "floating-nav__link",
-              {
-                "floating-nav__link--active":
-                  currentPath === item.href ||
-                  (item.href !== "/" && currentPath.startsWith(item.href)),
-              },
-            ]}
-          >
-            {item.label}
-          </a>
-        ))
-      }
-    </nav>
-
     <!-- Main Content -->
     <main id="main-content">
       <slot />
@@ -263,7 +228,7 @@ function isActive(href: string): boolean {
       });
     </script>
 
-    <!-- Organic Momentum: floating nav at 200px, reveal-on-scroll, momentum strip, footer dock -->
+    <!-- Organic Momentum: reveal-on-scroll, momentum strip, footer dock -->
     <script>
       (function () {
         var floatingNav = document.getElementById("floating-nav");
@@ -658,7 +623,7 @@ function isActive(href: string): boolean {
     outline-offset: 2px;
   }
 
-  /* Header – scrolls away (no sticky); floating nav appears at 200px */
+  /* Header – scrolls away (no sticky) */
   .site-header {
     position: relative;
     top: 0;
@@ -807,7 +772,7 @@ function isActive(href: string): boolean {
     align-items: start;
   }
 
-  /* Footer nav: hidden on desktop (floating nav covers); show on mobile */
+  /* Footer nav: hidden on desktop; show on mobile */
   .footer__nav {
     display: none;
   }
@@ -884,63 +849,6 @@ function isActive(href: string): boolean {
     color: var(--sys-color-on-surface-muted);
   }
 
-  /* Floating Nav – pill, bottom center, frosted glass, visible after 200px scroll */
-  .floating-nav {
-    position: fixed;
-    bottom: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.5rem 1rem;
-    background: rgba(255, 250, 243, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 9999px;
-    border: 1px solid var(--sys-surface-border);
-    z-index: 100;
-    opacity: 0;
-    pointer-events: none;
-    transition:
-      opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-      background 0.5s ease,
-      border-color 0.5s ease,
-      box-shadow 0.5s ease;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-  }
-
-  .floating-nav.is-visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .floating-nav__link {
-    padding: 0.35rem 0.75rem;
-    font-size: var(--ref-text-xs);
-    color: var(--sys-color-on-surface-muted);
-    text-decoration: none;
-    border-radius: 9999px;
-    transition:
-      color 0.2s,
-      background 0.2s;
-  }
-
-  .floating-nav__link:hover,
-  .floating-nav__link--active {
-    color: var(--sys-color-on-surface);
-    background: var(--sys-surface-card);
-  }
-
-  @media (max-width: 900px) {
-    .floating-nav {
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 90vw;
-      padding: 0.5rem 0.75rem;
-    }
-  }
-
   /* Mobile responsive: logo left, hamburger right, nav in dropdown */
   @media (max-width: 900px) {
     .nav {
@@ -1000,7 +908,7 @@ function isActive(href: string): boolean {
 
   /* ==========================================================================
      Footer Stripe Bars — Equal-height, full-bleed colour bands
-     5 × 16px = 80px.  Each bar pops when the floating nav touches it.
+     5 × 16px = 80px.
      ========================================================================== */
 
   .stripe__bar {
@@ -1119,48 +1027,6 @@ function isActive(href: string): boolean {
   .stripe__bar--5.is-wiggling {
     animation: velvet-wiggle 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
     z-index: 10;
-  }
-
-  /* ==========================================================================
-     Floating Nav — Docked State
-     Embedded into the stripe like it belongs there: warm-tinted frosted glass,
-     subtle inset shadow, positioned so it rests on top of velvet.
-     ========================================================================== */
-
-  .floating-nav.is-docked {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: auto;
-    z-index: 100;
-
-    /* Warm rainbow tonality — stripe colours bleed through the frosted glass */
-    background:
-      linear-gradient(
-        90deg,
-        color-mix(in srgb, var(--s1) 10%, transparent),
-        color-mix(in srgb, var(--s3) 7%, transparent),
-        color-mix(in srgb, var(--s5) 10%, transparent)
-      ),
-      rgba(255, 248, 238, 0.62);
-    border-color: color-mix(in srgb, var(--s2) 28%, transparent);
-    box-shadow:
-      0 1px 0 0 rgba(0, 0, 0, 0.04) inset,
-      0 4px 20px color-mix(in srgb, var(--s1) 14%, transparent);
-  }
-
-  /* ==========================================================================
-     Mobile — hide floating nav near footer instead of docking
-     ========================================================================== */
-
-  @media (max-width: 900px) {
-    .floating-nav.is-docked {
-      position: fixed;
-      bottom: 1.5rem;
-      background: rgba(255, 250, 243, 0.75);
-      border-color: var(--sys-surface-border);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-    }
   }
 
   /* ==========================================================================
