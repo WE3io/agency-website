@@ -54,12 +54,6 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 
 ### UX Fixes
 
-- [ ] Engagement fit cards links #task[id:task_01HQABCD1234EFGH5678IJKS status:to-do priority:high created:2026-02-04]
-  - **Location**: `website/src/pages/engagements.astro` lines 275-297
-  - **Issue**: Fit cards in "NOT SURE WHICH IS RIGHT FOR YOU?" section have no links - just badges
-  - **Fix**: Add links to fit cards (likely to `/brief` or engagement sections)
-  - **Est**: 2-4 hours
-
 ### Content
 
 ### Content
@@ -287,6 +281,10 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 - [x] British English spelling fixes #task[id:task_01HQABCD1234EFGH5678IJKT status:done priority:high created:2026-02-04]
   - **Location**: `website/src/pages/story.astro`, `website/src/pages/model.astro`
   - **Fix**: Updated spelling to British English (organisations, recognise/recognised).
+
+- [x] Engagement fit cards links #task[id:task_01HQABCD1234EFGH5678IJKS status:done priority:high created:2026-02-04]
+  - **Location**: `website/src/pages/engagements.astro`
+  - **Fix**: Linked fit cards to the matching engagement sections.
 
 ---
 
