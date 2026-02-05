@@ -272,29 +272,29 @@ import Layout from "../layouts/Layout.astro";
         </p>
 
         <div class="fit-cards">
-          <div class="fit-card">
+          <a class="fit-card" href="#consulting">
             <h4>You have a specific problem to solve</h4>
             <p>Strategic Consulting is likely your best fit.</p>
             <span class="badge">Consulting</span>
-          </div>
+          </a>
 
-          <div class="fit-card">
+          <a class="fit-card" href="#co-building">
             <h4>You're building something new from scratch</h4>
             <p>Co-Building might be the right model.</p>
             <span class="badge">Co-Building</span>
-          </div>
+          </a>
 
-          <div class="fit-card">
+          <a class="fit-card" href="#ventures">
             <h4>You have an idea but no team</h4>
             <p>Let's talk about Venture Creation.</p>
             <span class="badge">Ventures</span>
-          </div>
+          </a>
 
-          <div class="fit-card">
+          <a class="fit-card" href="#community">
             <h4>You want to learn or contribute</h4>
             <p>Join our Community—start with the Brief Builder.</p>
             <span class="badge">Community</span>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -468,6 +468,8 @@ import Layout from "../layouts/Layout.astro";
     display: flex;
     flex-direction: column;
     gap: var(--ref-space-sm);
+    text-decoration: none;
+    color: inherit;
   }
 
   .fit-card h4 {

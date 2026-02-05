@@ -7,6 +7,7 @@
 **Last Updated**: 2026-02-04
 
 **Current Focus**: Restructuring TODO.md for AI collaboration and consolidating all tasks from investigation findings.
+**Deployment**: Netlify (not Vercel)
 
 ### Session Summary (4 Feb 2026)
 
@@ -41,31 +42,11 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 
 ### Pre-Deploy
 
-- [ ] Fix Vercel install command #task[id:task_01HQABCD1234EFGH5678IJKL status:to-do priority:critical created:2026-02-04]
-  - **Location**: `vercel.json`
-  - **Issue**: Uses `npm install` but project uses pnpm. Could break production build.
-  - **Fix**: Update `installCommand` to `pnpm install` or remove to auto-detect from `pnpm-lock.yaml`
-  - **Est**: 5 min
-
-- [ ] **🔴 Human Input Required**: Set production site URL #task[id:task_01HQABCD1234EFGH5678IJKM status:to-do priority:critical created:2026-02-04]
-  - **Location**: `website/astro.config.mjs` line 4
-  - **Issue**: Hardcoded to `"http://localhost:4321"`. Affects canonical URLs and sitemap generation.
-  - **Fix**: Change to production domain name
-  - **Est**: 2 min (after domain provided)
-  - **Human Input**: Decision - Requires actual production domain name
-
 - [ ] Fix Dependabot vulnerabilities #task[id:task_01HQABCD1234EFGH5678IJKN status:to-do priority:critical created:2026-02-04]
   - **Location**: GitHub flagged 16 vulnerabilities (3 high, 11 moderate, 2 low)
   - **Issue**: Security vulnerabilities on default branch
   - **Fix**: Run `pnpm audit` and address high-severity ones before launch
   - **Est**: 30-60 min
-
-- [ ] **🔴 Human Input Required**: Contact form backend API #task[id:task_01HQABCD1234EFGH5678IJKO status:to-do priority:critical created:2026-02-04]
-  - **Location**: `website/src/pages/contact.astro` line 72
-  - **Issue**: Form has no `action` attribute or submission handler. Comment says "in production, this would submit to an API"
-  - **Fix**: Implement backend API endpoint + form submission handler
-  - **Est**: 4-8 hours (after service selected)
-  - **Human Input**: Decision - Choose service (Vercel serverless, Formspree, Netlify Forms, custom API)
 
 ---
 
@@ -73,37 +54,9 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 
 ### UX Fixes
 
-- [ ] Mobile floating nav rendering #task[id:task_01HQABCD1234EFGH5678IJKP status:to-do priority:high created:2026-02-04]
-  - **Location**: `website/src/layouts/Layout.astro` lines 935-942
-  - **Issue**: Floating nav may overflow or break layout on mobile
-  - **Fix**: Improve mobile responsive styles for floating nav
-  - **Est**: 2-4 hours
-
-- [ ] Contact form client-side handler #task[id:task_01HQABCD1234EFGH5678IJKQ status:to-do priority:high created:2026-02-04]
-  - **Location**: `website/src/pages/contact.astro` line 72
-  - **Issue**: Form has no client-side validation or submission handler
-  - **Fix**: Add form submission handler with client-side validation
-  - **Est**: 2-4 hours
-
-- [ ] Safari cursor performance #task[id:task_01HQABCD1234EFGH5678IJKR status:to-do priority:high created:2026-02-04]
-  - **Location**: `website/src/layouts/Layout.astro` lines 512, 539-550; `website/src/styles/global.css` lines 861-877
-  - **Issue**: Cursor feels laggy/dragging on Safari. RAF + `translate3d` causes performance issues. Low LERP (0.15) makes cursor feel laggy.
-  - **Fix**: Increase LERP to 0.25-0.3, add Safari detection and use `translate()` instead of `translate3d()`, add `will-change: transform` to cursor CSS, consider throttling RAF updates
-  - **Est**: 2-4 hours
-
-- [ ] Engagement fit cards links #task[id:task_01HQABCD1234EFGH5678IJKS status:to-do priority:high created:2026-02-04]
-  - **Location**: `website/src/pages/engagements.astro` lines 275-297
-  - **Issue**: Fit cards in "NOT SURE WHICH IS RIGHT FOR YOU?" section have no links - just badges
-  - **Fix**: Add links to fit cards (likely to `/brief` or engagement sections)
-  - **Est**: 2-4 hours
-
 ### Content
 
-- [ ] British English spelling fixes #task[id:task_01HQABCD1234EFGH5678IJKT status:to-do priority:high created:2026-02-04]
-  - **Location**: `website/src/pages/story.astro` lines 31, 262; `website/src/pages/model.astro` lines 278, 279
-  - **Issue**: "organizations" → "organisations" (2 instances), "recognize/recognized" → "recognise/recognised" (2 instances)
-  - **Fix**: Simple find/replace to British English spelling
-  - **Est**: 5 min
+### Content
 
 ---
 
@@ -197,6 +150,12 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 
 ### Polish
 
+- [ ] Reintroduce floating nav (mobile-safe) #task[id:task_01HQABCD1234EFGH5678IJM0 status:to-do priority:low created:2026-02-05]
+  - **Location**: `website/src/layouts/Layout.astro`
+  - **Issue**: Floating nav removed due to mobile rendering issues.
+  - **Fix**: Rebuild floating nav with a mobile-safe layout and interaction model.
+  - **Est**: 2-4 hours
+
 - [ ] Nav items equal width #task[id:task_01HQABCD1234EFGH5678IJL6 status:to-do priority:low created:2026-02-04]
   - **Location**: `website/src/layouts/Layout.astro` lines 64-123
   - **Issue**: Nav links have variable widths based on text content
@@ -288,6 +247,44 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 ## Completed
 
 *Completed tasks will be archived monthly to `TODO-archive-YYYY-MM.md`*
+
+- [x] Fix Vercel install command (N/A for Netlify deploy) #task[id:task_01HQABCD1234EFGH5678IJKL status:done priority:critical created:2026-02-04]
+  - **Location**: `website/vercel.json`
+  - **Reason**: Deploy target is Netlify, so Vercel config is not used.
+
+- [x] **🔴 Human Input Required**: Set production site URL #task[id:task_01HQABCD1234EFGH5678IJKM status:done priority:critical created:2026-02-04]
+  - **Location**: `website/astro.config.mjs` line 4
+  - **Issue**: Hardcoded to `"http://localhost:4321"`. Affects canonical URLs and sitemap generation.
+  - **Fix**: Change to production domain name
+  - **Est**: 2 min (after domain provided)
+  - **Human Input**: Decision - Requires actual production domain name
+  - **Completed**: Set to `https://we3.io`
+
+- [x] Fix Dependabot vulnerabilities #task[id:task_01HQABCD1234EFGH5678IJKN status:done priority:critical created:2026-02-04]
+  - **Location**: `website/package.json`, `website/pnpm-lock.yaml`
+  - **Fix**: Upgraded `astro` to `^5.17.1` and refreshed transitive deps (brace-expansion patched).
+  - **Verification**: `pnpm audit` reports no known vulnerabilities
+
+- [x] **🔴 Human Input Required**: Contact form backend API #task[id:task_01HQABCD1234EFGH5678IJKO status:done priority:critical created:2026-02-04]
+  - **Location**: `website/src/pages/contact.astro`
+  - **Fix**: Implemented Netlify Forms (form attributes, honeypot, success redirect).
+  - **Human Input**: Decision - Selected Netlify Forms, notify `hello@we3.io`
+
+- [x] Contact form client-side handler #task[id:task_01HQABCD1234EFGH5678IJKQ status:done priority:high created:2026-02-04]
+  - **Location**: `website/src/pages/contact.astro`
+  - **Fix**: Added client-side validation with inline errors and focus on first invalid field.
+
+- [x] Safari cursor performance #task[id:task_01HQABCD1234EFGH5678IJKR status:done priority:high created:2026-02-04]
+  - **Location**: `website/src/layouts/Layout.astro`, `website/src/styles/global.css`
+  - **Fix**: Increased LERP, added Safari translate fallback, and added `will-change: transform`.
+
+- [x] British English spelling fixes #task[id:task_01HQABCD1234EFGH5678IJKT status:done priority:high created:2026-02-04]
+  - **Location**: `website/src/pages/story.astro`, `website/src/pages/model.astro`
+  - **Fix**: Updated spelling to British English (organisations, recognise/recognised).
+
+- [x] Engagement fit cards links #task[id:task_01HQABCD1234EFGH5678IJKS status:done priority:high created:2026-02-04]
+  - **Location**: `website/src/pages/engagements.astro`
+  - **Fix**: Linked fit cards to the matching engagement sections.
 
 ---
 

@@ -26,15 +26,31 @@ import Layout from "../layouts/Layout.astro";
             <div class="section-header__rule"></div>
           </div>
 
-          <form class="contact-form" id="contactForm">
+          <form
+            class="contact-form"
+            id="contactForm"
+            name="contact"
+            method="POST"
+            action="/contact?success=1"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <p class="visually-hidden">
+              <label>
+                Don’t fill this out if you're human: <input name="bot-field" />
+              </label>
+            </p>
             <div class="form-row">
               <div class="field">
                 <label for="name">Your Name</label>
                 <input type="text" id="name" name="name" required placeholder="Jane Smith" />
+                <span class="field-error" data-error-for="name" aria-live="polite"></span>
               </div>
               <div class="field">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required placeholder="jane@company.com" />
+                <span class="field-error" data-error-for="email" aria-live="polite"></span>
               </div>
             </div>
 
@@ -49,11 +65,13 @@ import Layout from "../layouts/Layout.astro";
                 <option value="community">I want to join the community</option>
                 <option value="other">Something else</option>
               </select>
+              <span class="field-error" data-error-for="subject" aria-live="polite"></span>
             </div>
 
             <div class="field">
               <label for="message">Message</label>
               <textarea id="message" name="message" required placeholder="Tell us about your challenge, idea, or just say hi..."></textarea>
+              <span class="field-error" data-error-for="message" aria-live="polite"></span>
             </div>
 
             <div class="field">
@@ -73,6 +91,17 @@ import Layout from "../layouts/Layout.astro";
               <p class="form-note">We typically respond within 24 hours.</p>
             </div>
           </form>
+          <div class="form-success panel text-center" id="contactSuccess" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--sys-color-accent-subtle); margin-bottom: var(--ref-space-md);">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <h3>Message Sent!</h3>
+            <p style="color: var(--sys-color-on-surface-muted);">
+              Thanks for reaching out. We'll get back to you within 24 hours.
+            </p>
+            <a href="/" class="btn btn--secondary" style="margin-top: var(--ref-space-md);">Back to Home</a>
+          </div>
         </div>
 
         <!-- Contact Options -->
@@ -209,6 +238,29 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .field-error {
+    display: block;
+    margin-top: var(--ref-space-xs);
+    font-size: var(--ref-text-xs);
+    color: var(--sys-color-accent);
+  }
+
+  .field-error:empty {
+    display: none;
+  }
+
   /* Page Header */
   .page-header {
     padding: var(--ref-space-xxl) 0 var(--ref-space-xl);
@@ -424,31 +476,76 @@ import Layout from "../layouts/Layout.astro";
 </style>
 
 <script>
-  // Simple form handling - in production, this would submit to an API
-  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('contactSuccess');
+  const params = new URLSearchParams(window.location.search);
 
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
+  if (params.get('success') === '1') {
+    form?.setAttribute('hidden', 'true');
+    success?.removeAttribute('hidden');
+  }
 
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
+  if (form instanceof HTMLFormElement) {
+    const requiredFields = [
+      { id: 'name', label: 'Your name' },
+      { id: 'email', label: 'Email' },
+      { id: 'subject', label: 'Topic' },
+      { id: 'message', label: 'Message' },
+    ];
 
-    // For now, just log and show confirmation
-    console.log('Form submitted:', data);
+    const getErrorEl = (id) =>
+      document.querySelector(`[data-error-for="${id}"]`);
 
-    // Show success message
-    form.innerHTML = `
-      <div class="form-success panel text-center">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="color: var(--sys-color-accent-subtle); margin-bottom: var(--ref-space-md);">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-          <polyline points="22 4 12 14.01 9 11.01"/>
-        </svg>
-        <h3>Message Sent!</h3>
-        <p style="color: var(--sys-color-on-surface-muted);">
-          Thanks for reaching out. We'll get back to you within 24 hours.
-        </p>
-        <a href="/" class="btn btn--secondary" style="margin-top: var(--ref-space-md);">Back to Home</a>
-      </div>
-    `;
-  });
+    const setError = (field, message) => {
+      field.setAttribute('aria-invalid', 'true');
+      const errorEl = getErrorEl(field.id);
+      if (errorEl) errorEl.textContent = message;
+    };
+
+    const clearError = (field) => {
+      field.removeAttribute('aria-invalid');
+      const errorEl = getErrorEl(field.id);
+      if (errorEl) errorEl.textContent = '';
+    };
+
+    const isEmail = (value) =>
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+    const validateField = (field) => {
+      const value = field.value.trim();
+      if (!value) {
+        setError(field, 'This field is required.');
+        return false;
+      }
+      if (field.id === 'email' && !isEmail(value)) {
+        setError(field, 'Enter a valid email address.');
+        return false;
+      }
+      clearError(field);
+      return true;
+    };
+
+    requiredFields.forEach(({ id }) => {
+      const field = document.getElementById(id);
+      if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement)) return;
+      field.addEventListener('blur', () => validateField(field));
+      field.addEventListener('input', () => clearError(field));
+      field.addEventListener('change', () => clearError(field));
+    });
+
+    form.addEventListener('submit', (event) => {
+      let firstInvalid = null;
+      requiredFields.forEach(({ id }) => {
+        const field = document.getElementById(id);
+        if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement)) return;
+        const valid = validateField(field);
+        if (!valid && !firstInvalid) firstInvalid = field;
+      });
+
+      if (firstInvalid) {
+        event.preventDefault();
+        firstInvalid.focus({ preventScroll: false });
+      }
+    });
+  }
 </script>
