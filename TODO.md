@@ -7,6 +7,7 @@
 **Last Updated**: 2026-02-04
 
 **Current Focus**: Restructuring TODO.md for AI collaboration and consolidating all tasks from investigation findings.
+**Deployment**: Netlify (not Vercel)
 
 ### Session Summary (4 Feb 2026)
 
@@ -40,19 +41,6 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 ## Critical Priority
 
 ### Pre-Deploy
-
-- [ ] Fix Vercel install command #task[id:task_01HQABCD1234EFGH5678IJKL status:to-do priority:critical created:2026-02-04]
-  - **Location**: `vercel.json`
-  - **Issue**: Uses `npm install` but project uses pnpm. Could break production build.
-  - **Fix**: Update `installCommand` to `pnpm install` or remove to auto-detect from `pnpm-lock.yaml`
-  - **Est**: 5 min
-
-- [ ] **🔴 Human Input Required**: Set production site URL #task[id:task_01HQABCD1234EFGH5678IJKM status:to-do priority:critical created:2026-02-04]
-  - **Location**: `website/astro.config.mjs` line 4
-  - **Issue**: Hardcoded to `"http://localhost:4321"`. Affects canonical URLs and sitemap generation.
-  - **Fix**: Change to production domain name
-  - **Est**: 2 min (after domain provided)
-  - **Human Input**: Decision - Requires actual production domain name
 
 - [ ] Fix Dependabot vulnerabilities #task[id:task_01HQABCD1234EFGH5678IJKN status:to-do priority:critical created:2026-02-04]
   - **Location**: GitHub flagged 16 vulnerabilities (3 high, 11 moderate, 2 low)
@@ -288,6 +276,18 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 ## Completed
 
 *Completed tasks will be archived monthly to `TODO-archive-YYYY-MM.md`*
+
+- [x] Fix Vercel install command (N/A for Netlify deploy) #task[id:task_01HQABCD1234EFGH5678IJKL status:done priority:critical created:2026-02-04]
+  - **Location**: `website/vercel.json`
+  - **Reason**: Deploy target is Netlify, so Vercel config is not used.
+
+- [x] **🔴 Human Input Required**: Set production site URL #task[id:task_01HQABCD1234EFGH5678IJKM status:done priority:critical created:2026-02-04]
+  - **Location**: `website/astro.config.mjs` line 4
+  - **Issue**: Hardcoded to `"http://localhost:4321"`. Affects canonical URLs and sitemap generation.
+  - **Fix**: Change to production domain name
+  - **Est**: 2 min (after domain provided)
+  - **Human Input**: Decision - Requires actual production domain name
+  - **Completed**: Set to `https://we3.io`
 
 ---
 
