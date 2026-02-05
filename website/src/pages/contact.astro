@@ -45,10 +45,12 @@ import Layout from "../layouts/Layout.astro";
               <div class="field">
                 <label for="name">Your Name</label>
                 <input type="text" id="name" name="name" required placeholder="Jane Smith" />
+                <span class="field-error" data-error-for="name" aria-live="polite"></span>
               </div>
               <div class="field">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required placeholder="jane@company.com" />
+                <span class="field-error" data-error-for="email" aria-live="polite"></span>
               </div>
             </div>
 
@@ -63,11 +65,13 @@ import Layout from "../layouts/Layout.astro";
                 <option value="community">I want to join the community</option>
                 <option value="other">Something else</option>
               </select>
+              <span class="field-error" data-error-for="subject" aria-live="polite"></span>
             </div>
 
             <div class="field">
               <label for="message">Message</label>
               <textarea id="message" name="message" required placeholder="Tell us about your challenge, idea, or just say hi..."></textarea>
+              <span class="field-error" data-error-for="message" aria-live="polite"></span>
             </div>
 
             <div class="field">
@@ -244,6 +248,17 @@ import Layout from "../layouts/Layout.astro";
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  .field-error {
+    display: block;
+    margin-top: var(--ref-space-xs);
+    font-size: var(--ref-text-xs);
+    color: var(--sys-color-accent);
+  }
+
+  .field-error:empty {
+    display: none;
   }
 
   /* Page Header */
@@ -468,5 +483,69 @@ import Layout from "../layouts/Layout.astro";
   if (params.get('success') === '1') {
     form?.setAttribute('hidden', 'true');
     success?.removeAttribute('hidden');
+  }
+
+  if (form instanceof HTMLFormElement) {
+    const requiredFields = [
+      { id: 'name', label: 'Your name' },
+      { id: 'email', label: 'Email' },
+      { id: 'subject', label: 'Topic' },
+      { id: 'message', label: 'Message' },
+    ];
+
+    const getErrorEl = (id) =>
+      document.querySelector(`[data-error-for="${id}"]`);
+
+    const setError = (field, message) => {
+      field.setAttribute('aria-invalid', 'true');
+      const errorEl = getErrorEl(field.id);
+      if (errorEl) errorEl.textContent = message;
+    };
+
+    const clearError = (field) => {
+      field.removeAttribute('aria-invalid');
+      const errorEl = getErrorEl(field.id);
+      if (errorEl) errorEl.textContent = '';
+    };
+
+    const isEmail = (value) =>
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+    const validateField = (field) => {
+      const value = field.value.trim();
+      if (!value) {
+        setError(field, 'This field is required.');
+        return false;
+      }
+      if (field.id === 'email' && !isEmail(value)) {
+        setError(field, 'Enter a valid email address.');
+        return false;
+      }
+      clearError(field);
+      return true;
+    };
+
+    requiredFields.forEach(({ id }) => {
+      const field = document.getElementById(id);
+      if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement)) return;
+      field.addEventListener('blur', () => validateField(field));
+      field.addEventListener('input', () => clearError(field));
+      field.addEventListener('change', () => clearError(field));
+    });
+
+    form.addEventListener('submit', (event) => {
+      let firstInvalid = null;
+      requiredFields.forEach(({ id }) => {
+        const field = document.getElementById(id);
+        if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement)) return;
+        const valid = validateField(field);
+        if (!valid && !firstInvalid) firstInvalid = field;
+      });
+
+      if (firstInvalid) {
+        event.preventDefault();
+        firstInvalid.focus({ preventScroll: false });
+      }
+    });
   }
 </script>

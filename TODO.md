@@ -54,12 +54,6 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 
 ### UX Fixes
 
-- [ ] Contact form client-side handler #task[id:task_01HQABCD1234EFGH5678IJKQ status:to-do priority:high created:2026-02-04]
-  - **Location**: `website/src/pages/contact.astro` line 72
-  - **Issue**: Form has no client-side validation or submission handler
-  - **Fix**: Add form submission handler with client-side validation
-  - **Est**: 2-4 hours
-
 - [ ] Safari cursor performance #task[id:task_01HQABCD1234EFGH5678IJKR status:to-do priority:high created:2026-02-04]
   - **Location**: `website/src/layouts/Layout.astro` lines 512, 539-550; `website/src/styles/global.css` lines 861-877
   - **Issue**: Cursor feels laggy/dragging on Safari. RAF + `translate3d` causes performance issues. Low LERP (0.15) makes cursor feel laggy.
@@ -291,6 +285,10 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
   - **Location**: `website/src/pages/contact.astro`
   - **Fix**: Implemented Netlify Forms (form attributes, honeypot, success redirect).
   - **Human Input**: Decision - Selected Netlify Forms, notify `hello@we3.io`
+
+- [x] Contact form client-side handler #task[id:task_01HQABCD1234EFGH5678IJKQ status:done priority:high created:2026-02-04]
+  - **Location**: `website/src/pages/contact.astro`
+  - **Fix**: Added client-side validation with inline errors and focus on first invalid field.
 
 ---
 
