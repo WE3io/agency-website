@@ -15,6 +15,7 @@ The site lives in `website/` and uses static assets from `public/` (one level ab
 | `/engagements` | `engagements.astro` | Engagements |
 | `/work` | `work/index.astro` | Work |
 | `/contact` | `contact.astro` | Contact |
+| `/contact/success` | `contact/success.astro` | Contact success page |
 | `/brief` | `brief.astro` | Start Your Brief |
 | `/tools` | `tools.astro` | Tools |
 | `/style-guide` | `style-guide.astro` | Design system reference |
