@@ -1,0 +1,56 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Message Sent" description="Your message has been sent to WE3.">
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="success panel text-center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="56" height="56" aria-hidden="true">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <p class="eyebrow">Contact</p>
+        <h1>Message Sent</h1>
+        <p class="lead">Thanks for reaching out. We usually respond within 24 hours on business days.</p>
+        <div class="actions">
+          <a href="/contact" class="btn btn--secondary">Send Another Message</a>
+          <a href="/" class="btn btn--primary">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .section {
+    padding: clamp(var(--ref-space-xl), 8vw, var(--ref-space-xxl)) 0;
+  }
+
+  .success {
+    padding: clamp(var(--ref-space-lg), 5vw, var(--ref-space-xxl));
+  }
+
+  .success svg {
+    color: var(--sys-color-accent-subtle);
+    margin-bottom: var(--ref-space-sm);
+  }
+
+  .success h1 {
+    margin: var(--ref-space-xs) 0 var(--ref-space-sm);
+  }
+
+  .lead {
+    color: var(--sys-color-on-surface-muted);
+    margin: 0 auto;
+    max-width: 38ch;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--ref-space-sm);
+    margin-top: var(--ref-space-lg);
+    flex-wrap: wrap;
+  }
+</style>

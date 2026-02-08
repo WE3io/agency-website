@@ -68,6 +68,7 @@ A frosted-glass pill nav appears after 200px scroll. On desktop, it docks into t
 | `/engagements` | `engagements.astro` |
 | `/work` | `work/index.astro` |
 | `/contact` | `contact.astro` |
+| `/contact/success` | `contact/success.astro` |
 | `/brief` | `brief.astro` |
 | `/tools` | `tools.astro` |
 | `/style-guide` | `style-guide.astro` |
@@ -86,6 +87,5 @@ publicDir: "../public"
 pnpm run dev          # Dev server (port 4321)
 pnpm run build        # Production build → dist/
 pnpm run preview      # Serve built site locally
-pnpm run deploy       # Deploy to Vercel
 pnpm run tokens:build # Regenerate design tokens
 ```

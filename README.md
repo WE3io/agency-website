@@ -15,6 +15,7 @@ The site lives in `website/` and uses static assets from `public/` (one level ab
 | `/engagements` | `engagements.astro` | Engagements |
 | `/work` | `work/index.astro` | Work |
 | `/contact` | `contact.astro` | Contact |
+| `/contact/success` | `contact/success.astro` | Contact success page |
 | `/brief` | `brief.astro` | Start Your Brief |
 | `/tools` | `tools.astro` | Tools |
 | `/style-guide` | `style-guide.astro` | Design system reference |
@@ -44,9 +45,3 @@ pnpm run dev
 cd website
 pnpm run build
 ```
-
-## Vercel deploy
-- Base directory: `website`
-- Build command: `pnpm run build`
-- Publish directory: `dist`
-- Node version: 20 (LTS)
