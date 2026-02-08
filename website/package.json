@@ -8,7 +8,6 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "vercel deploy --prod",
     "tokens:build": "style-dictionary build --config sd.config.js"
   },
   "dependencies": {

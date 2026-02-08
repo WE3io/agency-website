@@ -89,7 +89,7 @@ graph TD
 | **Styling** | **Vanilla CSS** | Scoped nesting for isolation |
 | **Brief Builder** | Deterministic Local | Define V0 logic & dummy data |
 | **Analytics** | **PostHog** | Disable default autocapture (PII protection) |
-| **Hosting** | Localhost | Recommendation for Vercel/Cloudflare |
+| **Hosting** | Localhost | Recommendation for production hosting |
 
 ### Addressing Gaps
 1.  **Tokens**: We'll use Style Dictionary to ensure a single source of truth. Any novel visual ideas (shadows, borders, specific colors) must be added as tokens first.

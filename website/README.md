@@ -86,6 +86,5 @@ publicDir: "../public"
 pnpm run dev          # Dev server (port 4321)
 pnpm run build        # Production build → dist/
 pnpm run preview      # Serve built site locally
-pnpm run deploy       # Deploy to Vercel
 pnpm run tokens:build # Regenerate design tokens
 ```

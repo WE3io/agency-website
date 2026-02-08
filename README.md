@@ -44,9 +44,3 @@ pnpm run dev
 cd website
 pnpm run build
 ```
-
-## Vercel deploy
-- Base directory: `website`
-- Build command: `pnpm run build`
-- Publish directory: `dist`
-- Node version: 20 (LTS)
