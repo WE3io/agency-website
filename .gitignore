@@ -1,4 +1,13 @@
+# macOS system files
 .DS_Store
 
-# Local Netlify folder
+# Local Netlify build directory
 .netlify
+
+# AI assistant and IDE config
+.cursor
+.codex
+.claude
+.gemini
+.ai-assistant-rules
+AGENTS.md
