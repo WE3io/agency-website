@@ -1,15 +1,19 @@
-# WE3 Studio Documentation Rule
+# Documentation Index
 
-All core project documentation, including PRDs, research, architecture diagrams, and sitemaps, MUST be authored and edited within this `_studio/agency-website/docs/` folder.
+This folder is the canonical source of truth for the agency website.
 
-## Folder Purpose
-- **PRDs**: [WE3-PRD-v0.2.md](file:///Users/chadcribbins/Work/WE3io/_studio/agency-website/docs/WE3-PRD-v0.2.md)
-- **Build Plan (Gemini)**: [agency-build-plan-gemini.md](file:///Users/chadcribbins/Work/WE3io/_studio/agency-website/docs/agency-build-plan-gemini.md)
-- **Sitemaps**: [sitemap.md](file:///Users/chadcribbins/Work/WE3io/_studio/agency-website/docs/sitemap.md)
-- **Story/Positioning**: [Small Teams for Big Challenges.md](file:///Users/chadcribbins/Work/WE3io/_studio/agency-website/docs/Small%20Teams%20for%20Big%20Challenges.md)
-- **Research**: `Research Foundation.md`, `Internal Working Document.md`, etc.
+## Active Canonical Docs
+- [PRD](PRD.md)
+- [Architecture](architecture.md)
+- [Sitemap](sitemap.md)
+- [Documentation Workflow](contributing-docs.md)
+- [ADRs](adr/README.md)
 
-## Guidelines
-1. **Source of Truth**: This folder is the single source of truth for the agency website's strategy and requirements.
-2. **Review before Code**: New major features must have a corresponding doc update in this folder before execution begins.
-3. **Cross-Reference**: New files in this folder should be linked here or in the root `README.md`.
+## Ownership and Update Policy
+- Product and engineering maintain canonical docs together.
+- Every material behavior or workflow change must update relevant canonical docs in the same change.
+- Do not add new "source of truth" documents outside this set without an ADR.
+
+## Archive
+- Historical documents are preserved in [docs/archive/legacy-2026-02](archive/legacy-2026-02/README.md).
+- Archived docs are non-authoritative and kept for context only.
