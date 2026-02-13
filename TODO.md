@@ -292,4 +292,3 @@ v0 of the WE3 agency website is built and pushed to `gp-02-02-2026`. The site is
 
 - [Investigation Notes](cursor_branch_commit_comparison.md) - Detailed findings from branch comparison investigation
 - [Issue Templates](.github/ISSUE_TEMPLATE/) - Bug and content request templates
-- [Tracking System](.claude/commands/track.md) - Inline tracker syntax documentation

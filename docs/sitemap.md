@@ -1,25 +1,24 @@
-# WE3 Agency Front Desk — Codex Variant Sitemap
+# Sitemap
 
-```mermaid
-graph TD
-  Home[/codex/] --> Story["#why-we3"]
-  Home --> Serve["#who-we-serve"]
-  Home --> Model["#triad-model"]
-  Home --> Layers["#three-layer-team"]
-  Home --> Engagements["#engagement-modes"]
-  Home --> Pricing["#pricing-teaser"]
-  Home --> Proof["#case-studies"]
-  Home --> Community["#community"]
-  Home --> Values["#values"]
-  Home --> Brief["#brief-builder"]
-  Home --> Contact["#contact"]
+This sitemap reflects the current shipped route structure from `website/src/pages/`.
 
-  BriefRoute[/codex/brief] --> Brief
-  Share[/codex/share/:token] --> ShareView["Shared Brief View"]
-  ShareView --> Home
-```
+| Route | Purpose |
+|---|---|
+| `/` | Homepage and primary narrative entry |
+| `/story` | Story and positioning |
+| `/model` | Team model and delivery approach |
+| `/engagements` | Engagement pathways |
+| `/work` | Case-study style examples and proof |
+| `/contact` | Contact form and direct outreach |
+| `/contact/success` | Post-submission confirmation |
+| `/brief` | Guided brief builder entry |
+| `/tools` | Public tools index |
+| `/style-guide` | Design language reference |
+| `/logo-iterator` | Logo iteration utility |
+| `/404` | Not-found fallback |
+| `/500` | Error fallback |
+| `/503` | Service unavailable fallback |
 
 ## Notes
-- Codex uses a single‑page narrative with anchored sections for the core story.
-- `/codex/brief` is a dedicated entry that scrolls/lands to the Brief Builder section.
-- `/codex/share/:token` is a stub for the brief‑share flow (v1 target; can render a read‑only brief for now).
+- This file is authoritative for public route inventory.
+- Any route additions/removals must update this file and `docs/architecture.md` in the same change.

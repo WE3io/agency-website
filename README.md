@@ -3,6 +3,11 @@
 ## Purpose
 Public-facing website for WE3. Holds copy, structure, and assets that explain who we are, what we do, and how to start a conversation.
 
+## Documentation
+- Canonical docs index: `docs/README.md`
+- Documentation workflow: `docs/contributing-docs.md`
+- Decision records: `docs/adr/README.md`
+
 ## Website (Astro)
 The site lives in `website/` and uses static assets from `public/` (one level above `website/`, configured via `publicDir: "../public"` in `astro.config.mjs`).
 
