@@ -1,6 +1,8 @@
 # Documentation Workflow
 
 ## Principles
+- Analytics env setup and operations: see [Analytics Runbook](analytics-runbook.md).
+
 - Keep one canonical source for each durable topic.
 - Prefer links over duplicated explanations.
 - Archive historical context rather than deleting it.

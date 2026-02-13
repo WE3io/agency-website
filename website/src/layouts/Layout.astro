@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { SITE } from "../lib/site";
 import { Icon } from "astro-icon/components";
+import AnalyticsConsent from "../components/AnalyticsConsent.astro";
 
 interface Props {
   title?: string;
@@ -51,6 +52,11 @@ function isActive(href: string): boolean {
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Analytics (env-gated, see docs/analytics-runbook.md) -->
+    <script>
+      import "../lib/analytics-init";
+    </script>
   </head>
 
   <body class="variant-claude">
@@ -215,6 +221,39 @@ function isActive(href: string): boolean {
         </p>
       </div>
     </footer>
+
+    <AnalyticsConsent />
+
+    <!-- CTA and Book a Call analytics (event delegation) -->
+    <script>
+      document.addEventListener("click", (e) => {
+        const a = (e.target as HTMLElement).closest("a");
+        if (!a || !window.analytics?.track) return;
+        const href = a.getAttribute("href") || "";
+        const path = window.location.pathname;
+        const label = a.textContent?.trim() || "";
+        if (href.includes("calendar")) {
+          window.analytics.track("book_call_clicked", {
+            source: path || "unknown",
+          });
+        } else if (href.startsWith("mailto:")) {
+          window.analytics.track("cta_clicked", {
+            label: label || "Email",
+            source: path || "unknown",
+          });
+        } else if (a.pathname === "/brief") {
+          window.analytics.track("cta_clicked", {
+            label: label || "Start Your Brief",
+            source: path || "unknown",
+          });
+        } else if (a.pathname === "/contact") {
+          window.analytics.track("cta_clicked", {
+            label: label || "Contact",
+            source: path || "unknown",
+          });
+        }
+      });
+    </script>
 
     <!-- Mobile nav script -->
     <script>

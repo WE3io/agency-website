@@ -7,6 +7,7 @@ This folder is the canonical source of truth for the agency website.
 - [Architecture](architecture.md)
 - [Sitemap](sitemap.md)
 - [Documentation Workflow](contributing-docs.md)
+- [Analytics Runbook](analytics-runbook.md)
 - [ADRs](adr/README.md)
 
 ## Ownership and Update Policy

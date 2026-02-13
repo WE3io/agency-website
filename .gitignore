@@ -4,6 +4,11 @@
 # Local Netlify build directory
 .netlify
 
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
 # AI assistant and IDE config
 .cursor
 .codex

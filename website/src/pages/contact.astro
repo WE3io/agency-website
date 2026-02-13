@@ -528,6 +528,10 @@ import Layout from "../layouts/Layout.astro";
       if (firstInvalid) {
         event.preventDefault();
         firstInvalid.focus({ preventScroll: false });
+      } else {
+        const subjectEl = document.getElementById('subject');
+        const subject = subjectEl instanceof HTMLSelectElement ? subjectEl.value : 'unknown';
+        window.analytics?.track('contact_submitted', { subject });
       }
     });
   }
