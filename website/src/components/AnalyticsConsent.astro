@@ -1,0 +1,70 @@
+---
+/**
+ * Minimal analytics consent notice. ADR-0004: opt-in gated.
+ * Shown when user has not yet made a choice. Dismisses on Accept/Decline.
+ */
+---
+<div id="analytics-consent" class="analytics-consent" aria-live="polite" role="region" aria-label="Analytics consent">
+  <p class="analytics-consent__text">
+    We use optional analytics to improve our site. No personal data is collected.
+  </p>
+  <div class="analytics-consent__actions">
+    <button type="button" class="btn btn--secondary btn--sm" data-consent="accept">Accept</button>
+    <button type="button" class="btn btn--ghost btn--sm" data-consent="decline">Decline</button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    if (typeof window === 'undefined') return;
+    const el = document.getElementById('analytics-consent');
+    if (!el) return;
+
+    const stored = localStorage.getItem('we3_analytics_consent');
+    if (stored !== null) {
+      el.hidden = true;
+      return;
+    }
+
+    el.querySelectorAll('[data-consent]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const consented = (btn as HTMLElement).dataset.consent === 'accept';
+        window.analytics?.setConsent?.(consented);
+        el.hidden = true;
+      });
+    });
+  })();
+</script>
+
+<style>
+  .analytics-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--ref-space-md) var(--ref-space-lg);
+    background: var(--sys-surface-card);
+    border-top: 1px solid var(--sys-surface-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ref-space-md);
+    flex-wrap: wrap;
+    z-index: 1000;
+    font-size: var(--ref-text-sm);
+  }
+
+  .analytics-consent__text {
+    margin: 0;
+    color: var(--sys-color-on-surface-muted);
+  }
+
+  .analytics-consent__actions {
+    display: flex;
+    gap: var(--ref-space-sm);
+  }
+
+  .analytics-consent[hidden] {
+    display: none;
+  }
+</style>

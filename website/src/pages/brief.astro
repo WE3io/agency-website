@@ -611,6 +611,7 @@ import Layout from "../layouts/Layout.astro";
 
   // Initialize
   function init() {
+    window.analytics?.track('brief_started');
     showStep(0);
   }
 
@@ -714,6 +715,11 @@ import Layout from "../layouts/Layout.astro";
     // Store response
     responses[step.id] = value;
 
+    window.analytics?.track('brief_step_completed', {
+      stepId: step.id,
+      stepIndex: currentStep,
+    });
+
     // Show user response
     if (value) {
       const displayValue = step.type === 'select'
@@ -748,6 +754,11 @@ import Layout from "../layouts/Layout.astro";
 
       const fitCheck = calculateFitCheck(responses);
       renderResults(fitCheck);
+
+      window.analytics?.track('brief_completed', {
+        engagement: fitCheck.engagement,
+        confidence: fitCheck.confidence,
+      });
     }, 500);
   }
 
@@ -874,6 +885,10 @@ import Layout from "../layouts/Layout.astro";
 
     // Gaps
     if (fitCheck.gaps.length > 0) {
+      window.analytics?.track('brief_gap_detected', {
+        gapCount: fitCheck.gaps.length,
+        gapTypes: fitCheck.gaps.map((g) => g.type),
+      });
       const gapsSection = document.getElementById('gapsSection')!;
       gapsSection.style.display = 'block';
       const gapsList = document.getElementById('gapsList')!;
@@ -887,6 +902,7 @@ import Layout from "../layouts/Layout.astro";
 
     // Export buttons
     document.getElementById('copyMarkdown')!.addEventListener('click', () => {
+      window.analytics?.track('brief_export_markdown');
       const md = generateMarkdown(responses, fitCheck);
       navigator.clipboard.writeText(md).then(() => {
         alert('Copied to clipboard!');
@@ -894,6 +910,7 @@ import Layout from "../layouts/Layout.astro";
     });
 
     document.getElementById('downloadJSON')!.addEventListener('click', () => {
+      window.analytics?.track('brief_export_json');
       const json = JSON.stringify({ brief: responses, fitCheck, generatedAt: new Date().toISOString() }, null, 2);
       const blob = new Blob([json], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
@@ -905,8 +922,12 @@ import Layout from "../layouts/Layout.astro";
     });
 
     document.getElementById('startOver')!.addEventListener('click', () => {
+      if (fitCheck.gaps.length > 0) {
+        window.analytics?.track('brief_gap_resolved');
+      }
       location.reload();
     });
+
   }
 
   // Generate Markdown

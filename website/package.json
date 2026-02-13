@@ -15,7 +15,8 @@
     "astro": "^5.17.1",
     "astro-icon": "^1.1.5",
     "gray-matter": "^4.0.3",
-    "markdown-it": "^14.1.0"
+    "markdown-it": "^14.1.0",
+    "posthog-js": "^1.347.1"
   },
   "devDependencies": {
     "style-dictionary": "^5.2.0"

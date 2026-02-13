@@ -5,15 +5,15 @@ This file chunks `backlog/active` work items into implementation phases with dep
 ## Phase 0: Documentation Foundation (Completed)
 Purpose: Establish canonical docs, archive legacy material, and lock documentation governance.
 
-Work items:
-1. `backlog/active/create-canonical-docs-ia.md`
-2. `backlog/active/author-merged-prd.md`
-3. `backlog/active/write-architecture-and-sitemap.md`
-4. `backlog/active/establish-adr-system.md`
-5. `backlog/active/archive-legacy-docs-and-add-stubs.md`
-6. `backlog/active/remove-nimbalyst-artifacts.md`
-7. `backlog/active/normalize-doc-links-and-validate.md`
-8. `backlog/active/publish-doc-governance.md`
+Work items (moved to `backlog/done/`):
+1. `backlog/done/create-canonical-docs-ia.md`
+2. `backlog/done/author-merged-prd.md`
+3. `backlog/done/write-architecture-and-sitemap.md`
+4. `backlog/done/establish-adr-system.md`
+5. `backlog/done/archive-legacy-docs-and-add-stubs.md`
+6. `backlog/done/remove-nimbalyst-artifacts.md`
+7. `backlog/done/normalize-doc-links-and-validate.md`
+8. `backlog/done/publish-doc-governance.md`
 
 Exit criteria:
 - Canonical docs exist and are linked from `docs/README.md`.
