@@ -834,28 +834,30 @@ body.variant-claude .case-card .card-label {
    Magnetic Square Cursor (Claude variant)
    ========================================================================== */
 
-/* Hide system cursor on Claude variant */
-body.variant-claude,
-body.variant-claude a,
-body.variant-claude button,
-body.variant-claude [role="button"],
-body.variant-claude .card,
-body.variant-claude .hero__frame,
-body.variant-claude .model-card,
-body.variant-claude .engagement-card,
-body.variant-claude .value-card,
-body.variant-claude .cost-card,
-body.variant-claude .result-card,
-body.variant-claude .fit-card,
-body.variant-claude .tool-card,
-body.variant-claude .ref-card,
-body.variant-claude .contact-option,
-body.variant-claude .testimonial,
-body.variant-claude .benefit,
-body.variant-claude .triad-node,
-body.variant-claude .case-card,
-body.variant-claude .work-card {
-  cursor: none !important;
+/* Hide system cursor on Claude variant (pointer devices only) */
+@media (pointer: fine) {
+  body.variant-claude,
+  body.variant-claude a,
+  body.variant-claude button,
+  body.variant-claude [role="button"],
+  body.variant-claude .card,
+  body.variant-claude .hero__frame,
+  body.variant-claude .model-card,
+  body.variant-claude .engagement-card,
+  body.variant-claude .value-card,
+  body.variant-claude .cost-card,
+  body.variant-claude .result-card,
+  body.variant-claude .fit-card,
+  body.variant-claude .tool-card,
+  body.variant-claude .ref-card,
+  body.variant-claude .contact-option,
+  body.variant-claude .testimonial,
+  body.variant-claude .benefit,
+  body.variant-claude .triad-node,
+  body.variant-claude .case-card,
+  body.variant-claude .work-card {
+    cursor: none !important;
+  }
 }
 
 #custom-cursor {

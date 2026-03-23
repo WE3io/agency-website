@@ -219,6 +219,7 @@ function isActive(href: string): boolean {
           <span class="mono">&copy; {new Date().getFullYear()}</span> WE3 Ventures
           Ltd.
         </p>
+        <a href="/privacy" class="footer__legal-link">Privacy Policy</a>
       </div>
     </footer>
 
@@ -504,6 +505,11 @@ function isActive(href: string): boolean {
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         if (!document.body.classList.contains("variant-claude")) return;
+
+        // Disable custom cursor on touch devices
+        const isTouchDevice =
+          "ontouchstart" in window || navigator.maxTouchPoints > 0;
+        if (isTouchDevice) return;
 
         const cursor = document.createElement("div");
         cursor.id = "custom-cursor";
@@ -884,6 +890,14 @@ function isActive(href: string): boolean {
 
   .footer__copyright {
     font-size: var(--ref-text-sm);
+    color: var(--sys-color-on-surface-muted);
+  }
+
+  .footer__legal-link {
+    font-family: var(--sys-font-mono);
+    font-size: var(--ref-text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--sys-color-on-surface-muted);
   }
 
